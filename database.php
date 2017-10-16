@@ -2,7 +2,7 @@
 
 // The SQL to uninstall this tool
 $DATABASE_UNINSTALL = array(
-    "drop table if exists {$CFG->dbprefix}/*Tool Table*/"
+    // We don't want to remove any data on uninstall.
 );
 
 // The SQL to create the tables if they don't exist
