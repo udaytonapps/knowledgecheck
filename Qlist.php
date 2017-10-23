@@ -23,14 +23,13 @@ if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 
-    $questionsInSet = $KC_DAO->getQuestions($SetID);
+    $questions = $KC_DAO->getQuestions($SetID);
 
     $set = $KC_DAO->getKCById($SetID);
 	
 	$_SESSION["SetID"] = $set["SetID"];
-	$_SESSION["Next"]="";
 	
-    $Total = count($questionsInSet);
+    $Total = count($questions);
 
     include("menu.php");
 
@@ -52,10 +51,10 @@ if ( $USER->instructor ) {
     if ($Total == 0) {
         echo('<p><em>There are currently no questions in this knowledge check.</em></p>');
     } else {
-        usort($questionsInSet, array('KC_Utils', 'compareQNum'));
+        usort($questions, array('KC_Utils', 'compareQNum'));
         $QNum = 1;
 		echo ('<div class="panel panel-default " style="border:0px; ">');
-        foreach ( $questionsInSet as $row ) {
+        foreach ( $questions as $row ) {
 
 		
 		echo('                      

@@ -146,7 +146,7 @@ foreach ( $courses as $course ) {
         echo('
             <a href="actions/ImportKC.php?SetID='.$set["SetID"].'"  onclick="return confirmCopyKC();" class="list-group-item">
                 <div class="list-group-item-heading">
-                    <span class="label label-'.$countLabel.' pull-right">'.count($questions2).' Cards</span>
+                    <span class="label label-'.$countLabel.' pull-right">'.count($questions2).' Questions</span>
                     <span class="fa-stack small text-'.$textLabel.'">
                         <span class="fa fa-square fa-stack-2x" style="top:-6px;"></span>
                         <span class="fa fa-square-o fa-stack-2x" style="top:2px;left:-8px;"></span>

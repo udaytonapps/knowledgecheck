@@ -56,7 +56,7 @@ if(isset($_GET["ReviewMode"])){
 
 $SetID = $_GET["SetID"];
 $_SESSION["SetID"] = $SetID;
-$questionsInSet = $KC_DAO->getQuestionInSet($SetID);
+$questionsInSet = $KC_DAO->getQuestions($SetID);
 $Total = count($questionsInSet);
 $set = $KC_DAO->getKCById($SetID);
 
@@ -86,7 +86,7 @@ $Sum=0;
 
 
 $Score1=0;
-$questionsInSet2 = $KC_DgetQuestionsnSet($SetID);
+$questionsInSet2 = $KC_DAO->getQuestions($SetID);
 foreach ( $questionsInSet2 as $row2 ) {
 	
 	$QID = $row2["QID"];

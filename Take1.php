@@ -1,0 +1,77 @@
+<?php
+require_once "../config.php";
+require_once "dao/KC_DAO.php";
+require_once "util/KC_Utils.php";
+
+use \Tsugi\Core\LTIX;
+use \KC\DAO\KC_DAO;
+
+// Retrieve the launch data if present
+$LAUNCH = LTIX::requireData();
+
+$p = $CFG->dbprefix;
+
+$KC_DAO = new KC_DAO($PDOX, $p);
+
+$OUTPUT->header();
+
+include("tool-header.html");
+
+$OUTPUT->bodyStart();
+
+$UserName = $_SESSION["UserName"];
+$FullName = $_SESSION["FullName"];
+$SetID = $_SESSION["SetID"];
+$set = $KC_DAO->getKCById($SetID);
+$Total=0;
+
+if(isset($_GET["Shortcut"])) {
+    $shortCut = $_GET["Shortcut"];
+} else {
+    $shortCut = 0;
+}
+
+$_SESSION["Shortcut"] = $shortCut;
+
+if ( $USER->instructor ) {
+    include("menu.php");
+} else {
+    if ($shortCut == 0) {
+        echo('
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.php">Knowledge Check</a>
+                </div>
+            </div>
+        </nav>
+        ');
+    }
+}
+
+if ($shortCut == 0) {
+        echo('
+            <ul class="breadcrumb">
+                <li><a href="index.php">All knowledge check</a></li>
+                <li>' .$set["KCName"].'</li>
+            </ul>
+        ');
+    }
+
+    ?>
+       
+
+   <div class="panel-body" style="text-align: center;" >
+<a  href="Review.php?SetID=<?php echo $SetID;?>"  class='btn btn-success' id="w200">Review Results</a><br><br>
+
+
+<a  href="index.php?SetID=<?php echo $SetID;?>" class='btn btn-primary' id="w200">Return to main page</a>
+</div>
+<?php	 
+	 
+$OUTPUT->footerStart();
+
+include("tool-footer.html");
+
+
+$OUTPUT->footerEnd();

@@ -19,7 +19,7 @@ include("tool-header.html");
 
 $OUTPUT->bodyStart();
 
-if ( $USER->instructor ) {
+
 
     $SetID = $_SESSION["SetID"];
 
@@ -118,7 +118,7 @@ echo ('</div>
            
         }
 	echo('</tr>');
-    }
+
     echo('</table>');
 
 
