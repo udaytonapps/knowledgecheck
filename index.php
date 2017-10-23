@@ -1,36 +1,56 @@
 <?php
-require_once "../config.php";
+require_once('../config.php');
+require_once('dao/KC_DAO.php');
 
 use \Tsugi\Core\LTIX;
+use \KC\DAO\KC_DAO;
 
 // Retrieve the launch data if present
-$LTI = LTIX::requireData();
+$LAUNCH = LTIX::requireData();
 
 $p = $CFG->dbprefix;
+
+$KC_DAO = new KC_DAO($PDOX, $p);
 
 // Start of the output
 $OUTPUT->header();
 
-?>
-    <!-- Our main css file that overrides default Tsugi styling -->
-    <link rel="stylesheet" type="text/css" href="styles/main.css">
-<?php
+include("tool-header.html");
 
 $OUTPUT->bodyStart();
 
+$_SESSION["UserName"] = $USER->email;
+$_SESSION["FullName"] = $USER->displayname;
+$_SESSION["UserID"]= $USER->id;
+$LastName = $USER->lastname;
+$FirstName = $USER->firstname;
+//echo $CONTEXT->id;
 if ( $USER->instructor ) {
 
     include("menu.php");
     include("instructor-home.php");
 
-} else { // student
+}else{ // student
 
-    include("student-home.php");
+	$a = $KC_DAO->checkStudent($CONTEXT->id, $USER->id);
+	if($a["UserID"] == ""){	$b = $KC_DAO->addStudent($USER->id, $CONTEXT->id, $LastName, $FirstName);}
+
+
+
+	/*    $linkId = $LINK->id;
+    $shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
+    if (isset($shortcut["SetID"])) {
+        header( 'Location: '.addSession('Take.php?SetID='.$shortcut["SetId"].'&QNum=1&QNum2=0&Flag=A&Shortcut=1"') ) ;
+    } else {
+        include("student-home.php");
+    }
+	
+	*/
+	 include("student-home.php");
 }
 
 $OUTPUT->footerStart();
-?>
-    <!-- Our main javascript file for tool functions -->
-    <script src="scripts/main.js" type="text/javascript"></script>
-<?php
+
+include("tool-footer.html");
+
 $OUTPUT->footerEnd();
