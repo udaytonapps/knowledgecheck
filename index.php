@@ -24,7 +24,8 @@ $_SESSION["FullName"] = $USER->displayname;
 $_SESSION["UserID"]= $USER->id;
 $LastName = $USER->lastname;
 $FirstName = $USER->firstname;
-//echo $CONTEXT->id;
+//echo "Site ID: ".$CONTEXT->id;
+$_SESSION["SetID"]=0;
 if ( $USER->instructor ) {
 
     include("menu.php");
@@ -37,16 +38,16 @@ if ( $USER->instructor ) {
 
 
 
-	/*    $linkId = $LINK->id;
+	   $linkId = $LINK->id;
     $shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
     if (isset($shortcut["SetID"])) {
-        header( 'Location: '.addSession('Take.php?SetID='.$shortcut["SetId"].'&QNum=1&QNum2=0&Flag=A&Shortcut=1"') ) ;
+        header( 'Location: '.addSession('Take.php?SetID='.$shortcut["SetId"]) ) ;
     } else {
         include("student-home.php");
     }
 	
-	*/
-	 include("student-home.php");
+	
+	// include("student-home.php");
 }
 
 $OUTPUT->footerStart();
