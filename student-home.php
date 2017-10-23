@@ -25,16 +25,16 @@ if (count($visibleSets) == 0) {
     foreach ( $visibleSets as $set ) {
         $questions = $KC_DAO->getQuestions($set["SetID"]);
 		$exist = $KC_DAO->userDataExists($set["SetID"], $USER->id);
-            $questionsPile = '';
+            
        
         echo('
-            <div class="col-sm-3">
-                <div class="panel panel-default'.$questionsPile.'">
+            <div class="col-xs-3">
+                <div class="panel panel-default" >
                     <div class="panel-heading">
-                        <span class="label label-success pull-right student-card-count">'.count($questions).' Questions</span>
+                        <span class="label label-success pull-right">'.count($questions).' Questions</span>
                         <h3>'.$set["KCName"].'</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" >
                         <div class="row">
                             <div class="col-xs-6 text-center" style="border-right:1px lightgray solid;">
                                 <a href="Take.php?SetID='.$set["SetID"].'"');if(count($questions) == 0){echo(' class="disabled"');}echo('>

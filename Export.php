@@ -18,13 +18,18 @@ $OUTPUT->header();
 include("tool-header.html");
 
 $OUTPUT->bodyStart();
+$SetID = $_SESSION["SetID"];
+$set = $KC_DAO->getKC($SetID);
 
+header("Content-type: application/vnd.ms-excel; name='excel'");
+header("Content-Disposition: attachment; filename=KC_".$set["KCName"].".xls");
+header("Pragma: no-cache");
+header("Expires: 0");
 
-
-    $SetID = $_SESSION["SetID"];
+   
 
     $StudentList = $KC_DAO->getStudentList($CONTEXT->id);
-    $set = $KC_DAO->getKC($SetID);
+   
 		
     $Total = count($StudentList);
 
@@ -39,7 +44,7 @@ $OUTPUT->bodyStart();
    
         $QNum = 1;
 		echo ('<table border="1" width="800" cellspacing="10">
-		<tr><td colspan=2><h2>'.$set["KCName"].' KC Usage</h2><td></td></tr>		
+		<tr><td colspan=2><h2>'.$set["KCName"].' KC Usage</h2></td></tr>		
 		<tr><td>Student Name</td><td>Attempt: Score (Date)</td></tr>
 		
 		');

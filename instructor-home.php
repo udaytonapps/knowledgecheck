@@ -41,11 +41,9 @@ echo('<div class="row">');
             $questions = $KC_DAO->getQuestions($KC["SetID"]);
 			$exist = $KC_DAO->userDataExists($KC["SetID"], $USER->id);
            
-                $questionsPile = '';
-           
             echo('
                 <div class="col-sm-4">
-                    <div class="panel panel-'.$panelClass.$questionsPile.'">
+                    <div class="panel panel-'.$panelClass.'">
                         <div class="panel-heading">
                             <h3>
                                 <a href="Qlist.php?SetID='.$KC["SetID"].'">
