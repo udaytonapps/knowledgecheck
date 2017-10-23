@@ -16,7 +16,7 @@ class KC_DAO {
         return $this->PDOX->rowDie($query);
     }
 
-    function getKCById($SetID) {
+    function getKC($SetID) {
         $query = "SELECT * FROM {$this->p}kc_main WHERE SetID = '".$SetID."';";
         return $this->PDOX->rowDie($query);
     }
@@ -38,10 +38,16 @@ class KC_DAO {
     }
 
     function getQuestions($SetID) {
-        $query = "SELECT * FROM {$this->p}kc_questions WHERE SetID='".$SetID."' order by QNum;";
+        $query = "SELECT * FROM {$this->p}kc_questions WHERE SetID=".$SetID." order by QNum;";
         return $this->PDOX->allRowsDie($query);
     }
-
+	
+	function eachQuestion($QID) {
+        $query = "SELECT * FROM {$this->p}kc_questions WHERE QID=".$QID;
+        return $this->PDOX->allRowsDie($query);
+    }
+	
+	
     function createKC($userId, $context_id, $KCName) {
         $query = "INSERT INTO {$this->p}kc_main (UserID, context_id, KCName) VALUES (:userId, :contextId, :KCName);";
         $arr = array(':userId' => $userId, ':contextId' => $context_id, ':KCName' => $KCName);
@@ -108,19 +114,6 @@ class KC_DAO {
         $query = "SELECT * FROM {$this->p}kc_questions WHERE QNum2 = :QNum2 AND SetID = :SetID;";
         $arr = array(':QNum2' => $QNum2, ':SetID' => $SetID);
         return $this->PDOX->rowDie($query, $arr);
-    }
-
-
-    function updateQNumber($QID, $QNum) {
-        $query = "UPDATE {$this->p}kc_questions set QNum = :QNum where QID = :QID;";
-        $arr = array(':QNum' =>$QNum, ':QID' => $QID);
-        $this->PDOX->queryDie($query, $arr);
-    }
-
-    function updateQNumber2($QNum2, $QNum, $SetID) {
-        $query = "UPDATE {$this->p}kc_questions SET QNum2 = :QNum2 WHERE SetID = :SetID AND QNum = :QNum;";
-        $arr = array(':QNum2' => $QNum2, ':SetID' => $SetID, ':QNum' => $QNum);
-        $this->PDOX->queryDie($query, $arr);
     }
 
     function deleteQuestion($QID) {

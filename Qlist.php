@@ -25,7 +25,7 @@ if ( $USER->instructor ) {
 
     $questions = $KC_DAO->getQuestions($SetID);
 
-    $set = $KC_DAO->getKCById($SetID);
+    $set = $KC_DAO->getKC($SetID);
 	
 	$_SESSION["SetID"] = $set["SetID"];
 	

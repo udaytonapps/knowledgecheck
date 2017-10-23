@@ -40,7 +40,6 @@ $DATABASE_INSTALL = array(
     QID      INTEGER NOT NULL AUTO_INCREMENT,
     SetID       INTEGER NULL,
     QNum     INTEGER NULL,
-    QNum2    INTEGER NULL,
     Question       varchar(1500) NULL,
     Answer       varchar(100) NULL,
     A        varchar(255) NULL,

@@ -17,7 +17,7 @@ $Date2 = date("Y-m-d H:i:s");
 
 $KC_DAO = new KC_DAO($PDOX, $p);
 
-$questionsInSet = $KC_DAO->getQuestions($SetID);
+$Questions = $KC_DAO->getQuestions($SetID);
 $studentData = $KC_DAO->getUserData($SetID, $USER->id);
 
 if ($studentData["Attempt"] == ""){$Attempt=1;}
@@ -26,7 +26,7 @@ else {$Attempt =  $studentData["Attempt"] +1;}
 
 echo $Attempt;
 
- foreach ( $questionsInSet as $row ) {
+ foreach ( $Questions as $row ) {
 
 $Temp = 'Answer'.$row["QNum"];
 $Answer = $_POST[$Temp];	 
