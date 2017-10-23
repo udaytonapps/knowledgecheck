@@ -22,7 +22,7 @@ $OUTPUT->bodyStart();
 $UserName = $_SESSION["UserName"];
 $FullName = $_SESSION["FullName"];
 $SetID = $_SESSION["SetID"];
-$set = $KC_DAO->getKCById($SetID);
+$set = $KC_DAO->getKC($SetID);
 $Total=0;
 
 if(isset($_GET["Shortcut"])) {

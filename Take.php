@@ -56,11 +56,18 @@ if(isset($_GET["ReviewMode"])){
 
 $SetID = $_GET["SetID"];
 $_SESSION["SetID"] = $SetID;
-$questionsInSet = $KC_DAO->getQuestions($SetID);
-$Total = count($questionsInSet);
-$set = $KC_DAO->getKCById($SetID);
+$set = $KC_DAO->getKC($SetID);
 
-usort($questionsInSet, array('KC_Utils', 'compareQNum'));
+$Arr_QID = array();
+$Questions = $KC_DAO->getQuestions($SetID);
+$Total = count($Questions);
+
+foreach ( $Questions as $row ) {
+    array_push($Arr_QID, $row["QID"]);
+}
+
+
+if ($set["Random"]){shuffle($Arr_QID);}
 
 if ($shortCut == 0) {
         echo('
@@ -81,9 +88,16 @@ if ($shortCut == 0) {
 
 <?php
 
-
+$Temp = 1;
 		
-        foreach ( $questionsInSet as $row ) {
+      
+for($i=0; $i<$Total; $i++){
+		
+	$each = $KC_DAO->eachQuestion($Arr_QID[$i]);
+	
+	foreach ( $each as $row ) {
+		
+		$QNum = $i+1;
 
 		
 		echo('                      
@@ -94,7 +108,7 @@ if ($shortCut == 0) {
                             
         ');
 			
-		   echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
+		   echo($QNum.'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			if($row["QType"] =="Multiple"){			
 								
@@ -122,8 +136,9 @@ if ($shortCut == 0) {
 
         ');
            
-            
+         $Temp++;  
         }
+}
   
 ?><br>
 

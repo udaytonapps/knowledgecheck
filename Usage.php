@@ -27,7 +27,7 @@ if ( $USER->instructor ) {
 	$_SESSION["SetID"] = $SetID;
 
     $StudentList = $KC_DAO->getStudentList($CONTEXT->id);
-    $set = $KC_DAO->getKCById($SetID);
+    $set = $KC_DAO->getKC($SetID);
 		
     $Total = count($StudentList);
 

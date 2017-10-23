@@ -56,12 +56,12 @@ if(isset($_GET["ReviewMode"])){
 
 $SetID = $_GET["SetID"];
 $_SESSION["SetID"] = $SetID;
-$questionsInSet = $KC_DAO->getQuestions($SetID);
-$Total = count($questionsInSet);
-$set = $KC_DAO->getKCById($SetID);
+$Questions = $KC_DAO->getQuestions($SetID);
+$Total = count($Questions);
+$set = $KC_DAO->getKC($SetID);
 
 
-//usort($questionsInSet, array('KC_Utils', 'compareQNum'));
+//usort($Questions, array('KC_Utils', 'compareQNum'));
 
 if ($shortCut == 0) {
         echo('
@@ -86,8 +86,8 @@ $Sum=0;
 
 
 $Score1=0;
-$questionsInSet2 = $KC_DAO->getQuestions($SetID);
-foreach ( $questionsInSet2 as $row2 ) {
+$Questions2 = $KC_DAO->getQuestions($SetID);
+foreach ( $Questions2 as $row2 ) {
 	
 	$QID = $row2["QID"];
 	$reviewData = $KC_DAO->Review($QID, $USER->id, $tAttempts);
@@ -115,7 +115,7 @@ Highest Score: <?php echo $hScore;?></div>
 <?php
 
 	
-        foreach ( $questionsInSet as $row ) {
+        foreach ( $Questions as $row ) {
 
 			
 			

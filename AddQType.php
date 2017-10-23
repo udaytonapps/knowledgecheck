@@ -23,13 +23,13 @@ if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 
-    $questionsInSet = $KC_DAO->getQuestions($SetID);
+    $Questions = $KC_DAO->getQuestions($SetID);
 
-    usort($questionsInSet, array('KC_Utils', 'compareQNum'));
+    usort($Questions, array('KC_Utils', 'compareQNum'));
 
-    $set = $KC_DAO->getKCById($SetID);
+    $set = $KC_DAO->getKC($SetID);
 
-    $Total = count($questionsInSet);
+    $Total = count($Questions);
     $Next = $Total + 1;
 	$_SESSION["Next"] = $Next;
 

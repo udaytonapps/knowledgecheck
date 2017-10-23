@@ -25,7 +25,7 @@ if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 
-    $set = $KC_DAO->getKCById($SetID);
+    $set = $KC_DAO->getKC($SetID);
 
     echo('
             <ul class="breadcrumb">
@@ -34,8 +34,8 @@ if ( $USER->instructor ) {
             </ul>
         ');
 
-    $questionsInSet = $KC_DAO->getQuestions($SetID);
-    $totalQuestions = count($questionsInSet);
+    $Questions = $KC_DAO->getQuestions($SetID);
+    $totalQuestions = count($Questions);
 
     $hasRosters = LTIX::populateRoster(false);
 	

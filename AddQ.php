@@ -22,7 +22,7 @@ if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 
-    $set = $KC_DAO->getKCById($SetID);
+    $set = $KC_DAO->getKC($SetID);
 
     include("menu.php");
 
