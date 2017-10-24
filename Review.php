@@ -220,10 +220,9 @@ Highest Score: <?php echo $hScore;?></div>
 			
 			
 			            </div>
-			 <div class="panel-body" id="bgFB" >
+			 <div class="panel-body" style="background-color:#D9E6FC; margin-left:40px;width:70%;padding:10px;" >
 				
-					<div class="col-sm-1 noPadding"  ><b>Feedback: </b></div>
-					<div class="col-sm-9" > '.$Feedback.'</div>
+					<b>Feedback: </b>'.$Feedback.'
 			
 		   </div>
 

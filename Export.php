@@ -13,11 +13,7 @@ $p = $CFG->dbprefix;
 
 $KC_DAO = new KC_DAO($PDOX, $p);
 
-$OUTPUT->header();
 
-include("tool-header.html");
-
-$OUTPUT->bodyStart();
 $SetID = $_SESSION["SetID"];
 $set = $KC_DAO->getKC($SetID);
 
@@ -124,8 +120,3 @@ echo ('</div>
     echo('</table>');
 
 
-$OUTPUT->footerStart();
-
-include("tool-footer.html");
-
-$OUTPUT->footerEnd();

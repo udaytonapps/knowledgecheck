@@ -105,10 +105,10 @@ if ( $USER->instructor ) {
                 
                 
                 <div class="form-group row">    
-				   <div class="col-xs-1 noPadding">
+				   
 						<label for="ex1">Point</label>
-						<input class="form-control" id="ex1" type="text" name="Point" value="<?php echo($question["Point"]); ?>">
-				   </div>
+						<input class="form-control" id="ex1" type="text" name="Point" value="<?php echo($question["Point"]); ?>" style="width:50px;text-align: center;">
+				  
 				</div>
                 
                 
