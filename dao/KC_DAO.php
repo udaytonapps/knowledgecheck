@@ -247,14 +247,19 @@ function getStudentList($context_id) {
 }
 	
 	
-
-    function getSetID($context_id) {
+function getSetID($context_id) {
         $query = "SELECT SetID FROM {$this->p}kc_main WHERE context_id = :contextId;";
         $arr = array(':contextId' => $context_id);
         $context = $this->PDOX->rowDie($query, $arr);
         return $context["SetID"];
-    }	
-	
+}
+
+
+function updateQNumber($QID, $QNum) {
+        $query = "UPDATE {$this->p}kc_questions set QNum = :QNum where QID = :QID;";
+        $arr = array(':QNum' =>$QNum, ':QID' => $QID);
+        $this->PDOX->queryDie($query, $arr);
+}
 	
 	
 	
