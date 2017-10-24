@@ -186,10 +186,10 @@ Highest Score: <?php echo $hScore;?></div>
 
 
 								
-				echo('	<div '.$colorA.' >A. '.$row["A"].$userA.'</div>
-						<div '.$colorB.' >B. '.$row["B"].$userB.'</div>
-						<div '.$colorC.' >C. '.$row["C"].$userC.'</div>
-						<div '.$colorD.' >D. '.$row["D"].$userD.'</div>
+				echo('	<div '.$colorA.' > '.$row["A"].$userA.'</div>
+						<div '.$colorB.' > '.$row["B"].$userB.'</div>
+						<div '.$colorC.' > '.$row["C"].$userC.'</div>
+						<div '.$colorD.' > '.$row["D"].$userD.'</div>
 					');
 			}
 			else {

@@ -95,10 +95,10 @@ if ( $USER->instructor ) {
                     
                 </div>
 				<div class="form-group row">    
-				   <div class="col-xs-2 noPadding ">
+				   
 						<label for="ex1">Point</label>
-						<input class="form-control" id="ex1" type="text" name="Point">
-				   </div>
+						<input class="form-control" id="ex1" type="text" name="Point" style="width:50px; text-align:center;">
+				  
 				</div>
                 
                 
