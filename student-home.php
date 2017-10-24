@@ -15,20 +15,17 @@ $visibleSets = $KC_DAO->getAll_VisibleKC($CONTEXT->id);
 
 if (count($visibleSets) == 0) {
     echo('<p><em>There are currently no available flashknowledge check for this course.</em></p>');
-} else {
-
-	
+} else {	
 	
 	
     echo('<div class="row">');
 
     foreach ( $visibleSets as $set ) {
         $questions = $KC_DAO->getQuestions($set["SetID"]);
-		$exist = $KC_DAO->userDataExists($set["SetID"], $USER->id);
-            
+		$exist = $KC_DAO->userDataExists($set["SetID"], $USER->id);            
        
         echo('
-            <div class="col-xs-3">
+            <div class="col-6 col-sm-3">
                 <div class="panel panel-default" >
                     <div class="panel-heading">
                         <span class="label label-success pull-right">'.count($questions).' Questions</span>
