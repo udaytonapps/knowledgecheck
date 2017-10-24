@@ -160,6 +160,7 @@ div.play-card .video {
     height: 100%;
 }
 #toggle-review-card {
+#toggle-review-card {
     position: absolute;
     left: 24px;
     font-size: 1.5em;
@@ -189,6 +190,7 @@ h5{height:35px; background-color: lightgray; padding-left:10px; margin:0; vertic
 
 #w30{width:30px !important;}
 #w200{width: 200px !important;}
+
 #bgFB{background-color:#D9E6FC;margin-left:40px; width:70%; padding:10px;}
 .UsageHeading{padding-top:2px;border:1px lightgray solid; margin-bottom:-20px; height:25px;background-color:lightblue; font-weight:bold;}
 

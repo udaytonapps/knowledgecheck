@@ -35,19 +35,14 @@ if ( $USER->instructor ) {
 
 	$a = $KC_DAO->checkStudent($CONTEXT->id, $USER->id);
 	if($a["UserID"] == ""){	$b = $KC_DAO->addStudent($USER->id, $CONTEXT->id, $LastName, $FirstName);}
-
-
-
-	   $linkId = $LINK->id;
-    $shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
+	  $linkId = $LINK->id;
+    	$shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
     if (isset($shortcut["SetID"])) {
         header( 'Location: '.addSession('Take.php?SetID='.$shortcut["SetId"]) ) ;
     } else {
         include("student-home.php");
-    }
+    }	
 	
-	
-	// include("student-home.php");
 }
 
 $OUTPUT->footerStart();

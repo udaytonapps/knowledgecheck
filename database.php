@@ -19,9 +19,9 @@ $DATABASE_INSTALL = array(
     KCName 		varchar(255) NULL,
     Modified    datetime NULL,
     Active      int(1) DEFAULT '0',
-    Visible     int(1) DEFAULT '1',
-  
+    Visible     int(1) DEFAULT '1',  
     PRIMARY KEY(SetID)
+	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8"),
     array( "{$CFG->dbprefix}kc_link",
         "create table {$CFG->dbprefix}kc_link (
@@ -31,9 +31,9 @@ $DATABASE_INSTALL = array(
     CONSTRAINT `{$CFG->dbprefix}kc_link_ibfk_2`
         FOREIGN KEY (`SetID`)
         REFERENCES `{$CFG->dbprefix}kc_main` (`SetID`)
-        ON UPDATE CASCADE,
-        
+        ON UPDATE CASCADE,        
     PRIMARY KEY(link_id)
+	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8"),
     array( "{$CFG->dbprefix}kc_questions",
         "create table {$CFG->dbprefix}kc_questions (
@@ -41,7 +41,10 @@ $DATABASE_INSTALL = array(
     SetID       INTEGER NULL,
     QNum     INTEGER NULL,
     Question       varchar(1500) NULL,
-    Answer       varchar(100) NULL,
+    Answer       varchar(100) NULL,	
+	Point     INTEGER NULL,
+	FR     varchar(255) NULL,
+	FW     varchar(255) NULL,
     A        varchar(255) NULL,
     B        varchar(255) NULL,
     C        varchar(255) NULL,
@@ -55,37 +58,36 @@ $DATABASE_INSTALL = array(
         ON UPDATE CASCADE,
 
     PRIMARY KEY(QID)
+	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8"),
     array( "{$CFG->dbprefix}kc_activity",
         "create table {$CFG->dbprefix}kc_activity (
     ActivityID  INTEGER NOT NULL AUTO_INCREMENT,
     UserID      INTEGER NULL,
     SetID       INTEGER NULL,
-    QID      	INTEGER NOT NULL,
+    QID      	INTEGER NULL,
 	Answer      varchar(100) NULL,
 	Attempt    	INTEGER NULL,
-    Modified    datetime NULL,
-  
+    Modified    datetime NULL,  
     PRIMARY KEY(ActivityID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8"),
-    array( "{$CFG->dbprefix}kc_activity",
-        "create table {$CFG->dbprefix}kc_attempt (
-    AttemptID  INTEGER NOT NULL AUTO_INCREMENT,
+    array( "{$CFG->dbprefix}kc_temp",
+        "create table {$CFG->dbprefix}kc_temp (
+    TempID  INTEGER NOT NULL AUTO_INCREMENT,
     UserID      INTEGER NULL,
-    SetID       INTEGER NULL,
-    Modified    datetime NULL,
-  
-    PRIMARY KEY(AttemptID)
+    SetID       INTEGER NULL,	
+    PRIMARY KEY(TempID)
+	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8"),
-    array( "{$CFG->dbprefix}kc_students",
-        "create table {$CFG->dbprefix}kc_attempt (
+	array( "{$CFG->dbprefix}kc_students",
+        "create table {$CFG->dbprefix}kc_students (
     StudentID  INTEGER NOT NULL AUTO_INCREMENT,
     UserID      INTEGER NULL,
     SetID       INTEGER NULL,
 	LastName    varchar(100) NULL,
 	FirstName   varchar(100) NULL,
-    Modified    datetime NULL,
-  
-    PRIMARY KEY(AttemptID)
+    Modified    datetime NULL,  
+    PRIMARY KEY(StudentID)
+	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8")
 );
