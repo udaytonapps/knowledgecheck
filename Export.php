@@ -84,16 +84,13 @@ for ($i = 1; $i <=  $tAttempts ; $i++) {
 		$QID = $row2["QID"];
 		$reviewData = $KC_DAO->Review($QID, $row["UserID"], $i);
 		$dateTime = new DateTime($studentData["Modified"]);
-$Date1 =  $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
+		$Date1 =  $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
 		if ($row2["Answer"]== $reviewData["Answer"]){
 		 $Score = $Score + $row2["Point"];				
 			
 		}
 		
 	}
-	//echo $Date1;
-	
-	
 	
 	array_push($Arr_Attempt, $i);
 	array_push($Arr_Score,$Score);	

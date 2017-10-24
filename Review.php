@@ -60,9 +60,6 @@ $Questions = $KC_DAO->getQuestions($SetID);
 $Total = count($Questions);
 $set = $KC_DAO->getKC($SetID);
 
-
-//usort($Questions, array('KC_Utils', 'compareQNum'));
-
 if ($shortCut == 0) {
         echo('
             <ul class="breadcrumb">
@@ -72,18 +69,28 @@ if ($shortCut == 0) {
         ');
     }
 
-
-
-
-//echo $USER->id."<hr>";
-
 $studentData = $KC_DAO->getUserData($SetID, $USER->id);
 $dateTime = new DateTime($studentData["Modified"]);
 $Last = $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
-$hScore = "???";
+$hScore = "";
 $tAttempts = $studentData["Attempt"];
-$Sum=0;
 
+if($tAttempts){			
+		$Arr_Score = array();
+		for ($i = 1; $i <=  $tAttempts ; $i++) {
+			$Score2=0;		
+			$Questions = $KC_DAO->getQuestions($_GET["SetID"]);			
+			foreach ( $Questions as $row2 ) {
+				$QID = $row2["QID"];
+				$reviewData2 = $KC_DAO->Review($QID, $USER->id, $i);
+				if ($row2["Answer"]== $reviewData2["Answer"]){
+				 $Score2 = $Score2 + $row2["Point"];
+				}
+			}
+			array_push($Arr_Score,$Score2);			
+		}
+	$hScore = max($Arr_Score); 	
+}
 
 $Score1=0;
 $Questions2 = $KC_DAO->getQuestions($SetID);
@@ -140,14 +147,11 @@ Highest Score: <?php echo $hScore;?></div>
 			
 			$QID = $row["QID"];
 			
-			$reviewData = $KC_DAO->Review($QID, $USER->id, $tAttempts);
-			
-			
-			//echo $row["Answer"]." | ".$reviewData["Answer"]."<br>";
+			$reviewData = $KC_DAO->Review($QID, $USER->id, $tAttempts);	
 			
 			if ($row["Answer"]== $reviewData["Answer"]){				
 				$Feedback = $row["FR"];				
-				//$Sum = $Sum + $row["Point"];			
+					
 			}else{$Feedback = $row["FW"];}
 			
 			
@@ -228,8 +232,6 @@ Highest Score: <?php echo $hScore;?></div>
             
         }
 
-//echo "Score: ".$Sum;
-  
 ?><br>
 
 <?php	 

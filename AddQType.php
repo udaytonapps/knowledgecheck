@@ -53,20 +53,12 @@ if ( $USER->instructor ) {
             </div>
 
             <div class="col-sm-offset-1 col-sm-8">
-                <div class="form-group">
-                    <label class="control-label" for="QType">What type of question would you like to add?
-</label>
-                    
-                    <div id="qType">
+              
+                    <label class="control-label" for="QType">What type of question would you like to add?</label> <br><br>
+					<a  href="AddQ.php?SetID=<?php echo $SetID; ?>&QType=Multiple" class="btn btn-success" style="width:300px;" >Multiple Choice</a><br>
 
-					<a  href="AddQ.php?SetID=<?php echo $SetID; ?>&QType=Multiple" class="btn btn-success " id="dBlock">Multiple Choice</a><br>
-                    <a  href="AddQ.php?SetID=<?php echo $SetID; ?>&QType=True/False" class="btn btn-success " id="dBlock">True / False </a>
-					</div>
-                    
-                </div>
+                    <a  href="AddQ.php?SetID=<?php echo $SetID; ?>&QType=True/False" class="btn btn-success" style="width:300px;margin-top:5px;">True / False </a><br><br>
 
-
-             
                 <input type="hidden" name="SetID" value="<?php echo $_GET["SetID"];?>"/>
                 <input  type="hidden" name="QNum" value="<?php echo $Next; ?>"/>
 

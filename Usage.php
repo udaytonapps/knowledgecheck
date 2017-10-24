@@ -100,8 +100,7 @@ if ( $USER->instructor ) {
 			
 			
 		$studentData = $KC_DAO->getUserData($SetID, $row["UserID"]);
-//$dateTime = new DateTime($studentData["Modified"]);
-//$Last = $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
+
 
 $tAttempts = $studentData["Attempt"];	
 		
@@ -110,31 +109,29 @@ echo $tAttempts;
 echo ('</div>
 		<div class="col-sm-4 " >');
 	
-			
-$Arr_Score = array();	
-			
-	
-for ($i = 1; $i <=  $tAttempts ; $i++) {
-  
-		
-	$Score=0;		
-	$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
-	foreach ( $Questions as $row2 ) {
+if($tAttempts){			
+		$Arr_Score = array();
 
-		$QID = $row2["QID"];
-		$reviewData = $KC_DAO->Review($QID, $row["UserID"], $i);
-		if ($row2["Answer"]== $reviewData["Answer"]){
-		 $Score = $Score + $row2["Point"];				
-			
+		for ($i = 1; $i <=  $tAttempts ; $i++) {
+
+			$Score=0;		
+			$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
+			foreach ( $Questions as $row2 ) {
+
+				$QID = $row2["QID"];
+				$reviewData = $KC_DAO->Review($QID, $row["UserID"], $i);
+				if ($row2["Answer"]== $reviewData["Answer"]){
+				 $Score = $Score + $row2["Point"];				
+
+				}
+
+			}
+
+			array_push($Arr_Score,$Score);	
 		}
-		
-	}
-	
-	array_push($Arr_Score,$Score)."<hr>";	
-}
 
-	//print_r($Arr_Score);	
-		echo max($Arr_Score); 	
+		echo max($Arr_Score); 
+}
 echo ('</div>
 										
                     
