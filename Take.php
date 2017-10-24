@@ -59,6 +59,7 @@ $_SESSION["SetID"] = $SetID;
 $set = $KC_DAO->getKC($SetID);
 
 $Arr_QID = array();
+
 $Questions = $KC_DAO->getQuestions($SetID);
 $Total = count($Questions);
 
@@ -98,7 +99,9 @@ for($i=0; $i<$Total; $i++){
 	foreach ( $each as $row ) {
 		
 		$QNum = $i+1;
-
+		$mChoice = array ( 
+			array("A",$row["A"]),array("B",$row["B"]),array("C",$row["C"]),array("D",$row["D"])
+		);
 		
 		echo('                      
                    
@@ -110,13 +113,23 @@ for($i=0; $i<$Total; $i++){
 			
 		   echo($QNum.'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
-			if($row["QType"] =="Multiple"){			
-								
-				echo('	<div  > <input type="radio" value="A" name="Answer'.$row["QNum"].'" > A. '.$row["A"].'</div>
-						<div  > <input type="radio" value="B" name="Answer'.$row["QNum"].'" > B. '.$row["B"].'</div>
-						<div  > <input type="radio" value="C" name="Answer'.$row["QNum"].'" > C. '.$row["C"].'</div>
-						<div  > <input type="radio" value="D" name="Answer'.$row["QNum"].'" > D. '.$row["D"].'</div>
+			if($row["QType"] =="Multiple"){	
+				shuffle($mChoice);				
+				for($x=0; $x<4; $x++){
+			
+				echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';
+				}
+				
+				/*				
+				echo('	<div  > <input type="radio" value="A" name="Answer'.$row["QNum"].'" >'.$row["A"].'</div>
+						<div  > <input type="radio" value="B" name="Answer'.$row["QNum"].'" >'.$row["B"].'</div>
+						<div  > <input type="radio" value="C" name="Answer'.$row["QNum"].'" >'.$row["C"].'</div>
+						<div  > <input type="radio" value="D" name="Answer'.$row["QNum"].'" >'.$row["D"].'</div>
 					');
+				
+				*/
+
+				
 			}
 			else {			
 				echo('	<div > <input type="radio" value="True" name="Answer'.$row["QNum"].'" > True </div>
