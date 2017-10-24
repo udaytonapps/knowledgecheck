@@ -62,10 +62,10 @@ if ($shortCut == 0) {
        
 
    <div class="panel-body" style="text-align: center;" >
-<a  href="Review.php?SetID=<?php echo $SetID;?>"  class='btn btn-success' id="w200">Review Results</a><br><br>
+<a  href="Review.php?SetID=<?php echo $SetID;?>"  class='btn btn-success' style='width:220px;'>Review Results</a><br><br>
 
 
-<a  href="index.php?SetID=<?php echo $SetID;?>" class='btn btn-primary' id="w200">Return to main page</a>
+<a  href="index.php?SetID=<?php echo $SetID;?>" class='btn btn-primary' style='width:220px;'>Return to main page</a>
 </div>
 <?php	 
 	 

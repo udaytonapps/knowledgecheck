@@ -50,7 +50,7 @@ if ( $USER->instructor ) {
                    
                      
                     <a  href="AddQ.php?SetID=<?php echo $_GET["SetID"];?>&QType=Multiple" <?php if($QType== "Multiple"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  >Multiple Choice</a>
-                    <a  href="AddQ.php?SetID=<?php echo $_GET["SetID"];?>&QType=True/False" <?php if($QType == "True/False"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  >True / False </a>
+                    <a  href="AddQ.php?SetID=<?php echo $_GET["SetID"];?>&QType=True/False" <?php if($QType == "True/False"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  ">True / False </a>
 					
 
                 </div>
