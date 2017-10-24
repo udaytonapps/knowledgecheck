@@ -18,6 +18,7 @@ $DATABASE_INSTALL = array(
     context_id  INTEGER NULL,
     KCName 		varchar(255) NULL,
     Modified    datetime NULL,
+	Random      int(1) DEFAULT '0',
     Active      int(1) DEFAULT '0',
     Visible     int(1) DEFAULT '1',  
     PRIMARY KEY(SetID)
@@ -83,10 +84,9 @@ $DATABASE_INSTALL = array(
         "create table {$CFG->dbprefix}kc_students (
     StudentID  INTEGER NOT NULL AUTO_INCREMENT,
     UserID      INTEGER NULL,
-    SetID       INTEGER NULL,
+    context_id  INTEGER NULL,
 	LastName    varchar(100) NULL,
-	FirstName   varchar(100) NULL,
-    Modified    datetime NULL,  
+	FirstName   varchar(100) NULL,     
     PRIMARY KEY(StudentID)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8")
