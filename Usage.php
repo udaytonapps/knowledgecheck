@@ -29,7 +29,7 @@ if ( $USER->instructor ) {
    // $StudentList = $KC_DAO->getStudentList($CONTEXT->id);
     $set = $KC_DAO->getKC($SetID);
 		
-   // $Total = count($StudentList);
+ 
 	 $hasRosters = LTIX::populateRoster(false);
 
     include("menu.php");
@@ -47,12 +47,8 @@ if ( $USER->instructor ) {
         <h2> '.$set["KCName"].' Usage</h2>
 		<a href="Export.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a>
     ');
-
-    if ($Total == 0) {
-        echo('<p><em>There are currently no questions in this knowledge check.</em></p>');
-    } else {
+     
       
-        $QNum = 1;
 		echo ('<br><div class="panel " >');
 		
 		
@@ -164,12 +160,12 @@ echo ('</div>
 
         ');
            
-            $QNum++;
+          
         }
 	  }
     }
     echo('</div>');
- }
+
 }
 
 $OUTPUT->footerStart();
