@@ -85,7 +85,8 @@ if ( $USER->instructor ) {
         ');
 			$colorA=""; $colorB=""; $colorC=""; $colorD=""; 
         	
-		   echo($row["Question"].'</div>
+		   //echo($row["Question"].' ('.$row["Point"].')</div>
+		    echo($row["Question"].'</div>
 									
             <div class="col-sm-4 " >');
 			
@@ -96,12 +97,12 @@ if ( $USER->instructor ) {
 				else if ($row["Answer"] =="C"){$colorC="style='color:red; font-weight:bold;'";}
 				else if ($row["Answer"] =="D"){$colorD="style='color:red; font-weight:bold;'";}
 
-								
-				echo('	<div '.$colorA.' >A. '.$row["A"].'</div>
-						<div '.$colorB.' >B. '.$row["B"].'</div>
-						<div '.$colorC.' >C. '.$row["C"].'</div>
-						<div '.$colorD.' >D. '.$row["D"].'</div>
-					');
+				
+				echo('<div '.$colorA.' >A. '.$row["A"].'</div>');
+				echo('<div '.$colorB.' >B. '.$row["B"].'</div>');
+				
+				if($row["C"] !=""){echo('<div '.$colorC.' >C. '.$row["C"].'</div>');}
+				if($row["D"] !=""){echo('<div '.$colorD.' >D. '.$row["D"].'</div>');}
 			}
 			else {
 				
@@ -121,7 +122,7 @@ if ( $USER->instructor ) {
 			
 			
 			
-			</div>
+			</div>			
 			<div class="col-sm-1 noPadding" style="float:right; width:120px;"><a class="btn btn-danger pull-right" href="actions/deleteQ.php?QID='.$row["QID"].'&SetID='.$row["SetID"].'" onclick="return ConfirmdeleteQuestion();"><span class="fa fa-trash-o"></span></a>
             <a class="btn btn-primary pull-right" href="EditQ.php?QID='.$row["QID"].'&SetID='.$row["SetID"].'&QType='.$row["QType"].'"><span class="fa fa-pencil"></span></a></div>
 							
