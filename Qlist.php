@@ -51,7 +51,7 @@ if ( $USER->instructor ) {
     if ($Total == 0) {
         echo('<p><em>There are currently no questions in this knowledge check.</em></p>');
     } else {
-        usort($questions, array('KC_Utils', 'compareQNum'));
+     //   
         $QNum = 1;
 		echo ('<div class="panel panel-default " style="border:0px; ">');
         foreach ( $questions as $row ) {

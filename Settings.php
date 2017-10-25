@@ -23,9 +23,7 @@ if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 
-    $Questions = $KC_DAO->getQuestions($SetID);
-
-    usort($Questions, array('KC_Utils', 'compareQNum'));
+    $Questions = $KC_DAO->getQuestions($SetID);   
 
     $set = $KC_DAO->getKC($SetID);
 

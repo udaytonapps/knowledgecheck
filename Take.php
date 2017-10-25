@@ -118,17 +118,7 @@ for($i=0; $i<$Total; $i++){
 				for($x=0; $x<4; $x++){
 				if($mChoice[$x][1] !=""){
 				echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';}
-				}
-				
-				/*				
-				echo('	<div  > <input type="radio" value="A" name="Answer'.$row["QNum"].'" >'.$row["A"].'</div>
-						<div  > <input type="radio" value="B" name="Answer'.$row["QNum"].'" >'.$row["B"].'</div>
-						<div  > <input type="radio" value="C" name="Answer'.$row["QNum"].'" >'.$row["C"].'</div>
-						<div  > <input type="radio" value="D" name="Answer'.$row["QNum"].'" >'.$row["D"].'</div>
-					');
-				
-				*/
-
+				}		
 				
 			}
 			else {			
