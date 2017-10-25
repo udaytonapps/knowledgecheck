@@ -28,13 +28,14 @@ if ( $USER->instructor ) {
 
     echo('
         <ul class="breadcrumb">
-            <li><a href="index.php">All knowledge check</a></li>
+            <li><a href="index.php">All Knowledge Checks</a></li>
             <li><a href="Qlist.php?SetID=' .$SetID.'">'.$set["KCName"].'</a></li>
             <li>Add New Question</li>
         </ul>
     ');
 
     ?>
+
 
     <form method="post" action="actions/AddQ_Submit.php">
 
@@ -44,17 +45,7 @@ if ( $USER->instructor ) {
             </div>
 
             <div class="col-sm-offset-1 col-sm-8">
-                <div class="form-group">
-                    <label class="control-label" for="QType">Question Type</label><br>
-
-                   
-                     
-                    <a  href="AddQ.php?SetID=<?php echo $_GET["SetID"];?>&QType=Multiple" <?php if($QType== "Multiple"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  >Multiple Choice</a>
-                    <a  href="AddQ.php?SetID=<?php echo $_GET["SetID"];?>&QType=True/False" <?php if($QType == "True/False"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  ">True / False </a>
-					
-
-                </div>
-
+               
                 <div class="form-group">
                     <label class="control-label" for="Question">Question</label>
                     <textarea class="form-control" name="Question" id="Question" rows="3" autofocus required></textarea>
@@ -63,40 +54,41 @@ if ( $USER->instructor ) {
                
 
                 <div class="form-group">
-                   <label class="control-label" for="Question">Answer</label><br>
+                   <label class="control-label mb" for="Question" >Answer</label><br>
                    
                    <?php 
 					if($QType == "True/False"){
 					?>
                    
                    
-                    <input type="radio" value="True" name="Answer" >True.<br>
-  					<input type="radio" value="False" name="Answer">False.<br>
+                    <input type="radio" value="True" name="Answer" > True<br>
+  					<input type="radio" value="False" name="Answer"> False<br>
 
                     <?php
 					}else{
 						?>
                   
                    <input type="radio" value="A" name="Answer" > 
-                   A. <input class="form-control" name="A" id="A" value=""><br>
+                   A. <input class="form-control answer" name="A" id="A" value=""><br>
 
                    <input type="radio" value="B" name="Answer"> 
-                   B. <input class="form-control" name="B" id="B" value=""><br>
+                   B. <input class="form-control answer" name="B" id="B" value=""><br>
 
                    <input type="radio" value="C" name="Answer">
-                   C. <input class="form-control" name="C" id="C" value=""><br>
+                   C. <input class="form-control answer" name="C" id="C" value=""><br>
 
                    <input type="radio" value="D" name="Answer" > 
-                   D. <input class="form-control" name="D" id="D" value=""><br>
+                   D. <input class="form-control answer" name="D" id="D" value=""><br>
 
                    <?php
 					}
 						?>
-                    
+                 
+					<div class="ML"><input type="checkbox" value="1" name="RA">  Randomize Answers</div>   
                 </div>
 				<div class="form-group row">    
 				   
-						<label for="ex1">Point</label>
+						<label for="ex1">Point Value</label>
 						<input class="form-control" id="ex1" type="text" name="Point" style="width:50px; text-align:center;">
 				  
 				</div>
@@ -104,12 +96,12 @@ if ( $USER->instructor ) {
                 
                  <div class="form-group">
                     <label class="control-label" for="FR">Correct Feedback</label>
-                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus required></textarea>
+                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus ></textarea>
                 </div>
                 
                   <div class="form-group">
                     <label class="control-label" for="FR">Incorrect Feedback</label>
-                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus required></textarea>
+                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus ></textarea>
                 </div>
                 
                 

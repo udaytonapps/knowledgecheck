@@ -37,7 +37,7 @@ if ( $USER->instructor ) {
 
     echo('
         <ul class="breadcrumb">
-            <li><a href="index.php">All knowledge check</a></li>
+            <li><a href="index.php">All Knowledge Checks</a></li>
             <li><a href="Qlist.php?SetID=' .$SetID.'">'.$set["KCName"].'</a></li>
             <li>Add New Question</li>
         </ul>
@@ -45,8 +45,7 @@ if ( $USER->instructor ) {
 
     ?>
 
-    <form method="post" action="actions/AddQ_Submit.php">
-
+    
         <div class="row">
             <div class="col-sm-offset-1 col-sm-8">
                 <h3>Adding Question #<?php echo($Next); ?></h3>
@@ -59,15 +58,12 @@ if ( $USER->instructor ) {
 
                     <a  href="AddQ.php?SetID=<?php echo $SetID; ?>&QType=True/False" class="btn btn-success" style="width:300px;margin-top:5px;">True / False </a><br><br>
 
-                <input type="hidden" name="SetID" value="<?php echo $_GET["SetID"];?>"/>
-                <input  type="hidden" name="QNum" value="<?php echo $Next; ?>"/>
 
-                <input type="submit" value="Next" class="btn btn-primary">
                 <a href="Qlist.php?SetID=<?php echo $_GET["SetID"];?>" class="btn btn-danger">Cancel</a>
 
             </div>
         </div>
-    </form>
+   
 <?php
 } else {
     // student so send back to index

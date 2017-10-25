@@ -8,7 +8,7 @@ $shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
 
 if (isset($shortcut["SetID"])) {
     $shortcutSet = $KC_DAO->getKC($shortcut["SetId"]);
-    echo('<br /><small><span class="fa fa-link"></span> This instance of Flashcards is linked to <a href="Take.php?SetID='.$shortcut["SetID"].'&QNum=1&QNum2=0&Flag=A">'.$shortcutSet["KCName"].'</a>.</small>');
+    echo('<br /><small><span class="fa fa-link"></span> This instance of knowledge check is linked to <a href="Take.php?SetID='.$shortcut["SetID"].'">'.$shortcutSet["KCName"].'</a>.</small>');
 }
 
 echo('</h2>');

@@ -30,7 +30,7 @@ if ( $USER->instructor ) {
 
     echo('
         <ul class="breadcrumb">
-            <li><a href="index.php">All knowledge check</a></li>
+            <li><a href="index.php">All Knowledge Checks</a></li>
             <li><a href="Qlist.php?SetID=' .$SetID.'">'.$set["KCName"].'</a></li>
             <li>Edit Question</li>
         </ul>
@@ -38,6 +38,7 @@ if ( $USER->instructor ) {
 
     ?>
 
+   
     <form method="post" action="actions/EditQ_Submit.php">
 
         <div class="row">
@@ -46,17 +47,7 @@ if ( $USER->instructor ) {
             </div>
 
             <div class="col-sm-offset-1 col-sm-8">
-                <div class="form-group">
-                    <label class="control-label" for="QType">Question Type</label><br>
-
-                   
-                     
-                    <a  href="EditQ.php?SetID=<?php echo $_GET["SetID"];?>&QID=<?php echo $_GET["QID"];?>&QType=Multiple" <?php if($QType== "Multiple"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  >Multiple Choice</a>
-                    <a  href="EditQ.php?SetID=<?php echo $_GET["SetID"];?>&QID=<?php echo $_GET["QID"];?>&QType=True/False" <?php if($QType == "True/False"){echo("class='btn btn-success'");} else{echo("class='btn btn-default'");}?>  >True / False </a>
-					
-
-                </div>
-
+               
                 <div class="form-group">
                     <label class="control-label" for="Question">Question</label>
                     <textarea class="form-control" name="Question" id="Question" rows="3" autofocus required><?php echo($question["Question"]); ?></textarea>
@@ -65,7 +56,7 @@ if ( $USER->instructor ) {
                
 
                 <div class="form-group">
-                   <label class="control-label" for="Question">Answer</label><br>
+                   <label class="control-label" for="Question" style="padding-bottom: 10px;">Answer</label><br>
                    
                    <?php 
 					if($QType == "True/False"){
@@ -82,20 +73,23 @@ if ( $USER->instructor ) {
 						?>
                     
                    <input type="radio" value="A" name="Answer" <?php if($question["Answer"] == "A"){?>checked <?php } ?>> 
-                   A. <input class="form-control" name="A" id="A" value="<?php echo($question["A"]); ?>"><br>
+                   A. <input class="form-control answer" name="A" id="A" value="<?php echo($question["A"]); ?>"><br>
 
                    <input type="radio" value="B" name="Answer" <?php if($question["Answer"] == "B"){?>checked <?php } ?>> 
-                   B. <input class="form-control" name="B" id="B" value="<?php echo($question["B"]); ?>"><br>
+                   B. <input class="form-control answer" name="B" id="B" value="<?php echo($question["B"]); ?>"><br>
 
                    <input type="radio" value="C" name="Answer" <?php if($question["Answer"] == "C"){?>checked <?php } ?>>
-                   C. <input class="form-control" name="C" id="C" value="<?php echo($question["C"]); ?>"><br>
+                   C. <input class="form-control answer" name="C" id="C" value="<?php echo($question["C"]); ?>"><br>
 
                    <input type="radio" value="D" name="Answer" <?php if($question["Answer"] == "D"){?>checked <?php } ?>> 
-                   D. <input class="form-control" name="D" id="D" value="<?php echo($question["D"]); ?>"><br>
+                   D. <input class="form-control answer" name="D" id="D" value="<?php echo($question["D"]); ?>"><br>
 
                    <?php
 					}
 						?>
+                   
+                   
+					<div class="ML"><input type="checkbox" value="1" name="RA" <?php if($question["RA"]){?>checked <?php } ?>>  Randomize Answers</div>
                     
                 </div>
                 
@@ -104,9 +98,12 @@ if ( $USER->instructor ) {
                 
                 
                 
+                
+                
+                
                 <div class="form-group row">    
 				   
-						<label for="ex1">Point</label>
+						<label for="ex1">Point Value</label>
 						<input class="form-control" id="ex1" type="text" name="Point" value="<?php echo($question["Point"]); ?>" style="width:50px;text-align: center;">
 				  
 				</div>
@@ -117,12 +114,12 @@ if ( $USER->instructor ) {
                 
                  <div class="form-group">
                     <label class="control-label" for="FR">Correct Feedback</label>
-                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus required><?php echo($question["FR"]); ?></textarea>
+                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus ><?php echo($question["FR"]); ?></textarea>
                 </div>
                 
                   <div class="form-group">
                     <label class="control-label" for="FR">Incorrect Feedback</label>
-                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus required><?php echo($question["FW"]); ?></textarea>
+                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus ><?php echo($question["FW"]); ?></textarea>
                 </div>
                 
                 

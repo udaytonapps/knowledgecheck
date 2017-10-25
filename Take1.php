@@ -52,7 +52,7 @@ if ( $USER->instructor ) {
 if ($shortCut == 0) {
         echo('
             <ul class="breadcrumb">
-                <li><a href="index.php">All knowledge check</a></li>
+                <li><a href="index.php">All Knowledge Checks</a></li>
                 <li>' .$set["KCName"].'</li>
             </ul>
         ');

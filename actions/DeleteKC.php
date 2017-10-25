@@ -16,10 +16,7 @@ $SetID=$_GET["SetID"];
 
 if ( $USER->instructor ) {
 
-    // Delete all cards
-    $KC_DAO->deleteAllQuestion($SetID);
-
-    // Delete set
+    $KC_DAO->deleteAllQuestion($SetID);   
     $KC_DAO->deleteKC($SetID);
 
 }

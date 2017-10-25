@@ -39,7 +39,7 @@ if ( $USER->instructor ) {
             
             <div class="col-sm-offset-1 col-sm-8">
                 <div class="form-group">
-                    <label for="CardSet">Link to Knowledge Check</label>
+                    <label for="KC">Link to Knowledge Check</label>
                     <select class="form-control" id="linkToSet" name="linkToSet">');
 
                         foreach($allSets as $set) {
