@@ -116,8 +116,8 @@ for($i=0; $i<$Total; $i++){
 			if($row["QType"] =="Multiple"){	
 				shuffle($mChoice);				
 				for($x=0; $x<4; $x++){
-			
-				echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';
+				if($mChoice[$x][1] !=""){
+				echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';}
 				}
 				
 				/*				
