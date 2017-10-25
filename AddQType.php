@@ -59,7 +59,7 @@ if ( $USER->instructor ) {
                     <a  href="AddQ.php?SetID=<?php echo $SetID; ?>&QType=True/False" class="btn btn-success" style="width:300px;margin-top:5px;">True / False </a><br><br>
 
 
-                <a href="Qlist.php?SetID=<?php echo $_GET["SetID"];?>" class="btn btn-danger">Cancel</a>
+                <a href="Qlist.php?SetID=<?php echo $_GET["SetID"];?>" class="btn btn-danger">Back</a>
 
             </div>
         </div>

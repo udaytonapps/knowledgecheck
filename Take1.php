@@ -62,6 +62,12 @@ if ($shortCut == 0) {
        
 
    <div class="panel-body" style="text-align: center;" >
+
+	   <p >Your submission has been received. You can review your results or return to the main page below.</p><br>
+
+
+
+
 <a  href="Review.php?SetID=<?php echo $SetID;?>"  class='btn btn-success' style='width:220px;'>Review Results</a><br><br>
 
 

@@ -53,31 +53,9 @@ if ( $USER->instructor ) {
 		
 		
 		 if ($hasRosters) {
-			 
-			 echo('<div class="row"><div class="col-sm-4"><h4>Student Name</h4></div><div class="col-md-6"><h4>Progress</h4></div></div>');
-
-        $rosterData = $GLOBALS['ROSTER']->data;
-
-        usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));
-	 
-		foreach($rosterData as $student) {
-            // Only want students				 
-				 
-				if ($student["role"] == 'Learner') {
-					echo('<div class="row">
-						<div class="col-sm-4">'.$student["person_name_family"].', '.$student["person_name_given"].'</div>');
-
-				}
-				 
-				 
-				 
-				 
-        }
-		
-		 
-
-		
-		
+		     $rosterData = $GLOBALS['ROSTER']->data;
+        	usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));
+	 		
 		
 		echo('          
           <div>
