@@ -67,10 +67,10 @@ class KC_DAO {
         $this->PDOX->queryDie($query, $arr);
     }
 
-    function createQuestion($SetID, $QNum, $Question, $Answer, $QType, $A, $B, $C, $D,$Point, $FR, $FW) {
+    function createQuestion($SetID, $QNum, $Question, $Answer, $QType, $A, $B, $C, $D,$Point, $FR, $FW, $RA) {
 		
-		$query = "INSERT INTO {$this->p}kc_questions (SetID, QNum, Question, Answer, QType, A, B, C, D,Point,FR,FW) VALUES (:SetID, :QNum, :Question, :Answer, :QType, :A, :B, :C, :D,:Point,:FR,:FW );";
-        $arr = array(':SetID' => $SetID, ':QNum' => $QNum, ':Question' => $Question, ':Answer' => $Answer, ':QType' => $QType, ':A' => $A,':B' => $B,':C' => $C,':D' => $D,':Point' => $Point,':FR' => $FR,':FW' => $FW);
+		$query = "INSERT INTO {$this->p}kc_questions (SetID, QNum, Question, Answer, QType, A, B, C, D,Point,FR,FW, RA) VALUES (:SetID, :QNum, :Question, :Answer, :QType, :A, :B, :C, :D,:Point,:FR,:FW,:RA);";
+        $arr = array(':SetID' => $SetID, ':QNum' => $QNum, ':Question' => $Question, ':Answer' => $Answer, ':QType' => $QType, ':A' => $A,':B' => $B,':C' => $C,':D' => $D,':Point' => $Point,':FR' => $FR,':FW' => $FW,':RA' => $RA);
         $this->PDOX->queryDie($query, $arr);
         return $this->PDOX->lastInsertId();
     }
@@ -85,9 +85,9 @@ class KC_DAO {
 	
 	
 	
-    function updateQuestion($QID, $Question, $Answer, $QType, $A, $B, $C, $D,$Point, $FR, $FW) {
-        $query = "UPDATE {$this->p}kc_questions set Question = :Question, Answer = :Answer, QType = :QType, A = :A, B = :B, C = :C, D = :D, Point = :Point, FR=:FR, FW=:FW where QID = :QID;";
-        $arr = array(':Question' => $Question, ':Answer' => $Answer, ':QType' => $QType, ':QID' => $QID, ':A' => $A,':B' => $B,':C' => $C,':D' => $D,':Point' => $Point,':FR' => $FR,':FW' => $FW);
+    function updateQuestion($QID, $Question, $Answer, $QType, $A, $B, $C, $D,$Point, $FR, $FW, $RA) {
+        $query = "UPDATE {$this->p}kc_questions set Question = :Question, Answer = :Answer, QType = :QType, A = :A, B = :B, C = :C, D = :D, Point = :Point, FR=:FR, FW=:FW, RA=:RA where QID = :QID;";
+        $arr = array(':Question' => $Question, ':Answer' => $Answer, ':QType' => $QType, ':QID' => $QID, ':A' => $A,':B' => $B,':C' => $C,':D' => $D,':Point' => $Point,':FR' => $FR,':FW' => $FW,':RA' => $RA);
         $this->PDOX->queryDie($query, $arr);
     }
 	

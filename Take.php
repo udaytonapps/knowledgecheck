@@ -73,7 +73,7 @@ if ($set["Random"]){shuffle($Arr_QID);}
 if ($shortCut == 0) {
         echo('
             <ul class="breadcrumb">
-                <li><a href="index.php">All knowledge check</a></li>
+                <li><a href="index.php">All Knowledge Checks</a></li>
                 <li>' .$set["KCName"].'</li>
             </ul>
         ');
@@ -99,6 +99,7 @@ for($i=0; $i<$Total; $i++){
 	foreach ( $each as $row ) {
 		
 		$QNum = $i+1;
+		$RA = $row["RA"];
 		$mChoice = array ( 
 			array("A",$row["A"]),array("B",$row["B"]),array("C",$row["C"]),array("D",$row["D"])
 		);
@@ -114,10 +115,11 @@ for($i=0; $i<$Total; $i++){
 		   echo($QNum.'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			if($row["QType"] =="Multiple"){	
-				shuffle($mChoice);				
+				
+				if($RA){shuffle($mChoice);}		
 				for($x=0; $x<4; $x++){
 				if($mChoice[$x][1] !=""){
-				echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';}
+					echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';}
 				}		
 				
 			}

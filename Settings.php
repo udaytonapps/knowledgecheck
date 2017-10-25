@@ -37,7 +37,7 @@ if ( $USER->instructor ) {
 
     echo('
             <ul class="breadcrumb">
-                <li><a href="index.php">All knowledge check</a></li>
+                <li><a href="index.php">All Knowledge Checks</a></li>
                 <li>'.$KCName.'</li>
             </ul>
         ');

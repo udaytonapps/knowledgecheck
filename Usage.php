@@ -30,12 +30,13 @@ if ( $USER->instructor ) {
     $set = $KC_DAO->getKC($SetID);
 		
     $Total = count($StudentList);
+	 $hasRosters = LTIX::populateRoster(false);
 
     include("menu.php");
 
     echo('
         <ul class="breadcrumb">
-            <li><a href="index.php">All knowledge check</a></li>
+            <li><a href="index.php">All Knowledge Checks</a></li>
             <li>' .$set["KCName"].'</li>
         </ul>
         
@@ -43,7 +44,7 @@ if ( $USER->instructor ) {
 
        
         
-        <h2> '.$set["KCName"].' KC Usage</h2>
+        <h2> '.$set["KCName"].' Usage</h2>
 		<a href="Export.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a>
     ');
 
@@ -55,7 +56,25 @@ if ( $USER->instructor ) {
 		echo ('<br><div class="panel " >');
 		
 		
-		
+		 if ($hasRosters) {
+			 
+			 echo('<div class="row"><div class="col-sm-4"><h4>Student Name</h4></div><div class="col-md-6"><h4>Progress</h4></div></div>');
+
+        $rosterData = $GLOBALS['ROSTER']->data;
+
+        usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));
+
+        foreach($rosterData as $student) {
+            // Only want students
+            if ($student["role"] == 'Learner') {
+                echo('<div class="row">
+                    <div class="col-sm-4">'.$student["person_name_family"].', '.$student["person_name_given"].'</div>');
+
+               
+            }
+        }
+			 
+		 }
 		
 		
 		

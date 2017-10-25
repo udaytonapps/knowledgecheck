@@ -63,7 +63,7 @@ $set = $KC_DAO->getKC($SetID);
 if ($shortCut == 0) {
         echo('
             <ul class="breadcrumb">
-                <li><a href="index.php">All knowledge check</a></li>
+                <li><a href="index.php">All Knowledge Checks</a></li>
                 <li>' .$set["KCName"].'</li>
             </ul>
         ');
@@ -107,7 +107,7 @@ foreach ( $Questions2 as $row2 ) {
  
 <div class="panel-body" >
 	<div class="col-sm-6 noPadding">                  
-	  	<h3 class="noPadding"><?php echo $set["KCName"];?> KC Review</h3>
+	  	<h3 class="noPadding"><?php echo $set["KCName"];?> Review</h3>
 		<h4>Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
 	</div>
 	
@@ -219,14 +219,14 @@ Highest Score: <?php echo $hScore;?></div>
             	<div class="col-sm-1 noPadding" style="text-align:right;  " >'.$row["Point"].$PTs.'</div>
 			
 			
-			            </div>
-			 <div class="panel-body" style="background-color:#D9E6FC; margin-left:40px;width:70%;padding:10px;" >
-				
-					<b>Feedback: </b>'.$Feedback.'
-			
-		   </div>
+			            </div>');
+						
 
-        ');
+			if($Feedback != ""){		
+			
+			 	echo ('<div class="panel-body" style="background-color:#D9E6FC; margin-left:40px;width:70%;padding:10px;" >			
+					<b>Feedback: </b>'.$Feedback.'</div>');
+			}
            
             
         }
