@@ -26,10 +26,10 @@ if ( $USER->instructor ) {
     $SetID = $_GET["SetID"];
 	$_SESSION["SetID"] = $SetID;
 
-    $StudentList = $KC_DAO->getStudentList($CONTEXT->id);
+   // $StudentList = $KC_DAO->getStudentList($CONTEXT->id);
     $set = $KC_DAO->getKC($SetID);
 		
-    $Total = count($StudentList);
+   // $Total = count($StudentList);
 	 $hasRosters = LTIX::populateRoster(false);
 
     include("menu.php");
@@ -63,23 +63,28 @@ if ( $USER->instructor ) {
         $rosterData = $GLOBALS['ROSTER']->data;
 
         usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));
+	 
+		foreach($rosterData as $student) {
+            // Only want students				 
+				 
+				if ($student["role"] == 'Learner') {
+					echo('<div class="row">
+						<div class="col-sm-4">'.$student["person_name_family"].', '.$student["person_name_given"].'</div>');
 
-        foreach($rosterData as $student) {
-            // Only want students
-            if ($student["role"] == 'Learner') {
-                echo('<div class="row">
-                    <div class="col-sm-4">'.$student["person_name_family"].', '.$student["person_name_given"].'</div>');
-
-               
-            }
+				}
+				 
+				 
+				 
+				 
         }
-			 
-		 }
+		
+		 
+
 		
 		
 		
 		echo('          
-          <div class="panel-body" style="padding-top:2px;border:1px lightblue solid; margin-bottom:-20px; height:25px;background-color:lightblue; font-weight:bold;">
+          <div>
 			
 			
 			<div class="col-sm-2 noPadding" >Student Name</div>
@@ -102,9 +107,9 @@ if ( $USER->instructor ) {
 		
 		echo ('<div class="panel " >');
 		
-        foreach ( $StudentList as $row ) {
+      foreach($rosterData as $row) {
 
-		
+		if ($student["role"] == 'Learner') {
 	
 			
 		
@@ -113,7 +118,7 @@ if ( $USER->instructor ) {
           <div class="panel-body" style="border:1px lightgray solid; ">
 			
 			
-			<div class="col-sm-2 noPadding" >'.$row["LastName"].', '.$row["FirstName"].'</div>
+			<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].'</div>
 			<div class="col-sm-2 noPadding" >');
             
 			
@@ -161,8 +166,10 @@ echo ('</div>
            
             $QNum++;
         }
+	  }
     }
     echo('</div>');
+ }
 }
 
 $OUTPUT->footerStart();
