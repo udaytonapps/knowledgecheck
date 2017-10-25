@@ -24,6 +24,13 @@ if ( $USER->instructor ) {
     $SetID = $_GET["SetID"];
 
     $questions = $KC_DAO->getQuestions($SetID);
+	
+	$tPoints=0;
+	foreach ( $questions as $row ) {
+		$tPoints = $tPoints + $row["Point"];
+	}
+	
+	
 
     $set = $KC_DAO->getKC($SetID);
 	
@@ -45,7 +52,7 @@ if ( $USER->instructor ) {
             <a class="btn btn-success" href="AddQType.php?SetID='.$SetID.'"><span class="fa fa-plus"></span> Add New Question</a>        
         </p>
         
-        <h2>Questions in "'.$set["KCName"].'" <span class="badge">'.$Total.' Questions</span></h2>
+        <h2>Questions in "'.$set["KCName"].'" <span style="float:right;padding:10px;font-size:12px; color:white; background-color:gray;">'.$Total.' Questions / '.$tPoints.' Points</span></h2>
     ');
 
     if ($Total == 0) {
@@ -79,19 +86,21 @@ if ( $USER->instructor ) {
             }
 
 			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">'.$QNum.'</div>
-			<div class="col-sm-5 noPadding" >
-                            
-        ');
-			$colorA=""; $colorB=""; $colorC=""; $colorD=""; 
+			<div class="col-sm-1 noPadding" style="width:30px;">');
+			$colorA=""; $colorB=""; $colorC=""; $colorD="";
+			if($row["Point"] == 1){$Msg2="Point";}
+			else{$Msg2 = "Points";}
+			
+			if($row["QType"] =="Multiple"){	$Msg="Multiple Choice - ".$row["Point"]." ".$Msg2;}
+			else{$Msg="True/False - ".$row["Point"]." ".$Msg2;}
+			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
+			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px;">'.$Msg.'</div>');
         	
-		   //echo($row["Question"].' ('.$row["Point"].')</div>
-		    echo($row["Question"].'</div>
-									
-            <div class="col-sm-4 " >');
+		  echo $row["Question"].'</div>	<div class="col-sm-4 " >';
 			
 			
-			if($row["QType"] =="Multiple"){
+			if($row["QType"] =="Multiple"){				
+				
 				if ($row["Answer"] =="A"){$colorA="style='color:red; font-weight:bold;'";}
 				else if ($row["Answer"] =="B"){$colorB="style='color:red; font-weight:bold;'";}
 				else if ($row["Answer"] =="C"){$colorC="style='color:red; font-weight:bold;'";}
