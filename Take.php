@@ -82,7 +82,7 @@ if ($shortCut == 0) {
     ?>
        
        
-<div class="row qRow">           
+<div class="row ">           
   <h3><?php echo $set["KCName"];?></h3>
     <form  method="post" action="actions/Take_Submit.php">
 
@@ -108,10 +108,11 @@ for($i=0; $i<$Total; $i++){
                    
           <div class="panel-body" >
 		
-			<div class="col-sm-6 noPadding">
+			<div class="col noPadding">
                             
         ');
-			
+		   if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
+		echo ('<span class="point" style="float:right; padding-left:10px; padding-bottom:10px;">'.$row["Point"].' '.$PTs.'</span>');
 		   echo($QNum.'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			if($row["QType"] =="Multiple"){	
@@ -129,12 +130,9 @@ for($i=0; $i<$Total; $i++){
 					');
 			}
 		   
-			if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
+		
 		   
-		   echo ('</div></div>									
-            	<div class="col-sm-1 noPadding" style="text-align:center; width:25px; " >'.$row["Point"].'</div>
-				
-				<div class="col-sm-1 noPadding" >'.$PTs.'</div>
+		   echo ('</div></div>
 			
             </div>
            
