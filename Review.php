@@ -48,12 +48,6 @@ if ( $USER->instructor ) {
     }
 }
 
-if(isset($_GET["ReviewMode"])){
-    $isReviewMode = $_GET["ReviewMode"];
-} else {
-    $isReviewMode = 0;
-}
-
 $SetID = $_GET["SetID"];
 $_SESSION["SetID"] = $SetID;
 $Questions = $KC_DAO->getQuestions($SetID);
@@ -71,7 +65,7 @@ if ($shortCut == 0) {
 
 $studentData = $KC_DAO->getUserData($SetID, $USER->id);
 $dateTime = new DateTime($studentData["Modified"]);
-$Last = $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
+$Last = $dateTime->format("m-d-y")." ".$dateTime->format("g:i A");
 $hScore = "";
 $tAttempts = $studentData["Attempt"];
 
@@ -106,19 +100,26 @@ foreach ( $Questions2 as $row2 ) {
 ?>
  
 <div class="panel-body" >
-	<div class="col-sm-6 noPadding">                  
+	<div class="col noPadding">                  
 	  	<h3 class="noPadding"><?php echo $set["KCName"];?> Review</h3>
 		<h4>Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
+		
+		
+		
+		<div class="Review">                  
+	  	Total number of attempts: <?php echo $tAttempts;?><br>
+Highest Score: <?php echo $hScore;?>
+	</div>
+		
 	</div>
 	
-	<div class="col-sm-3 " style="background-color:#12507C;color:white; font-size: 16px; padding:10px; ">                  
-	  	<div>Total number of attempts: <?php echo $tAttempts;?><br>
-Highest Score: <?php echo $hScore;?></div>
-	</div>
+	
 
 
 
 </div>
+
+ <div class="panel-body" >
 <?php
 
 	
@@ -137,12 +138,13 @@ Highest Score: <?php echo $hScore;?></div>
 		
 		echo('                      
                    
-          <div class="panel-body" >
+         
 		
-			<div class="col-sm-6 noPadding">
+			<div class="col noPadding">
                             
         ');
-			
+			  if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
+			echo ('<span class="point" >'.$row["Point"].' '.$PTs.'</span>');
 		   echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			$QID = $row["QID"];
@@ -213,24 +215,22 @@ Highest Score: <?php echo $hScore;?></div>
 			
 			
 		   
-			if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
+			
 		   
-		   echo ('</div></div>									
-            	<div class="col-sm-1 noPadding" style="text-align:right;  " >'.$row["Point"].$PTs.'</div>
-			
-			
-			            </div>');
+		   echo ('</div>');
 						
 
 			if($Feedback != ""){		
 			
-			 	echo ('<div class="panel-body" style="background-color:#D9E6FC; margin-left:40px;width:70%;padding:10px;" >			
+			 	echo ('<div class="col feedBack"  >	
+				
 					<b>Feedback: </b>'.$Feedback.'</div>');
 			}
            
-            
+     
         }
-
+	   echo "</div>";  
+  
 ?><br>
 
 <?php	 
