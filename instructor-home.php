@@ -4,11 +4,11 @@ echo('<h2>Knowledge Check');
 
 $linkId = $LINK->id;
 
-$shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
+$newSetID = $KC_DAO->getSetIDForLink($linkId);
 
-if (isset($shortcut["SetID"])) {
-    $shortcutSet = $KC_DAO->getKC($shortcut["SetId"]);
-    echo('<br /><small><span class="fa fa-link"></span> This instance of knowledge check is linked to <a href="Take.php?SetID='.$shortcut["SetID"].'">'.$shortcutSet["KCName"].'</a>.</small>');
+if (isset($newSetID["SetID"])) {
+    $newKC = $KC_DAO->getKC($newSetID["SetID"]);	
+    echo('<br /><small><span class="fa fa-link"></span> '.$newKC["KCName"].' is linked.</small>');
 }
 
 echo('</h2>');
