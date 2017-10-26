@@ -49,9 +49,10 @@ $DATABASE_INSTALL = array(
     A        varchar(255) NULL,
     B        varchar(255) NULL,
     C        varchar(255) NULL,
-    D     varchar(255) NULL,
+    D     varchar(255) NULL,	
     Modified    datetime NULL,
     QType       varchar(10) DEFAULT 'Text',
+	RA      int(1) DEFAULT '0',
   
     CONSTRAINT `{$CFG->dbprefix}kc_ibfk_1`
         FOREIGN KEY (`SetID`)
