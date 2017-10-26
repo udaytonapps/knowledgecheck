@@ -58,28 +58,7 @@ if ( $USER->instructor ) {
 
         $rosterData = $GLOBALS['ROSTER']->data;
 
-        usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));
-	 
-			 
-	/*		 
-		foreach($rosterData as $student) {
-            // Only want students				 
-				 
-				if ($student["role"] == 'Learner') {
-					echo('<div class="row">
-						<div class="col-sm-4">'.$student["person_name_family"].', '.$student["person_name_given"].'</div>');
-
-				}
-				 
-				 
-				 
-				 
-        }
-		
-		 
-*/
-		
-		
+        usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));	
 		
 		echo('          
           <div>
@@ -113,11 +92,9 @@ if ( $USER->instructor ) {
 		
 		echo('                      
                    
-          <div class="panel-body" style="border:1px lightgray solid; ">
-			
-			
-			<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].'</div>
-			<div class="col-sm-2 noPadding" >');
+ <div class="panel-body" style="border:1px lightgray solid; ">
+	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].' (user_id: '.$row["user_id"].')</div>
+		<div class="col-sm-2 noPadding" >');
             
 			
 		$studentData = $KC_DAO->getUserData($SetID, $row["user_id"]);
