@@ -25,12 +25,16 @@ if ( $USER->instructor ) {
 
     $exportFile = new PHPExcel();
 
-    $exportFile->setActiveSheetIndex(0)
-                    ->setCellValue('A1', 'Student Name');
+    
+    $exportFile->setActiveSheetIndex(0)->setCellValue('A1', 'Student Name');
+	$exportFile->setActiveSheetIndex(0)->setCellValue('B1', 'Attempts');
+	$exportFile->setActiveSheetIndex(0)->setCellValue('C1', 'Best Score');
+
+	
 
     $hasRosters = LTIX::populateRoster(false);
 
-    if ($hasRosters) {
+ if ($hasRosters) {
 
         $rosterData = $GLOBALS['ROSTER']->data;
 
@@ -40,81 +44,53 @@ if ( $USER->instructor ) {
         $columnIterator->next();
 
 
-            $rowCounter = 2;
-
-            foreach($rosterData as $student) {
+      $rowCounter = 2;
+   foreach($rosterData as $student) {
 
                 // Only want students
-                if ($student["role"] == 'Learner') {
-                    $exportFile->getActiveSheet()
-                        ->setCellValue('A'.$rowCounter, $student["person_name_family"].', '.$student["person_name_given"]);
+       if ($student["role"] == 'Learner') {
+		   $exportFile->getActiveSheet()->setCellValue('A'.$rowCounter, $student["person_name_family"].', '.$student["person_name_given"]);
 
-                   
+			$studentData = $KC_DAO->getUserData($SetID, $row["user_id"]);
+			$tAttempts = $studentData["Attempt"];		
+			$exportFile->getActiveSheet()->setCellValue('B'.$rowCounter, $tAttempts);
 					
+	
 					
-					
-					
-					
-					//-----------------------------------------------------------------------
-					
-					
-					
-					
-					
-								
-		$studentData = $KC_DAO->getUserData($SetID, $row["user_id"]);
-		$tAttempts = $studentData["Attempt"];	
-		
-//		echo $tAttempts;	
-					
-		$exportFile->getActiveSheet()
-                        ->setCellValue('B'.$rowCounter, $tAttempts);
-					
-	/*				
-		if($tAttempts){			
-				$Arr_Score = array();
+			$Arr_Score = array();
+			$Max = "";			
+	
+		for ($i = 1; $i <=  $tAttempts ; $i++) {
 
-				for ($i = 1; $i <=  $tAttempts ; $i++) {
 
-					$Score=0;		
-					$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
-					foreach ( $Questions as $row2 ) {
+			$Score=0;		
+			$Questions = $KC_DAO->getQuestions($SetID);
+			foreach ( $Questions as $row2 ) {
 
-						$QID = $row2["QID"];
-						$reviewData = $KC_DAO->Review($QID, $row["user_id"], $i);
-						if ($row2["Answer"]== $reviewData["Answer"]){
-						 $Score = $Score + $row2["Point"];				
+				$QID = $row2["QID"];
+				$reviewData = $KC_DAO->Review($QID, $row["UserID"], $i);
+				if ($row2["Answer"]== $reviewData["Answer"]){
+				 $Score = $Score + $row2["Point"];				
 
-						}
-
-					}
-
-					array_push($Arr_Score,$Score);	
 				}
 
-				echo max($Arr_Score); 
+			}
+
+			array_push($Arr_Score,$Score);	
 		}
-					
-					
-	*/			
-					
-					
-		
 
-                   // if($completed) {
-                    //    $exportFile->getActiveSheet()->setCellValue($columnIterator->current()->getColumnIndex().$rowCounter, 'X');
-                   // }
-
-                    $rowCounter++;
-                }
-            }
+			if($tAttempts) {$Max =  max($Arr_Score);}
+  			$exportFile->getActiveSheet()->setCellValue('C'.$rowCounter, $Max);
+			$rowCounter++;
+      }
+    }
             $columnIterator->next();
 
         $exportFile->getActiveSheet()->setTitle('Knowledge Check');
 
         // Redirect output to a client’s web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="KC_activity.xls"');
+        header('Content-Disposition: attachment;filename="'.$set["KCName"].'.xls"');
         header('Cache-Control: max-age=0');
         // If you're serving to IE over SSL, then the following may be needed
         header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
