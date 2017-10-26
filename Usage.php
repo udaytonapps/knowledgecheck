@@ -45,7 +45,7 @@ if ( $USER->instructor ) {
        
         
         <h2> '.$set["KCName"].' Usage</h2>
-		<a href="Export.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a>
+		<a href="actions/ExportToFile.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a>
     ');
      
       
@@ -120,8 +120,9 @@ if ( $USER->instructor ) {
 			<div class="col-sm-2 noPadding" >');
             
 			
+		$studentData = $KC_DAO->getUserData($SetID, $row["user_id"]);
 			
-		$studentData = $KC_DAO->getUserData($SetID, $row["UserID"]);
+			//$studentData = $KC_DAO->getUserData($SetID, $row["UserID"]);
 
 
 $tAttempts = $studentData["Attempt"];	
@@ -141,7 +142,7 @@ if($tAttempts){
 			foreach ( $Questions as $row2 ) {
 
 				$QID = $row2["QID"];
-				$reviewData = $KC_DAO->Review($QID, $row["UserID"], $i);
+				$reviewData = $KC_DAO->Review($QID, $row["user_id"], $i);
 				if ($row2["Answer"]== $reviewData["Answer"]){
 				 $Score = $Score + $row2["Point"];				
 
