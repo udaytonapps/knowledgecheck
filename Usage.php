@@ -88,16 +88,16 @@ if ( $USER->instructor ) {
 
 		if ($row["role"] == 'Learner') {
 	
-			
+			$UserID = $KC_DAO->findUserID($row["user_id"]);	
 		
 		echo('                      
                    
  <div class="panel-body" style="border:1px lightgray solid; ">
-	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].' (user_id: '.$row["user_id"].')</div>
+	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].' (user_id: '.$UserID.')</div>
 		<div class="col-sm-2 noPadding" >');
             
 		
-		$UserID = $KC_DAO->findUserID($row["person_name_family"],$row["person_name_given"]);	
+		
 		$studentData = $KC_DAO->getUserData($SetID, $UserID);
 		$tAttempts = $studentData["Attempt"];	
 		

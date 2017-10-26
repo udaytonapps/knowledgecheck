@@ -51,7 +51,7 @@ if ( $USER->instructor ) {
        if ($student["role"] == 'Learner') {
 		   $exportFile->getActiveSheet()->setCellValue('A'.$rowCounter, $student["person_name_family"].', '.$student["person_name_given"]);
 
-			$UserID = $KC_DAO->findUserID($row["LastName"],$row["FirstName"]);	
+			$UserID = $KC_DAO->findUserID($student["user_id"]);	
 			$studentData = $KC_DAO->getUserData($SetID, $UserID);
 			$tAttempts = $studentData["Attempt"];		
 			$exportFile->getActiveSheet()->setCellValue('B'.$rowCounter, $tAttempts);
