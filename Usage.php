@@ -54,9 +54,7 @@ if ( $USER->instructor ) {
 		
 		 if ($hasRosters) {
 			 
-			 echo('<div class="row"><div class="col-sm-4"><h4>Student Name</h4></div><div class="col-md-6"><h4>Progress</h4></div></div>');
-
-        $rosterData = $GLOBALS['ROSTER']->data;
+		$rosterData = $GLOBALS['ROSTER']->data;
 
         usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));	
 		
@@ -93,7 +91,7 @@ if ( $USER->instructor ) {
 		echo('                      
                    
  <div class="panel-body" style="border:1px lightgray solid; ">
-	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].' (user_id: '.$UserID.')</div>
+	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].')</div>
 		<div class="col-sm-2 noPadding" >');
             
 		
