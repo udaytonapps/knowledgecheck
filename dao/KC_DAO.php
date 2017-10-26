@@ -262,6 +262,14 @@ function updateQNumber($QID, $QNum) {
 }
 	
 	
+function findUserID($LastName, $FirstName) {
+        $query = "SELECT UserID FROM {$this->p}kc_students WHERE LastName = :LastName AND FirstName = :FirstName;";
+        $arr = array(':LastName' => $LastName,':FirstName' => $FirstName);        
+        $context = $this->PDOX->rowDie($query, $arr);
+        return $context["UserID"];
+}
+	
+	
 	
 	
 	

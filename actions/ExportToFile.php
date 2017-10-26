@@ -16,9 +16,9 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 
 if ( $USER->instructor ) {
 
-    $setId = $_SESSION["SetID"];
-    $set = $KC_DAO->getKC($setId);
-    $questions = $KC_DAO->getQuestions($setId);
+    $SetID = $_SESSION["SetID"];
+    $set = $KC_DAO->getKC($SetID);
+    $questions = $KC_DAO->getQuestions($SetID);
 
 
     $Total = count($questions);
@@ -51,7 +51,8 @@ if ( $USER->instructor ) {
        if ($student["role"] == 'Learner') {
 		   $exportFile->getActiveSheet()->setCellValue('A'.$rowCounter, $student["person_name_family"].', '.$student["person_name_given"]);
 
-			$studentData = $KC_DAO->getUserData($SetID, $row["user_id"]);
+			$UserID = $KC_DAO->findUserID($row["LastName"],$row["FirstName"]);	
+			$studentData = $KC_DAO->getUserData($SetID, $UserID);
 			$tAttempts = $studentData["Attempt"];		
 			$exportFile->getActiveSheet()->setCellValue('B'.$rowCounter, $tAttempts);
 					
@@ -68,7 +69,7 @@ if ( $USER->instructor ) {
 			foreach ( $Questions as $row2 ) {
 
 				$QID = $row2["QID"];
-				$reviewData = $KC_DAO->Review($QID, $row["UserID"], $i);
+				$reviewData = $KC_DAO->Review($QID,  $UserID, $i);
 				if ($row2["Answer"]== $reviewData["Answer"]){
 				 $Score = $Score + $row2["Point"];				
 

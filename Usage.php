@@ -96,13 +96,10 @@ if ( $USER->instructor ) {
 	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].' (user_id: '.$row["user_id"].')</div>
 		<div class="col-sm-2 noPadding" >');
             
-			
-		$studentData = $KC_DAO->getUserData($SetID, $row["user_id"]);
-			
-			//$studentData = $KC_DAO->getUserData($SetID, $row["UserID"]);
-
-
-$tAttempts = $studentData["Attempt"];	
+		
+		$UserID = $KC_DAO->findUserID($row["person_name_family"],$row["person_name_given"]);	
+		$studentData = $KC_DAO->getUserData($SetID, $UserID);
+		$tAttempts = $studentData["Attempt"];	
 		
 echo $tAttempts;
 			
@@ -119,7 +116,8 @@ if($tAttempts){
 			foreach ( $Questions as $row2 ) {
 
 				$QID = $row2["QID"];
-				$reviewData = $KC_DAO->Review($QID, $row["user_id"], $i);
+				
+				$reviewData = $KC_DAO->Review($QID, $UserID, $i);
 				if ($row2["Answer"]== $reviewData["Answer"]){
 				 $Score = $Score + $row2["Point"];				
 
