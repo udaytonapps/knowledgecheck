@@ -29,7 +29,7 @@ if ( $USER->instructor ) {
     $exportFile->setActiveSheetIndex(0)->setCellValue('A1', 'Student Name');
 	$exportFile->setActiveSheetIndex(0)->setCellValue('B1', 'Attempts');
 	$exportFile->setActiveSheetIndex(0)->setCellValue('C1', 'Best Score');
-	$exportFile->setActiveSheetIndex(0)->setCellValue('C1', 'Score (Date)');
+	$exportFile->setActiveSheetIndex(0)->setCellValue('D1', 'Score (Date)');
 
 	
 
@@ -94,17 +94,15 @@ if ( $USER->instructor ) {
 		   
 		   for ($i = 0; $i <  count($Arr_Attempt) ; $i++) {
 		
-				$Detail = $Detail + $Arr_Score[$i]." (".$Arr_date[$i].")<br>";
+			   $Detail = $Arr_Score[$i]." (".$Arr_date[$i].")";
+			   $exportFile->getActiveSheet()->setCellValue('D'.$rowCounter, $Detail);	   
+			   $rowCounter++;
 		
 			}
 		   
 		   
-		   $exportFile->getActiveSheet()->setCellValue('D'.$rowCounter, $Detail);
-		   
-		   
-		   
-		   
-			$rowCounter++;
+		   //$exportFile->getActiveSheet()->setCellValue('D'.$rowCounter, $Detail);	   
+			//$rowCounter++;
       }
     }
             $columnIterator->next();
