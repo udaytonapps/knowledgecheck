@@ -11,8 +11,8 @@ class KC_DAO {
         $this->p = $p;
     }
 
-    function getShortcutSetIdForLink($link_id) {
-        $query = "SELECT SetId FROM {$this->p}kc_link WHERE link_id = '".$link_id."';";
+    function getSetIDForLink($link_id) {
+        $query = "SELECT * FROM {$this->p}kc_link WHERE link_id = '".$link_id."';";
         return $this->PDOX->rowDie($query);
     }
 
@@ -29,6 +29,12 @@ class KC_DAO {
     function getAll_VisibleKC($context_id) {
         $query = "SELECT * FROM {$this->p}kc_main where context_id = :contextId AND Active=1 AND Visible=1 ORDER BY KCName;";
         $arr = array(':contextId' => $context_id);
+        return $this->PDOX->allRowsDie($query, $arr);
+    }
+	
+	function getOneKC($SetID) {
+        $query = "SELECT * FROM {$this->p}kc_main where SetID = :SetID AND Active=1 AND Visible=1 ORDER BY KCName;";
+        $arr = array(':SetID' => $SetID);
         return $this->PDOX->allRowsDie($query, $arr);
     }
 

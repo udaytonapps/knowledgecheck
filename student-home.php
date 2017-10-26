@@ -10,7 +10,11 @@ echo('
     </nav>
 ');
 
-$visibleSets = $KC_DAO->getAll_VisibleKC($CONTEXT->id);
+
+ if (isset($newSetID["SetID"])) {$visibleSets = $KC_DAO->getOneKC($newSetID["SetID"]); }
+ else{$visibleSets = $KC_DAO->getAll_VisibleKC($CONTEXT->id);}
+
+
 
 
 if (count($visibleSets) == 0) {

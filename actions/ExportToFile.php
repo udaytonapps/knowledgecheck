@@ -29,6 +29,7 @@ if ( $USER->instructor ) {
     $exportFile->setActiveSheetIndex(0)->setCellValue('A1', 'Student Name');
 	$exportFile->setActiveSheetIndex(0)->setCellValue('B1', 'Attempts');
 	$exportFile->setActiveSheetIndex(0)->setCellValue('C1', 'Best Score');
+	$exportFile->setActiveSheetIndex(0)->setCellValue('C1', 'Score (Date)');
 
 	
 
@@ -59,6 +60,8 @@ if ( $USER->instructor ) {
 	
 					
 			$Arr_Score = array();
+		    $Arr_date = array();
+		    $Arr_Attempt = array();
 			$Max = "";			
 	
 		for ($i = 1; $i <=  $tAttempts ; $i++) {
@@ -70,6 +73,8 @@ if ( $USER->instructor ) {
 
 				$QID = $row2["QID"];
 				$reviewData = $KC_DAO->Review($QID,  $UserID, $i);
+				$dateTime = new DateTime($studentData["Modified"]);
+				$Date1 =  $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
 				if ($row2["Answer"]== $reviewData["Answer"]){
 				 $Score = $Score + $row2["Point"];				
 
@@ -77,11 +82,28 @@ if ( $USER->instructor ) {
 
 			}
 
+			array_push($Arr_Attempt, $i);
 			array_push($Arr_Score,$Score);	
+			array_push($Arr_date,$Date1);	
 		}
 
 			if($tAttempts) {$Max =  max($Arr_Score);}
   			$exportFile->getActiveSheet()->setCellValue('C'.$rowCounter, $Max);
+		   
+		   $Detail = "";
+		   
+		   for ($i = 0; $i <  count($Arr_Attempt) ; $i++) {
+		
+				$Detail = $Detail + $Arr_Score[$i]." (".$Arr_date[$i].")<br>";
+		
+			}
+		   
+		   
+		   $exportFile->getActiveSheet()->setCellValue('D'.$rowCounter, $Detail);
+		   
+		   
+		   
+		   
 			$rowCounter++;
       }
     }
