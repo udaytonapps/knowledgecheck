@@ -134,7 +134,8 @@ h5{height:35px; background-color: lightgray; padding-left:10px; margin:0; vertic
 .feedBack{background-color:#D9E6FC; margin-left:12px;margin-bottom:15px; margin-top:5px; width: calc(100% - 12px) !important; padding:8px;}
 .UsageHeading{padding-top:2px;border:1px lightgray solid; margin-bottom:-20px; height:25px;background-color:lightblue; font-weight:bold;}
 
-.form-control.answer{margin-left:40px; margin-top:-28px;width: calc(100% - 40px); height: 30px;}	
+.form-control.answer{margin-left:40px; margin-top:-28px;width: calc(100% - 40px); height: 30px;}
+.form-control.answer2{margin-left:40px; margin-top:-28px;width: calc(100% - 40px); height: 30px;}
 .ML{margin-left: 40px;}
 
 
