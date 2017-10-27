@@ -16,6 +16,7 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 $OUTPUT->header();
 
 include("tool-header.html");
+include("tool-js.html");
 
 $OUTPUT->bodyStart();
 
@@ -85,7 +86,7 @@ if ( $USER->instructor ) {
 
                 <input class="btn btn-primary" type="submit" value="Update Knowledge Check" />
                 <a href="index.php" class="btn btn-danger">Cancel</a>
-                <a href="actions/deleteKC.php?SetID=<?php echo($SetID); ?>" class="btn btn-danger pull-right" onclick="return ConfirmdeleteKC();"><span class="fa fa-trash-o"></span> Delete</a>
+                <a href="actions/DeleteKC.php?SetID=<?php echo($SetID); ?>" class="btn btn-danger pull-right" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span> Delete</a>
             </div>
         </div>
     </form>
