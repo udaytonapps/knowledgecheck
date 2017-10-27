@@ -23,18 +23,21 @@ $OUTPUT->bodyStart();
 if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
-	$_SESSION["SetID"] =  $_GET["SetID"];
-    $questions = $KC_DAO->getQuestions($SetID);
+
+    $rows = $KC_DAO->getQuestions($SetID);
 	
 	$tPoints=0;
-	foreach ( $questions as $row ) {
+	foreach ( $rows as $row ) {
 		$tPoints = $tPoints + $row["Point"];
 	}
 	
 	
 
-    $set = $KC_DAO->getKC($SetID);		
-    $Total = count($questions);
+    $set = $KC_DAO->getKC($SetID);
+	
+	$_SESSION["SetID"] = $set["SetID"];
+	
+    $Total = count($rows);
 	
     $Next = $Total + 1;
 	$_SESSION["Next"] = $Next;
@@ -62,11 +65,22 @@ if ( $USER->instructor ) {
         <h2>Questions in "'.$set["KCName"].'" <span style="float:right;padding:10px;font-size:12px; color:white; background-color:gray;">'.$Total.' Questions / '.$tPoints.' Points</span></h2>
     ');
 
-    if ($Total == 0) {
-		
-		
-		if(isset($_GET["QType"])){
-	echo('<form method="post" action="actions/AddQ_Submit.php">
+
+     //   
+        $QNum = 1;
+		echo ('<div class="panel panel-default " style="border:0px; ">');
+        foreach ( $rows as $row ) {
+
+			
+			
+					
+// edit --------------------------------------------------------------------------------------------------------------------------------------
+	
+	
+if($_GET["QID"] == $row["QID"]){
+	echo (' 	<form method="post" action="actions/EditQ_Submit.php">');	
+	echo('
+
 	<div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
 			
 			<div class="col-sm-1 noPadding" >');
@@ -77,27 +91,30 @@ if ( $USER->instructor ) {
 			
 			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice - ";}
 			else{$Msg="True/False - ";}
-			echo '<h3>1</h3></div><div class="col-sm-5 noPadding" >';
-			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px; width:195px;">'.$Msg.' <span style="float:right">  Point(s)</span><input class="form-control" id="ex1" type="text" name="Point" style="width:30px; height:25px; text-align:center; margin-top:-25px;margin-left:110px;padding:0px;">
+			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
+			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px; width:195px;">'.$Msg.' <span style="float:right">  Point(s)</span><input class="form-control" id="ex1" type="text" value="'.$row["Point"].'" name="Point" style="width:30px; height:25px; text-align:center; margin-top:-25px;margin-left:110px;padding:0px;">
 			</div>');
         	
-		  echo '<textarea class="form-control" name="Question" id="Question" rows="2" autofocus required></textarea><br>
+		  echo '<textarea class="form-control" name="Question" id="Question" rows="2" autofocus required>'.$row["Question"].'</textarea><br>
 
 	      
 		  
 		  <div id="flip2">
-            <p class="btn btn-default">Add Feedback</p>
+            <p class="btn btn-default">Edit Feedback</p>
         </div>
 		<div id="panel2">
                   	  <br>
 
                     <label class="control-label" for="FR">Correct Feedback</label>
-                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus ></textarea><br>
+                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus >'.$row["FR"].'</textarea><br>
 
               
                 
                     <label class="control-label" for="FR">Incorrect Feedback</label>
-                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus ></textarea>
+                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus >'.$row["FW"].'</textarea>
+               
+				
+
             </div>
 </div>
 
@@ -108,25 +125,32 @@ if ( $USER->instructor ) {
 			
 			if($_GET["QType"] =="Multiple"){				
 				
-			echo('
-			 <div style="padding:5px;"><input type="radio" value="A" name="Answer" >A. <input class="form-control answer" name="A" id="A" value=""></div>
+			?>
+			
+			
+                   
+                   
+			 <div style="padding:5px;">
+			 	<input type="radio" value="A" name="Answer" <?php if($row["Answer"] == "A"){?>checked <?php } ?>> 
+                   A. <input class="form-control answer" name="A" id="A" value="<?php echo($row["A"]); ?>">			 	
+			 </div>
 <div style="padding:5px;">
-                   <input type="radio" value="B" name="Answer"> 
-                   B. <input class="form-control answer" name="B" id="B" value=""></div>
+                    <input type="radio" value="B" name="Answer" <?php if($row["Answer"] == "B"){?>checked <?php } ?>> 
+                   B. <input class="form-control answer" name="B" id="B" value="<?php echo($row["B"]); ?>">
+                   
+                   </div>
 <div style="padding:5px;">
-                   <input type="radio" value="C" name="Answer">
-                   C. <input class="form-control answer" name="C" id="C" value=""></div>
+                  <input type="radio" value="C" name="Answer" <?php if($row["Answer"] == "C"){?>checked <?php } ?>>
+                   C. <input class="form-control answer" name="C" id="C" value="<?php echo($row["C"]); ?>">
+                  </div>
 <div style="padding:5px;">
-                   <input type="radio" value="D" name="Answer" > 
-                   D. <input class="form-control answer" name="D" id="D" value=""></div>
+                   <input type="radio" value="D" name="Answer" <?php if($row["Answer"] == "D"){?>checked <?php } ?>> 
+                   D. <input class="form-control answer" name="D" id="D" value="<?php echo($row["D"]); ?>"></div>
 
                   
-                  <div class="ML"><input type="checkbox" value="1" name="RA">  Randomize Answers</div>  
+                  <div class="ML"><input type="checkbox" value="1" name="RA" <?php if($row["RA"]){?>checked <?php } ?>>  Randomize Answers</div>
 			
-			
-			');	
-				
-				
+			<?php	
 				
 				
 				
@@ -148,7 +172,7 @@ if ( $USER->instructor ) {
 		
 				
 			
-			   <input type="hidden" name="SetID" value="'.$_GET["SetID"].'"/>               
+			   <input type="hidden" name="QID" value="'.$_GET["QID"].'"/>               
                  <input type="hidden" name="QType" value="'.$_GET["QType"].'"/>
                  <input type="hidden" name="QNum" value="'.$_SESSION["Next"].'"/>
 
@@ -156,30 +180,53 @@ if ( $USER->instructor ) {
 			
 			</div>			
 			<div class="col-sm-1 noPadding" style="float:right; width:120px;">
-			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$SetID.'"><span class="fa fa-ban"></span></a>
+			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$row["SetID"].'"><span class="fa fa-ban"></span></a>
             <input type="submit" class="btn btn-primary pull-right" value="submit">
 			</div>
 							
                     
                 </div>
-				</form>
            
 
         ');
 		
+		echo ('</form>');
+}else{
 	
-		}else{
-			 echo('<p><em>There are currently no questions in this knowledge check.</em></p>');
-		}
+			//---------------------------
 		
+	
 		
-       
-    } else {
-     //   
-        $QNum = 1;
-		echo ('<div class="panel panel-default " style="border:0px; ">');
-        foreach ( $questions as $row ) {
-
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		
 		echo('                      
                    
@@ -259,125 +306,11 @@ if ( $USER->instructor ) {
            
             $QNum++;
         }
-		
-// add new --------------------------------------------------------------------------------------------------------------------------------------
-echo (' 	<form method="post" action="actions/AddQ_Submit.php">');		
-	
-if(isset($_GET["QType"])){
-	echo('
-
-	<div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
-			
-			<div class="col-sm-1 noPadding" >');
-			
-			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
-			
-			
-			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice - ";}
-			else{$Msg="True/False - ";}
-			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
-			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px; width:195px;">'.$Msg.' <span style="float:right">  Point(s)</span><input class="form-control" id="ex1" type="text" name="Point" style="width:30px; height:25px; text-align:center; margin-top:-25px;margin-left:110px;padding:0px;">
-			</div>');
-        	
-		  echo '<textarea class="form-control" name="Question" id="Question" rows="2" autofocus required></textarea><br>
-
-	      
-		  
-		  <div id="flip2">
-            <p class="btn btn-default">Add Feedback</p>
-        </div>
-		<div id="panel2">
-                  	  <br>
-
-                    <label class="control-label" for="FR">Correct Feedback</label>
-                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus ></textarea><br>
-
-              
-                
-                    <label class="control-label" for="FR">Incorrect Feedback</label>
-                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus ></textarea>
-               
-				
-
-            </div>
-</div>
-
-
-
-		  <div class="col-sm-4 " >';
-			
-			
-			if($_GET["QType"] =="Multiple"){				
-				
-			echo('
-			 <div style="padding:5px;"><input type="radio" value="A" name="Answer" >A. <input class="form-control answer" name="A" id="A" value=""></div>
-<div style="padding:5px;">
-                   <input type="radio" value="B" name="Answer"> 
-                   B. <input class="form-control answer" name="B" id="B" value=""></div>
-<div style="padding:5px;">
-                   <input type="radio" value="C" name="Answer">
-                   C. <input class="form-control answer" name="C" id="C" value=""></div>
-<div style="padding:5px;">
-                   <input type="radio" value="D" name="Answer" > 
-                   D. <input class="form-control answer" name="D" id="D" value=""></div>
-
-                  
-                  <div class="ML"><input type="checkbox" value="1" name="RA">  Randomize Answers</div>  
-			
-			
-			');	
-				
-				
-				
-				
-				
-			}
-			else {
-				
-				
-								
-				echo('	
-				 <input type="radio" value="True" name="Answer" > True<br>
-
-  					<input type="radio" value="False" name="Answer"> False
-					');
-			}
-			
-	
-			echo ('
-			
-		
-				
-			
-			   <input type="hidden" name="SetID" value="'.$_GET["SetID"].'"/>               
-                 <input type="hidden" name="QType" value="'.$_GET["QType"].'"/>
-                 <input type="hidden" name="QNum" value="'.$_SESSION["Next"].'"/>
-
-			
-			
-			</div>			
-			<div class="col-sm-1 noPadding" style="float:right; width:120px;">
-			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$row["SetID"].'"><span class="fa fa-ban"></span></a>
-            <input type="submit" class="btn btn-primary pull-right" value="submit">
-			</div>
-							
-                    
-                </div>
-           
-
-        ');
-		
-	
 		}
-			//---------------------------
-		
-		echo ('</form>');
-		
 		
     }
     echo('</div>');
-}
+
 
 $OUTPUT->footerStart();
 

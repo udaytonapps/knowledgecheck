@@ -101,8 +101,8 @@ foreach ( $Questions2 as $row2 ) {
  
 <div class="panel-body" >
 	<div class="col noPadding">                  
-	  	<h3 class="noPadding"><?php echo $set["KCName"];?> Review</h3>
-		<h4>Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
+	  	<h3 class="noPadding"><span class="fa fa fa-flag"></span> <?php echo $set["KCName"];?> Review</h3>
+		<h4 style="margin-left: 29px;font-size: 16px;">Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
 		
 		
 		

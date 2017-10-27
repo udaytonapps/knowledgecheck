@@ -139,11 +139,12 @@ h5{height:35px; background-color: lightgray; padding-left:10px; margin:0; vertic
 .ML{margin-left: 40px;}
 
 
-.Review{ float:right; background-color:#12507C;color:white; font-size: 16px; padding:10px;margin-top:-50px;}
+.Review{ float:right; background-color:#12507C;color:white; font-size: 16px; padding:10px;margin-top:-60px;}
 
 @media only screen and (max-width : 550px) {
     .Review{float:left;  background-color:#12507C;color:white; font-size: 16px; padding:10px;margin-top:10px;}
 }
 
-
+.filter{margin:2px; }
+.filterH{height:25px;}
 

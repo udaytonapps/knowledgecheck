@@ -83,7 +83,7 @@ if ($shortCut == 0) {
        
        
 <div class="row ">           
-  <h3><?php echo $set["KCName"];?></h3>
+  <h3><span class="fa fa-check-square-o"></span> <?php echo $set["KCName"];?></h3>
     <form  method="post" action="actions/Take_Submit.php">
 
 

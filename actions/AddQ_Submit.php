@@ -16,6 +16,7 @@ $QType = $_POST["QType"];
 $Point = $_POST["Point"];
 $FR = $_POST["FR"];
 $FW = $_POST["FW"];
+$RA = $_POST["RA"];
 
 $FR = str_replace("'", "&#39;", $_POST["FR"]);
 $FW = str_replace("'", "&#39;", $_POST["FW"]);
@@ -34,10 +35,10 @@ if ( $USER->instructor ) {
 		$B=$_POST["B"];$B = str_replace("'", "&#39;", $_POST["B"]);
 		$C=$_POST["C"];$C = str_replace("'", "&#39;", $_POST["C"]);
 		$D=$_POST["D"];$D = str_replace("'", "&#39;", $_POST["D"]);
-		$KC_DAO->createQuestion($SetID, $QNum, $Question, $Answer, $QType,$A, $B, $C, $D, $Point, $FR, $FW);
+		$KC_DAO->createQuestion($SetID, $QNum, $Question, $Answer, $QType,$A, $B, $C, $D, $Point, $FR, $FW, $RA);
 	}
 	
-	else if ($QType == "True/False"){$KC_DAO->createQuestion2($SetID, $QNum, $Question, $Answer, $QType, $Point, $FR, $FW);}
+	else if ($QType == "True/False"){$KC_DAO->createQuestion2($SetID, $QNum, $Question, $Answer, $QType, $Point, $FR, $FW, $RA);}
 	   
     header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
 	

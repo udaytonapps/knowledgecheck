@@ -44,8 +44,9 @@ if ( $USER->instructor ) {
 
        
         
-        <h2> '.$set["KCName"].' Usage</h2>
-		<a href="actions/ExportToFile.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a>
+        <h3><span class="fa fa-bar-chart"></span>  '.$set["KCName"].' Usage</h3>
+		<div class="row" style="max-width:600px;">
+		<a href="actions/ExportToFile.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a></div>
     ');
      
       
@@ -59,87 +60,84 @@ if ( $USER->instructor ) {
         usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));	
 		
 		echo('          
-          <div>
-			
-			
-			<div class="col-sm-2 noPadding" >Student Name</div>
-			<div class="col-sm-2 noPadding" >
-             Attempts               
-        </div>
-									
-            <div class="col-sm-2 " >
-			Best Score
-			
-			</div>
-										
-                    
-                </div></div>
+         <div class="row" style="max-width:600px;">
+       <div class="panel panel-default filterable">                 
+          
+            
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                       
+                        
+                        <th><input type="text" class="form-control" placeholder="Student Name" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Attempt" disabled></th>
+						<th><input type="text" class="form-control" placeholder="Best Score" disabled></th>
+                        <th>
+                        <button class="btn btn-default btn-xs btn-filter pull-right filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                        
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
            
 
         ');
 		
-		
-		
-		echo ('<div class="panel " >');
 		
       foreach($rosterData as $row) {
 
 		if ($row["role"] == 'Learner') {
 	
 			$UserID = $KC_DAO->findUserID($row["user_id"]);	
+			
+		$studentData = $KC_DAO->getUserData($SetID, $UserID);
+		$tAttempts = $studentData["Attempt"];
+		if($tAttempts){	$Max=0;
+						$Arr_Score = array();
+
+						for ($i = 1; $i <=  $tAttempts ; $i++) {
+
+							$Score=0;		
+							$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
+							foreach ( $Questions as $row2 ) {
+
+								$QID = $row2["QID"];
+
+								$reviewData = $KC_DAO->Review($QID, $UserID, $i);
+								if ($row2["Answer"]== $reviewData["Answer"]){
+								 $Score = $Score + $row2["Point"];				
+
+								}
+
+							}
+
+							array_push($Arr_Score,$Score);	
+						}
+
+						$Max = max($Arr_Score); 
+}
+
 		
 		echo('                      
-                   
- <div class="panel-body" style="border:1px lightgray solid; ">
-	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].'</div>
-		<div class="col-sm-2 noPadding" >');            
-		
-		$studentData = $KC_DAO->getUserData($SetID, $UserID);
-		$tAttempts = $studentData["Attempt"];	
-		
-echo $tAttempts;
-			
-echo ('</div>
-		<div class="col-sm-4 " >');
-	
-if($tAttempts){			
-		$Arr_Score = array();
-
-		for ($i = 1; $i <=  $tAttempts ; $i++) {
-
-			$Score=0;		
-			$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
-			foreach ( $Questions as $row2 ) {
-
-				$QID = $row2["QID"];
-				
-				$reviewData = $KC_DAO->Review($QID, $UserID, $i);
-				if ($row2["Answer"]== $reviewData["Answer"]){
-				 $Score = $Score + $row2["Point"];				
-
-				}
-
-			}
-
-			array_push($Arr_Score,$Score);	
-		}
-
-		echo max($Arr_Score); 
-}
-echo ('</div>
-										
-                    
-</div>
-           
-
-        ');
-           
+                  
+				 <tr>
+                        
+                        <td>'.$row["person_name_family"].', '.$row["person_name_given"].'</td>
+                        <td>'.$tAttempts.'</td>
+                        <td>'.$Max.'</td><td></td>
+                    </tr>');
+					
+          
           
         }
 	  }
+	echo('</tbody>
+	</table>
+        </div>
+    </div>');
     }
-    echo('</div>');
-
+   
+echo ('</div>');
 }
 
 $OUTPUT->footerStart();
