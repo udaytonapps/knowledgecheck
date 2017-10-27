@@ -91,10 +91,8 @@ if ( $USER->instructor ) {
 		echo('                      
                    
  <div class="panel-body" style="border:1px lightgray solid; ">
-	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].')</div>
-		<div class="col-sm-2 noPadding" >');
-            
-		
+	<div class="col-sm-2 noPadding" >'.$row["person_name_family"].', '.$row["person_name_given"].'</div>
+		<div class="col-sm-2 noPadding" >');            
 		
 		$studentData = $KC_DAO->getUserData($SetID, $UserID);
 		$tAttempts = $studentData["Attempt"];	

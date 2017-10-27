@@ -83,14 +83,17 @@ if ( $USER->instructor ) {
 
                    <input type="radio" value="D" name="Answer" <?php if($question["Answer"] == "D"){?>checked <?php } ?>> 
                    D. <input class="form-control answer" name="D" id="D" value="<?php echo($question["D"]); ?>"><br>
+                   
+                   
+                       
+					<div class="ML"><input type="checkbox" value="1" name="RA" <?php if($question["RA"]){?>checked <?php } ?>>  Randomize Answers</div>
+                    
 
                    <?php
 					}
 						?>
                    
-                   
-					<div class="ML"><input type="checkbox" value="1" name="RA" <?php if($question["RA"]){?>checked <?php } ?>>  Randomize Answers</div>
-                    
+               
                 </div>
                 
                 
