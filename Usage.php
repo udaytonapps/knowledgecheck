@@ -16,6 +16,7 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 $OUTPUT->header();
 
 include("tool-header.html");
+include("tool-js.html");
 
 $OUTPUT->bodyStart();
 
