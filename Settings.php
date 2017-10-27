@@ -47,13 +47,14 @@ if ( $USER->instructor ) {
 
     <form  method="post" action="actions/Settings_Submit.php">
 
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-8">
-                <h3>Edit Knowledge Check</h3>
-            </div>
+        <div class="row" style="max-width:500px;">
+            
+			<h3> <span class="fa fa-cog"></span> Edit Knowledge Check</h3><br>
 
-            <div class="col-sm-offset-1 col-sm-8">
-
+           
+			<div class="panel-body" >
+		
+			<div class="col noPadding">
                 <div class="form-group">
                     <label class="control-label" for="KCName">Knowledge Check Title</label>
                     <input id="KCName" name="KCName" class="form-control" value="<?php echo($KCName); ?>" required/>
@@ -88,7 +89,8 @@ if ( $USER->instructor ) {
                 <a href="index.php" class="btn btn-danger">Cancel</a>
                 <a href="actions/DeleteKC.php?SetID=<?php echo($SetID); ?>" class="btn btn-danger pull-right" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span> Delete</a>
             </div>
-        </div>
+			</div></div>
+      
     </form>
 
     <?php

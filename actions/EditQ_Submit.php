@@ -12,7 +12,7 @@ $p = $CFG->dbprefix;
 
 $KC_DAO = new KC_DAO($PDOX, $p);
 
-$SetID=$_POST["SetID"];
+$SetID=$_SESSION["SetID"];
 $QID=$_POST["QID"];
 $QType = $_POST["QType"];
 
@@ -22,19 +22,20 @@ $Answer = str_replace("'", "&#39;", $_POST["Answer"]);
 $Point = $_POST["Point"];
 $FR = $_POST["FR"];
 $FW = $_POST["FW"];
-$RA = $_POST["RA"];
+
+
 
 $FR = str_replace("'", "&#39;", $_POST["FR"]);
 $FW = str_replace("'", "&#39;", $_POST["FW"]);
+if(isset($_POST["RA"])){$RA = 1;}else{$RA = 0;}
 
 
-
-echo $QType;
 
 if ( $USER->instructor ) {
 
 	
 	if ($QType == "Multiple"){
+		
 		$A=$_POST["A"];$A = str_replace("'", "&#39;", $_POST["A"]);
 		$B=$_POST["B"];$B = str_replace("'", "&#39;", $_POST["B"]);
 		$C=$_POST["C"];$C = str_replace("'", "&#39;", $_POST["C"]);
@@ -45,7 +46,7 @@ if ( $USER->instructor ) {
 
 	
 
-    header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
+header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
 
 } else {
     // student so send back to index
