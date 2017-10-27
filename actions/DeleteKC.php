@@ -21,4 +21,5 @@ if ( $USER->instructor ) {
 
 }
 
-header( 'Location: '.addSession('../index.php') ) ;
+header( 'Location: '.addSession('../index.php') ) ; 
+
