@@ -147,4 +147,14 @@ h5{height:35px; background-color: lightgray; padding-left:10px; margin:0; vertic
 
 .filter{margin:2px; }
 .filterH{height:25px;}
+.QNum{background-color: #D0E4FC; width:60px; text-align: center;color:#1B4F72;}
+	.buttonWidth{width:100px; text-align: center;}
+	
+	table.table-bordered > thead > tr > th{
+    border:1px solid #1B4F72;
+}
+	table.table-bordered > tbody > tr > td{
+    border:1px solid #1B4F72;
+}
 
+	.MLm10{ margin-left: -10px;}	

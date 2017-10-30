@@ -59,7 +59,7 @@ if ( $USER->instructor ) {
 
             </div>
 
-        <h2>Questions in "'.$set["KCName"].'" <span style="float:right;padding:10px;font-size:12px; color:white; background-color:gray;">'.$Total.' Questions / '.$tPoints.' Points</span></h2>
+        <h3>Questions in "'.$set["KCName"].'" <span style="float:right;padding:10px;font-size:12px; color:white; background-color:gray;">'.$Total.' Questions / '.$tPoints.' Points</span></h3>
     ');
 
     if ($Total == 0) {
@@ -67,17 +67,14 @@ if ( $USER->instructor ) {
 		
 		if(isset($_GET["QType"])){
 	echo('<form method="post" action="actions/AddQ_Submit.php">
-	<div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
-			
-			<div class="col-sm-1 noPadding" >');
-			
-			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
+	<div class="col-container">
+						
+			<div class="col col1" >');
 			
 			
 			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice - ";}
 			else{$Msg="True/False - ";}
-			echo '<h3>1</h3></div><div class="col-sm-5 noPadding" >';
+			echo '<h3>1</h3></div><div class="col col2" >';
 			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px; width:195px;">'.$Msg.' <span style="float:right">  Point(s)</span><input class="form-control" id="ex1" type="text" name="Point" style="width:30px; height:25px; text-align:center; margin-top:-25px;margin-left:110px;padding:0px;">
 			</div>');
         	
@@ -103,7 +100,7 @@ if ( $USER->instructor ) {
 
 
 
-		  <div class="col-sm-4 " >';
+		  <div class="col col3 " >';
 			
 			
 			if($_GET["QType"] =="Multiple"){				
@@ -155,9 +152,9 @@ if ( $USER->instructor ) {
 			
 			
 			</div>			
-			<div class="col-sm-1 noPadding" style="float:right; width:120px;">
-			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$SetID.'"><span class="fa fa-ban"></span></a>
-            <input type="submit" class="btn btn-primary pull-right" value="submit">
+			<div class="col col4" style="vertical-align:top;"><input type="submit" class="btn btn-primary" value="Submit">
+			<a class="btn btn-danger" href="Qlist.php?SetID='.$SetID.'">Cancel</a>
+            
 			</div>
 							
                     
@@ -183,37 +180,21 @@ if ( $USER->instructor ) {
 		
 		echo('                      
                    
-          <div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
+          <div class="col-container" style="margin-bottom:3px; ">
 			
-			<div class="col-sm-1 noPadding" >');
 			
-            if($QNum != 1) {
-                echo('
-                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $_GET["SetID"] . '&Flag=1">
-                                <span class="fa fa-chevron-circle-up fa-2x"></span>
-                            </a>
-                ');
-            }
-            if($QNum != $Total) {
-                echo('
-                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $_GET["SetID"] . '&Flag=0">
-                                <span class="fa fa-chevron-circle-down fa-2x"></span>
-                            </a>
-                ');
-            }
-
-			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
+			<div class="col col1">');
 			$colorA=""; $colorB=""; $colorC=""; $colorD="";
 			if($row["Point"] == 1){$Msg2="Point";}
 			else{$Msg2 = "Points";}
 			
 			if($row["QType"] =="Multiple"){	$Msg="Multiple Choice - ".$row["Point"]." ".$Msg2;}
 			else{$Msg="True/False - ".$row["Point"]." ".$Msg2;}
-			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
-			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px;">'.$Msg.'</div>');
+			echo '<h3>'.$QNum.'</h3></div><div class="col col2" >';
+			echo ('<div class="PTS">'.$Msg.'</div>');
         	
-		  echo $row["Question"].'</div>	<div class="col-sm-4 " >';
+		  echo $row["Question"].'</div>
+		  <div class="col col3" >';
 			
 			
 			if($row["QType"] =="Multiple"){				
@@ -248,10 +229,37 @@ if ( $USER->instructor ) {
 			
 			
 			</div>			
-			<div class="col-sm-1 noPadding" style="float:right; width:120px;"><a class="btn btn-danger pull-right" href="actions/DeleteQ.php?QID='.$row["QID"].'&SetID='.$row["SetID"].'" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span></a>
-            <a class="btn btn-primary pull-right" href="Qlist_Edit.php?QID='.$row["QID"].'&SetID='.$row["SetID"].'&QType='.$row["QType"].'"><span class="fa fa-pencil"></span></a></div>
+			
 							
-                    
+              <div class="col col4">
+			  
+			    <a class="btn btn-primary pull-left" style="margin-right:5px;" href="Qlist_Edit.php?QID='.$row["QID"].'&SetID='.$row["SetID"].'&QType='.$row["QType"].'"><span class="fa fa-pencil"></span></a>
+			  <a class="btn btn-danger" href="actions/DeleteQ.php?QID='.$row["QID"].'&SetID='.$row["SetID"].'" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span></a>
+          
+			
+			
+			    
+			   
+			   <span style="float:right;">');
+			
+            if($QNum != 1) {
+                echo('
+                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $_GET["SetID"] . '&Flag=1">
+                                <span class="fa fa-chevron-circle-up fa-2x"></span>
+                            </a>
+                ');
+            }
+            if($QNum != $Total) {
+                echo('
+                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $_GET["SetID"] . '&Flag=0">
+                                <span class="fa fa-chevron-circle-down fa-2x"></span>
+                            </a>
+                ');
+            }
+
+			echo('</span></div>
+			
+			   
                 </div>
            
 
@@ -265,18 +273,14 @@ echo (' 	<form method="post" action="actions/AddQ_Submit.php">');
 	
 if(isset($_GET["QType"])){
 	echo('
-
-	<div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
-			
-			<div class="col-sm-1 noPadding" >');
-			
-			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
+<div class="col-container">
+						
+			<div class="col col1" >');
 			
 			
 			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice - ";}
 			else{$Msg="True/False - ";}
-			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
+			echo '<h3>'.$QNum.'</h3></div><div class="col col2" >';
 			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px; width:195px;">'.$Msg.' <span style="float:right">  Point(s)</span><input class="form-control" id="ex1" type="text" name="Point" style="width:30px; height:25px; text-align:center; margin-top:-25px;margin-left:110px;padding:0px;">
 			</div>');
         	
@@ -305,7 +309,7 @@ if(isset($_GET["QType"])){
 
 
 
-		  <div class="col-sm-4 " >';
+		  <div class="col col3" style="vertical-align:top;" >';
 			
 			
 			if($_GET["QType"] =="Multiple"){				
@@ -357,9 +361,9 @@ if(isset($_GET["QType"])){
 			
 			
 			</div>			
-			<div class="col-sm-1 noPadding" style="float:right; width:120px;">
-			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$row["SetID"].'"><span class="fa fa-ban"></span></a>
-            <input type="submit" class="btn btn-primary pull-right" value="submit">
+			<div class="col col4" style="vertical-align:top;"><input type="submit" class="btn btn-primary" value="Submit">
+			<a class="btn btn-danger" href="Qlist.php?SetID='.$row["SetID"].'">Cancel</a>
+            
 			</div>
 							
                     

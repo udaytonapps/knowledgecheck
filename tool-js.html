@@ -118,5 +118,53 @@ function ConfirmDelete()
     display: none;
 	
 }
+
+.col-container {
+    display: table;
+    width: 100%;
+	border: 1px solid navy;
+	
+}
+.col {
+    display: table-cell;
+    padding: 10px;	
+	
+	vertical-align: middle;
+	
+}
+
+	.col1 {   
+	width:45px; text-align: center;
+		background-color:lightblue;
+		border-right: 1px solid navy;
+}
+	.col2{ width:40%;}
+	.col3{ width:35%;}
+	.col4{width:10%; min-width:200px;}
+	
+	
+	.PTS{color:lightgray;font-style:italic;margin-bottom:10px;}
+
+	
+	
+
+@media only screen and (max-width: 600px) {
+    .col { 
+        display: block;
+        width: 100%;
+    }
+	
+	
+	.col1 {   
+	width:45px; text-align: center;
+		background-color:lightblue;
+		border-bottom: 1px solid navy;
+		border-left: 1px solid navy;
+		border-right: 0px;
+		float:right;
+	}
+}
+
 </style>
+
 
