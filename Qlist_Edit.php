@@ -157,13 +157,18 @@ if($_GET["QID"] == $row["QID"]){
 			}
 			else {
 				
-				
+			?>
+						
+						
+                    <input type="radio" value="True" name="Answer" <?php if($row["Answer"] == "True"){?>checked <?php } ?>> 
+                   True.<br>
+  					<input type="radio" value="False" name="Answer" <?php if($row["Answer"] == "False"){?>checked <?php } ?>> 
+                   False.
+						
+						
+			<?php	
 								
-				echo('	
-				 <input type="radio" value="True" name="Answer" > True<br>
-
-  					<input type="radio" value="False" name="Answer"> False
-					');
+				
 			}
 			
 	
