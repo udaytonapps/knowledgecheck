@@ -86,14 +86,14 @@ if ( $USER->instructor ) {
 		
 		
       foreach($rosterData as $row) {
-
+$Max="";
 		if ($row["role"] == 'Learner') {
 	
 			$UserID = $KC_DAO->findUserID($row["user_id"]);	
 			
 		$studentData = $KC_DAO->getUserData($SetID, $UserID);
 		$tAttempts = $studentData["Attempt"];
-		if($tAttempts){	$Max=0;
+		if($tAttempts){	
 						$Arr_Score = array();
 
 						for ($i = 1; $i <=  $tAttempts ; $i++) {
