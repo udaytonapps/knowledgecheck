@@ -10,6 +10,7 @@ a.disabled, a.disabled:hover {
     pointer-events: none;
     opacity: .65;
     box-shadow: none;
+	
 }
 .navbar {
     box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
@@ -131,7 +132,7 @@ h5{height:35px; background-color: lightgray; padding-left:10px; margin:0; vertic
 #w30{width:30px !important;}
 #w200{width: 200px !important;}
 
-.feedBack{background-color:#D9E6FC; margin-left:12px;margin-bottom:15px; margin-top:5px; width: calc(100% - 12px) !important; padding:8px;}
+.feedBack{background-color:#D9E6FC; margin-left:12px;margin-bottom:8px; margin-top:5px; width: calc(100% - 12px) !important; padding:8px;}
 .UsageHeading{padding-top:2px;border:1px lightgray solid; margin-bottom:-20px; height:25px;background-color:lightblue; font-weight:bold;}
 
 .form-control.answer{margin-left:40px; margin-top:-28px;width: calc(100% - 40px); height: 30px;}
