@@ -19,7 +19,8 @@ include("tool-header.html");
 include("tool-js.html");
 
 $OUTPUT->bodyStart();
-$students = array(); 
+
+
 
 if ( $USER->instructor ) {
 
@@ -65,34 +66,19 @@ if ( $USER->instructor ) {
           
             
             <table class="table">
-                <table class="table">
-             
-                    <tr style="text-decoration: underline; font-weight: bold;">
+                <thead>
+                    <tr class="filters">
                        
                         
+                        <th><input type="text" class="form-control" placeholder="Student Name" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Attempt" disabled></th>
+						<th><input type="text" class="form-control" placeholder="Best Score" disabled></th>
+                        <th>
+                        <button class="btn btn-default btn-xs btn-filter pull-right filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                         
-                         
-                        <td >
-                        <a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=name">
-							Student Name                  
-                        </a>
-						                     
-                       
-                        </td>
-                        <td align="center">
-							<a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=attempt">Number of Attempt(s)</a>
-                         </th>
-							
-						<td align="center">
-						 <a  href="Usage.php?SetID='.$_GET["SetID"].'&Sort=hScore">Best Score</a>
-                        
-						
-					
-							</td>
-                       
-                        
+                        </th>
                     </tr>
-               
+                </thead>
                 <tbody>
            
 
@@ -132,62 +118,15 @@ $Max="";
 						$Max = max($Arr_Score); 
 }
 
-	
-			
-$name = $row["person_name_family"].', '.$row["person_name_given"];		
-			
-array_push($students, array("name"=>$name,"attempt"=>$tAttempts,"hScore"=>$Max));
 		
-$sortArray = array(); 
-
-foreach($students as $person){ 
-    foreach($person as $key=>$value){ 
-        if(!isset($sortArray[$key])){ 
-            $sortArray[$key] = array(); 
-        } 
-        $sortArray[$key][] = $value; 
-    } 
-} 
-
-	
-if(isset($_GET["Sort"])){
-	
-	
-	if($_GET["Sort"] == "name"){
-	
-		if($_SESSION["N1"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N1"]++;}
-		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N1"]--;}
-	}
-	else if($_GET["Sort"] == "attempt"){
-	
-		if($_SESSION["N2"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N2"]++;}
-		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N2"]--;}
-	}
-	else if($_GET["Sort"] == "hScore"){
-	
-		if($_SESSION["N3"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N3"]++;}
-		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N3"]--;}
-	}
-		
-}
-	
-
-	$total = sizeof($students);
-for($i=0; $i<$total; $i++){
-
-		
-			
 		echo('                      
                   
 				 <tr>
                         
-                        <td>'.$students[$i]["name"].'</td>
-                        <td align="center">'.$students[$i]["attempt"].'</td>
-                        <td align="center">'.$students[$i]["hScore"].'</td>
+                        <td>'.$row["person_name_family"].', '.$row["person_name_given"].'</td>
+                        <td>'.$tAttempts.'</td>
+                        <td>'.$Max.'</td><td></td>
                     </tr>');
-	
-}
-	
 					
           
           
