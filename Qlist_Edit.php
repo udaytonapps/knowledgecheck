@@ -186,7 +186,7 @@ if($_GET["QID"] == $row["QID"]){
 			</div>			
 			<div class="col-sm-1 noPadding" style="float:right; width:120px;">
 			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$row["SetID"].'"><span class="fa fa-ban"></span></a>
-            <input type="submit" class="btn btn-primary pull-right" value="submit">
+            <input type="submit" class="btn btn-primary pull-right" value="Save">
 			</div>
 							
                     

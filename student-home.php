@@ -35,6 +35,7 @@ if (count($visibleSets) == 0) {
 		$studentData = $KC_DAO->getUserData($set["SetID"], $USER->id);		
 		$hScore = "";
 		$tAttempts = $studentData["Attempt"];
+		
 
 		if($tAttempts){			
 				$Arr_Score = array();

@@ -19,8 +19,7 @@ include("tool-header.html");
 include("tool-js.html");
 
 $OUTPUT->bodyStart();
-
-
+$students = array(); 
 
 if ( $USER->instructor ) {
 
@@ -66,21 +65,34 @@ if ( $USER->instructor ) {
           
             
             <table class="table">
-                <thead>
-                    <tr class="filters">
+                <table class="table">
+             
+                    <tr style="text-decoration: underline; font-weight: bold;">
                        
                         
-                         <th><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=LastName, FirstName"><input type="text" class="form-control" placeholder="Student Name" disabled></a></th>
-                        <th ><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=Attempt">
-							<input type="text" class="form-control text-center" placeholder="Number of Attempt(s)" disabled></a></th>
-						<th><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=Score">
-							<input type="text" class="form-control text-center" placeholder="Best Score" disabled></a></th>
-                        <th>
-                        <button class="btn btn-default btn-xs btn-filter pull-right filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                         
-                        </th>
+                         
+                        <td >
+                        <a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=name">
+							Student Name                  
+                        </a>
+						                     
+                       
+                        </td>
+                        <td align="center">
+							<a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=attempt">Number of Attempt(s)</a>
+                         </th>
+							
+						<td align="center">
+						 <a  href="Usage.php?SetID='.$_GET["SetID"].'&Sort=hScore">Best Score</a>
+                        
+						
+					
+							</td>
+                       
+                        
                     </tr>
-                </thead>
+               
                 <tbody>
            
 
@@ -120,15 +132,62 @@ $Max="";
 						$Max = max($Arr_Score); 
 }
 
+	
+			
+$name = $row["person_name_family"].', '.$row["person_name_given"];		
+			
+array_push($students, array("name"=>$name,"attempt"=>$tAttempts,"hScore"=>$Max));
 		
+$sortArray = array(); 
+
+foreach($students as $person){ 
+    foreach($person as $key=>$value){ 
+        if(!isset($sortArray[$key])){ 
+            $sortArray[$key] = array(); 
+        } 
+        $sortArray[$key][] = $value; 
+    } 
+} 
+
+	
+if(isset($_GET["Sort"])){
+	
+	
+	if($_GET["Sort"] == "name"){
+	
+		if($_SESSION["N1"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N1"]++;}
+		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N1"]--;}
+	}
+	else if($_GET["Sort"] == "attempt"){
+	
+		if($_SESSION["N2"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N2"]++;}
+		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N2"]--;}
+	}
+	else if($_GET["Sort"] == "hScore"){
+	
+		if($_SESSION["N3"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N3"]++;}
+		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N3"]--;}
+	}
+		
+}
+	
+
+	$total = sizeof($students);
+for($i=0; $i<$total; $i++){
+
+		
+			
 		echo('                      
                   
 				 <tr>
                         
-                        <td>'.$row["person_name_family"].', '.$row["person_name_given"].'</td>
-                        <td align="center">'.$tAttempts.'</td>
-                        <td align="center">'.$Max.'</td><td></td>
+                        <td>'.$students[$i]["name"].'</td>
+                        <td align="center">'.$students[$i]["attempt"].'</td>
+                        <td align="center">'.$students[$i]["hScore"].'</td>
                     </tr>');
+	
+}
+	
 					
           
           

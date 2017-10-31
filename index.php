@@ -26,6 +26,7 @@ $LastName = $USER->lastname;
 $FirstName = $USER->firstname;
 //echo "Site ID: ".$CONTEXT->id;
 $_SESSION["SetID"]=0;
+$_SESSION["N1"]=1;$_SESSION["N2"]=1;$_SESSION["N3"]=1;
 
 
 

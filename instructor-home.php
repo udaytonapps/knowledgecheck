@@ -19,6 +19,7 @@ echo('</h2>');
 
 $_SESSION["SetID"]=0;
 
+
 if($Hide){$allKC = $KC_DAO->getOneKC($newSetID["SetID"]);}
 else{$allKC = $KC_DAO->getAll_KC($CONTEXT->id);}
 
