@@ -26,7 +26,56 @@ if (count($visibleSets) == 0) {
 
     foreach ( $visibleSets as $set ) {
         $questions = $KC_DAO->getQuestions($set["SetID"]);
-		$exist = $KC_DAO->userDataExists($set["SetID"], $USER->id);            
+		$exist = $KC_DAO->userDataExists($set["SetID"], $USER->id); 
+		
+		
+		
+		
+		
+		$studentData = $KC_DAO->getUserData($set["SetID"], $USER->id);		
+		$hScore = "";
+		$tAttempts = $studentData["Attempt"];
+
+		if($tAttempts){			
+				$Arr_Score = array();
+				for ($i = 1; $i <=  $tAttempts ; $i++) {
+					$Score2=0;
+					$tPoints=0;
+					$Questions = $KC_DAO->getQuestions($set["SetID"]);			
+					foreach ( $Questions as $row2 ) {
+						$QID = $row2["QID"];
+						$tPoints = $tPoints + $row2["Point"];
+						$reviewData2 = $KC_DAO->Review($QID, $USER->id, $i);
+						if ($row2["Answer"]== $reviewData2["Answer"]){
+						 $Score2 = $Score2 + $row2["Point"];
+						}
+					}
+					array_push($Arr_Score,$Score2);			
+				}
+			$hScore = max($Arr_Score); 	
+		}
+
+		$Score1=0;
+		$Questions2 = $KC_DAO->getQuestions($set["SetID"]);
+		foreach ( $Questions2 as $row2 ) {
+
+			$QID = $row2["QID"];
+			$reviewData = $KC_DAO->Review($QID, $USER->id, $tAttempts);
+			if ($row2["Answer"]== $reviewData["Answer"]){
+					$Score1 = $Score1 + $row2["Point"];			
+			}
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
        
         echo('
             <div class="col-6 col-sm-3">
@@ -41,15 +90,32 @@ if (count($visibleSets) == 0) {
                                 <a href="Take.php?SetID='.$set["SetID"].'"');if(count($questions) == 0){echo(' class="disabled"');}echo('>
                                     <span class="fa fa-2x fa-check-square-o"></span>
                                     <br /><small>Take</small>
-                                </a>
+                                </a><br>
+
+								
                             </div>
 							
 							 <div class="col-xs-6 text-center" >
-                                <a href="Review.php?SetID='.$set["SetID"].'"');if($exist != 1){echo(' class="disabled"');}echo('>
+                                <a href="Review.php?SetID='.$set["SetID"].'"');if($exist != 1){echo(' class="disabled" style="color:gray;"');}echo('>
                                     <span class="fa fa-2x fa-flag"></span>
                                     <br /><small>Review</small>
                                 </a>
                             </div>
+							
+							<div class="row" >
+							 <div class="col-xs-6 text-center" style="padding-top:10px;">');
+							if($tAttempts){
+								echo('Total # of attempts: '.$tAttempts.'<br>
+								Highest Score:'.$hScore.'/'.$tPoints);
+							}
+							else{
+								echo ('No attempts: '.$tAttempts.'<br>
+								Highest Score: N/A');
+							}
+		
+							
+								
+								echo ('</div></div>
 							
 							
                         </div>

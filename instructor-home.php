@@ -6,8 +6,10 @@ $linkId = $LINK->id;
 
 $newSetID = $KC_DAO->getSetIDForLink($linkId);
 
+$Hide=0;
 if (isset($newSetID["SetID"])) {
     $newKC = $KC_DAO->getKC($newSetID["SetID"]);	
+	$Hide=1;
     echo('<br /><small><span class="fa fa-link"></span> '.$newKC["KCName"].' is linked.</small>');
 }
 
@@ -17,7 +19,9 @@ echo('</h2>');
 
 $_SESSION["SetID"]=0;
 
-$allKC = $KC_DAO->getAll_KC($CONTEXT->id);
+if($Hide){$allKC = $KC_DAO->getOneKC($newSetID["SetID"]);}
+else{$allKC = $KC_DAO->getAll_KC($CONTEXT->id);}
+
 
 if (count($allKC) == 0) {
     echo('<p><em>You currently do not have any knowledge checks in this site. Create a new knowledge check or use the import button below to copy a card set from another site.</em></p>');
@@ -105,6 +109,9 @@ echo('<div class="row">');
 
 echo('</div>');
 
+
+if (!isset($newSetID["SetID"])) {
+
 /* Import from site */
 
 
@@ -150,7 +157,7 @@ foreach ( $courses as $course ) {
                         <span class="fa fa-square-o fa-stack-2x" style="top:2px;left:-8px;"></span>
                         <span class="fa fa-inverse fa-upload fa-stack-1x" style="top:-6px;"></span>
                     </span>
-                    <h5 class="kc-list-name text-'.$textLabel.'">'.$set["KCName"].'</h5>                    
+                    <h5 class="kc-list-name text-'.$textLabel.'" style="background:none;">'.$set["KCName"].'</h5>                    
                 </div>
             </a>
         ');
@@ -160,3 +167,4 @@ foreach ( $courses as $course ) {
 }
 
     echo('</div>');
+}

@@ -70,9 +70,11 @@ if ( $USER->instructor ) {
                     <tr class="filters">
                        
                         
-                        <th><input type="text" class="form-control" placeholder="Student Name" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Attempt" disabled></th>
-						<th><input type="text" class="form-control" placeholder="Best Score" disabled></th>
+                         <th><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=LastName, FirstName"><input type="text" class="form-control" placeholder="Student Name" disabled></a></th>
+                        <th ><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=Attempt">
+							<input type="text" class="form-control text-center" placeholder="Number of Attempt(s)" disabled></a></th>
+						<th><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=Score">
+							<input type="text" class="form-control text-center" placeholder="Best Score" disabled></a></th>
                         <th>
                         <button class="btn btn-default btn-xs btn-filter pull-right filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                         
@@ -124,8 +126,8 @@ $Max="";
 				 <tr>
                         
                         <td>'.$row["person_name_family"].', '.$row["person_name_given"].'</td>
-                        <td>'.$tAttempts.'</td>
-                        <td>'.$Max.'</td><td></td>
+                        <td align="center">'.$tAttempts.'</td>
+                        <td align="center">'.$Max.'</td><td></td>
                     </tr>');
 					
           

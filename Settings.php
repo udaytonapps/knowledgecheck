@@ -47,7 +47,7 @@ if ( $USER->instructor ) {
 
     <form  method="post" action="actions/Settings_Submit.php">
 
-        <div class="row" style="max-width:500px;">
+        <div class="row" style="max-width:650px;">
             
 			<h3> <span class="fa fa-cog"></span> Edit Knowledge Check</h3><br>
 
@@ -86,7 +86,7 @@ if ( $USER->instructor ) {
                 <input type="hidden" id="SetID" name="SetID" value="<?php echo $_GET["SetID"];?>"/>
 
                 <input class="btn btn-primary" type="submit" value="Update Knowledge Check" />
-                <a href="index.php" class="btn btn-danger">Cancel</a>
+                <a href="index.php" class="btn btn-danger" style="margin-right:3px;">Cancel</a>
                 <a href="actions/DeleteKC.php?SetID=<?php echo($SetID); ?>" class="btn btn-danger pull-right" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span> Delete</a>
             </div>
 			</div></div>

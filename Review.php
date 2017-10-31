@@ -101,7 +101,7 @@ foreach ( $Questions2 as $row2 ) {
  
 <div class="panel-body" >
 	<div class="col noPadding">                  
-	  	<h3 class="noPadding"><span class="fa fa fa-flag"></span> <?php echo $set["KCName"];?> Review</h3>
+	  	<h3 class="noPadding"><span class="fa fa-flag"></span> <?php echo $set["KCName"];?> Review</h3>
 		<h4 style="margin-left: 29px;font-size: 16px;">Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
 		
 		
@@ -144,17 +144,20 @@ Highest Score: <?php echo $hScore;?>
                             
         ');
 			  if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
-			echo ('<span class="point" >'.$row["Point"].' '.$PTs.'</span>');
-		   echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
+			
 			
 			$QID = $row["QID"];
 			
 			$reviewData = $KC_DAO->Review($QID, $USER->id, $tAttempts);	
 			
 			if ($row["Answer"]== $reviewData["Answer"]){				
-				$Feedback = $row["FR"];				
+				$Feedback = $row["FR"];
+				$yPoint = $row["Point"];
 					
-			}else{$Feedback = $row["FW"];}
+			}else{$Feedback = $row["FW"];$yPoint = 0;}
+			
+			echo ('<span class="point" >'.$yPoint.' / '.$row["Point"].' '.$PTs.'</span>');
+		    echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			
 			if($row["QType"] =="Multiple"){				
@@ -222,18 +225,15 @@ Highest Score: <?php echo $hScore;?>
 
 			if($Feedback != ""){		
 			
-			 	echo ('<div class="col feedBack"  >	
+			 	echo ('<div class="feedBack"  >	
 				
 					<b>Feedback: </b>'.$Feedback.'</div>');
 			}
            
-     
+     echo "<br>";
         }
 	   echo "</div>";  
   
-?><br>
-
-<?php	 
 	 
 $OUTPUT->footerStart();
 
