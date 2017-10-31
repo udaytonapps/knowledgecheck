@@ -127,14 +127,6 @@ Highest Score: <?php echo $hScore;?>
 
 			
 			
-			$colorA=""; $colorB=""; $colorC=""; $colorD=""; 
-			$userA="";
-			$userB="";
-			$userC="";
-			$userD="";
-			
-			$Yes = " <span class='fa fa-check-circle-o fa-lg'></span>";
-			$No = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 		
 		echo('                      
                    
@@ -160,7 +152,16 @@ Highest Score: <?php echo $hScore;?>
 		    echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			
-			if($row["QType"] =="Multiple"){				
+			if($row["QType"] =="Multiple"){	
+				
+				$colorA=""; $colorB=""; $colorC=""; $colorD=""; 
+				$userA="";
+				$userB="";
+				$userC="";
+				$userD="";
+
+				$Yes = " <span class='fa fa-check-circle-o fa-lg'></span>";
+				$No = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 				
 				if ($row["Answer"] =="A"){$colorA="style='color:green; font-weight:bold;'";										 					
 					if($reviewData["Answer"] == "A") {$userA=$Yes;}
@@ -199,7 +200,10 @@ Highest Score: <?php echo $hScore;?>
 			}
 			else {
 				
-				
+				$colorA=""; $colorB=""; $userA="";	$userB="";
+			
+			$Yes = " <span class='fa fa-check-circle-o fa-lg'></span>";
+			$No = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 			
 				
 				if ($row["Answer"] =="True"){$colorA="style='color:green; font-weight:bold;'";

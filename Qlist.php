@@ -69,16 +69,16 @@ if ( $USER->instructor ) {
 	echo('<form method="post" action="actions/AddQ_Submit.php">
 	<div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
 			
-			<div class="col-sm-1 noPadding" >');
+			<div class="col-sm-1 noPadding" style="width:30px;>');
 			
 			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
+			<div class="col-sm-1 noPadding text-center" style="width:60px;">');
 			
 			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice";}
 			else{$Msg="True/False";}
 			echo '<h3>1</h3></div><div class="col-sm-5 noPadding" >';
 			echo ('<div class="qHead" style="margin-top:0px;">  <span style=" margin-left:40px; ">Point(s) - '.$Msg.'</span>
-			<input class="form-control" id="ex1" type="text" name="Point" style="width:35px; height:25px; text-align:center; margin-top:-20px;padding:0;" autofocus>
+			<input class="form-control" id="ex1" type="text" style="width:60px; name="Point" style="width:35px; height:25px; text-align:center; margin-top:-20px;padding:0;" autofocus>
 			</div>');
 			
         	
@@ -186,7 +186,7 @@ if ( $USER->instructor ) {
                    
           <div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
 			
-			<div class="col-sm-1 noPadding" style="width:50px;">');
+			<div class="col-sm-1 noPadding" style="width:30px;">');
 			
             if($QNum != 1) {
                 echo('
@@ -204,7 +204,7 @@ if ( $USER->instructor ) {
             }
 
 			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
+			<div class="col-sm-1 noPadding text-center" style="width:60px;">');
 			$colorA=""; $colorB=""; $colorC=""; $colorD="";
 			$iconA=""; $iconB=""; $iconC=""; $iconD="";
 			
@@ -273,10 +273,10 @@ if(isset($_GET["QType"])){
 
 	<div class="panel-body" style="border:1px lightgray solid; margin-bottom:3px;">
 			
-			<div class="col-sm-1 noPadding" >');
+			<div class="col-sm-1 noPadding" style="width:30px;">');
 			
 			echo('</div>	
-			<div class="col-sm-1 noPadding" style="width:30px;">');
+			<div class="col-sm-1 noPadding text-center" style="width:60px;">');
 			
 			
 			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice";}
