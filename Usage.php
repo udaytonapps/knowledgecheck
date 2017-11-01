@@ -45,7 +45,7 @@ if ( $USER->instructor ) {
 
        
         
-        <h3><span class="fa fa-bar-chart"></span> Usage - <span style="color:navy;">'.$set["KCName"].'</span><span style="font-size:16px; font-weight:normal; color:navy;"> ('.$Total.' points)</span> </h3>
+        <h3><span class="fa fa-bar-chart"></span> Usage - <span style="color:#2D5B91;">'.$set["KCName"].' </span><span style="font-size:18px;padding-left:12px; font-weight:normal; color:#2D5B91;"> ('.$Total.' points)</span> </h3>
 		<div class="row" style="max-width:600px;">
 		<a href="actions/ExportToFile.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a></div>
     ');
