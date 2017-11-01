@@ -89,10 +89,16 @@ if($_GET["QID"] == $row["QID"]){
 			<div class="col-sm-1 noPadding" style="width:30px;">');
 			
 			
-			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice - ";}
-			else{$Msg="True/False - ";}
+	
+			if($_GET["QType"] =="Multiple"){	$Msg="Multiple Choice";}
+			else{$Msg="True/False";}
 			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
-			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px; width:195px;">'.$Msg.' <span style="float:right">  Point(s)</span><input class="form-control" id="ex1" type="text" value="'.$row["Point"].'" name="Point" style="width:30px; height:25px; text-align:center; margin-top:-25px;margin-left:110px;padding:0px;">
+			echo ('<div class="qHead" style="margin-top:0px;">  <span style=" margin-left:40px; ">Point(s) - '.$Msg.'</span>
+			<input class="form-control" id="ex1" type="text" value="'.$row["Point"].'" name="Point" style="width:35px; height:25px; text-align:center; margin-top:-20px;padding:0;" autofocus>
+			
+			
+			
+			
 			</div>');
         	
 		  echo '<textarea class="form-control" name="Question" id="Question" rows="2" autofocus required>'.$row["Question"].'</textarea><br>
@@ -200,37 +206,7 @@ if($_GET["QID"] == $row["QID"]){
 	
 			//---------------------------
 		
-	
 		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 		
 		echo('                      
@@ -260,8 +236,8 @@ if($_GET["QID"] == $row["QID"]){
 			if($row["Point"] == 1){$Msg2="Point";}
 			else{$Msg2 = "Points";}
 			
-			if($row["QType"] =="Multiple"){	$Msg="Multiple Choice - ".$row["Point"]." ".$Msg2;}
-			else{$Msg="True/False - ".$row["Point"]." ".$Msg2;}
+			if($row["QType"] =="Multiple"){	$Msg=$row["Point"]." ".$Msg2." - Multiple Choice";}
+			else{$Msg=$row["Point"]." ".$Msg2." - True/False";}
 			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
 			echo ('<div style="color:lightgray;font-style:italic;margin-bottom:10px;">'.$Msg.'</div>');
         	

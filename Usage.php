@@ -19,17 +19,13 @@ include("tool-header.html");
 include("tool-js.html");
 
 $OUTPUT->bodyStart();
-
-
+$students = array(); 
 
 if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 	$_SESSION["SetID"] = $SetID;
-
-   // $StudentList = $KC_DAO->getStudentList($CONTEXT->id);
-    $set = $KC_DAO->getKC($SetID);
-		
+    $set = $KC_DAO->getKC($SetID);		
  
 	 $hasRosters = LTIX::populateRoster(false);
 
@@ -51,94 +47,115 @@ if ( $USER->instructor ) {
     ');
      
       
-		echo ('<br><div class="panel " >');
-		
-		
-		 if ($hasRosters) {
+	if ($hasRosters) {
 			 
 		$rosterData = $GLOBALS['ROSTER']->data;
 
         usort($rosterData, array('KC_Utils', 'compareStudentsLastName'));	
 		
-		echo('          
-         <div class="row" style="max-width:600px;">
-       <div class="panel panel-default filterable">                 
-          
-            
-            <table class="table">
-                <thead>
-                    <tr class="filters">
-                       
-                        
-                        <th><input type="text" class="form-control" placeholder="Student Name" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Attempt" disabled></th>
-						<th><input type="text" class="form-control" placeholder="Best Score" disabled></th>
-                        <th>
-                        <button class="btn btn-default btn-xs btn-filter pull-right filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                        
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-           
-
-        ');
-		
+	
 		
       foreach($rosterData as $row) {
-$Max="";
+		  
+		  	
+		  $Max=0;
 		if ($row["role"] == 'Learner') {
 	
-			$UserID = $KC_DAO->findUserID($row["user_id"]);	
+			$UserID = $KC_DAO->findUserID($row["user_id"]);
+			$name = $row["person_name_family"].', '.$row["person_name_given"];
 			
-		$studentData = $KC_DAO->getUserData($SetID, $UserID);
-		$tAttempts = $studentData["Attempt"];
-		if($tAttempts){	
-						$Arr_Score = array();
+			$studentData = $KC_DAO->getUserData($SetID, $UserID);
+			$tAttempts = $studentData["Attempt"];
+			if($tAttempts){	
+									$Arr_Score = array();
 
-						for ($i = 1; $i <=  $tAttempts ; $i++) {
+									for ($i = 1; $i <=  $tAttempts ; $i++) {
 
-							$Score=0;		
-							$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
-							foreach ( $Questions as $row2 ) {
+										$Score=0;		
+										$Questions = $KC_DAO->getQuestions($_GET["SetID"]);
+										foreach ( $Questions as $row2 ) {
 
-								$QID = $row2["QID"];
+											$QID = $row2["QID"];
 
-								$reviewData = $KC_DAO->Review($QID, $UserID, $i);
-								if ($row2["Answer"]== $reviewData["Answer"]){
-								 $Score = $Score + $row2["Point"];				
+											$reviewData = $KC_DAO->Review($QID, $UserID, $i);
+											if ($row2["Answer"]== $reviewData["Answer"]){
+											 $Score = $Score + $row2["Point"];				
 
-								}
+											}
 
-							}
+										}
 
-							array_push($Arr_Score,$Score);	
-						}
+										array_push($Arr_Score,$Score);	
+									}
 
-						$Max = max($Arr_Score); 
+									$Max = max($Arr_Score); 
+			}else{$tAttempts = 0;}
+
+			array_push($students, array("name"=>$name,"attempt"=>$tAttempts,"hScore"=>$Max));
+
+	  	}	
+	  }
+  }	
+		  
+	
+$sortArray = array(); 
+
+foreach($students as $person){ 
+    foreach($person as $key=>$value){ 
+        if(!isset($sortArray[$key])){ 
+            $sortArray[$key] = array(); 
+        } 
+        $sortArray[$key][] = $value; 
+    } 
+} 
+
+	
+if(isset($_GET["Sort"])){
+	
+	
+	if($_GET["Sort"] == "name"){
+	
+		if($_SESSION["N1"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N1"]++;}
+		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N1"]--;}
+	}
+	else if($_GET["Sort"] == "attempt"){
+	
+		if($_SESSION["N2"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N2"]++;}
+		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N2"]--;}
+	}
+	else if($_GET["Sort"] == "hScore"){
+	
+		if($_SESSION["N3"]==1){array_multisort($sortArray[$_GET["Sort"]],SORT_ASC,$students);$_SESSION["N3"]++;}
+		else { array_multisort($sortArray[$_GET["Sort"]],SORT_DESC,$students); $_SESSION["N3"]--;}
+	}
+		
+}
+	
+
+echo ('<br>
+<div class="panel " >
+     <div class="row" style="max-width:600px;">
+       <div class="panel panel-default filterable">
+            <table class="table">                
+                    <tr style="text-decoration: underline; font-weight: bold;">
+                        <td > <a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=name">Student Name</a></td>
+                        <td align="center"><a href="Usage.php?SetID='.$_GET["SetID"].'&Sort=attempt">Number of Attempt(s)</a></td>
+						<td align="center"><a  href="Usage.php?SetID='.$_GET["SetID"].'&Sort=hScore">Best Score</a></td>   
+                    </tr>
+        ');
+		
+			
+			
+$total = sizeof($students);
+for($i=0; $i<$total; $i++){
+
+		echo('<tr> <td>'.$students[$i]["name"].'</td>
+                        <td align="center">'.$students[$i]["attempt"].'</td>
+                        <td align="center">'.$students[$i]["hScore"].'</td></tr>');
+	
 }
 
-		
-		echo('                      
-                  
-				 <tr>
-                        
-                        <td>'.$row["person_name_family"].', '.$row["person_name_given"].'</td>
-                        <td>'.$tAttempts.'</td>
-                        <td>'.$Max.'</td><td></td>
-                    </tr>');
-					
-          
-          
-        }
-	  }
-	echo('</tbody>
-	</table>
-        </div>
-    </div>');
-    }
-   
-echo ('</div>');
+	echo('</table></div></div></div>');
 }
 
 $OUTPUT->footerStart();

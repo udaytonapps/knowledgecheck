@@ -213,10 +213,14 @@ if ( $USER->instructor ) {
 			if($row["Point"] == 1){$Msg2="Point";}
 			else{$Msg2 = "Points";}
 			
-			if($row["QType"] =="Multiple"){	$Msg="Multiple Choice - ".$row["Point"]." ".$Msg2;}
-			else{$Msg="True/False - ".$row["Point"]." ".$Msg2;}
+			if($row["QType"] =="Multiple"){	$Msg=$row["Point"]." ".$Msg2." - Multiple Choice";}
+			else{$Msg=$row["Point"]." ".$Msg2." - True/False";}
 			echo '<h3>'.$QNum.'</h3></div><div class="col-sm-5 noPadding" >';
 			echo ('<div class="qHead">'.$Msg.'</div>');
+			
+				
+			
+			
         	
 		  echo $row["Question"].'</div>	<div class="col-sm-4 " >';
 			
