@@ -107,7 +107,7 @@ if (count($visibleSets) == 0) {
 							 <div class="col-xs-6 text-center" style="padding-top:10px;">');
 							if($tAttempts){
 								echo('Total # of attempts: '.$tAttempts.'<br>
-								Highest Score:'.$hScore.'/'.$tPoints);
+								Highest Score: '.$hScore.'/'.$tPoints);
 							}
 							else{
 								echo ('No attempts: '.$tAttempts.'<br>
