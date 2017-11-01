@@ -49,7 +49,7 @@ if ( $USER->instructor ) {
 
         <div class="row" style="max-width:650px;">
             
-			<h3> <span class="fa fa-cog"></span> Edit Knowledge Check</h3><br>
+			<h3> <span class="fa fa-cog"></span> Settings</h3><br>
 
            
 			<div class="panel-body" >

@@ -26,7 +26,11 @@ if ( $USER->instructor ) {
     $SetID = $_GET["SetID"];
 	$_SESSION["SetID"] = $SetID;
     $set = $KC_DAO->getKC($SetID);		
- 
+ 	$Total=0;
+	$Questions2 = $KC_DAO->getQuestions($SetID);
+	foreach ( $Questions2 as $row2 ) {	$Total = $Total + $row2["Point"];}
+	
+	
 	 $hasRosters = LTIX::populateRoster(false);
 
     include("menu.php");
@@ -41,7 +45,7 @@ if ( $USER->instructor ) {
 
        
         
-        <h3><span class="fa fa-bar-chart"></span>  '.$set["KCName"].' Usage</h3>
+        <h3><span class="fa fa-bar-chart"></span> Usage - <span style="color:navy;">'.$set["KCName"].'</span><span style="font-size:16px; font-weight:normal; color:navy;"> ('.$Total.' points)</span> </h3>
 		<div class="row" style="max-width:600px;">
 		<a href="actions/ExportToFile.php" target="_blank" style="float:right; margin-top:-20px;">Export Usage</a></div>
     ');
