@@ -200,23 +200,27 @@ Highest Score: <?php echo $hScore;?>
 			}
 			else {
 				
-				$colorA=""; $colorB=""; $userA="";	$userB="";
+				$colorA=""; $colorB=""; $icon1 ="";	$icon2 ="";
 			
-			$Yes = " <span class='fa fa-check-circle-o fa-lg'></span>";
-			$No = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
+			//$icon1  = " <span class='fa fa-check-circle-o fa-lg'></span>";
+			//$icon = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 			
 				
-				if ($row["Answer"] =="True"){$colorA="style='color:green; font-weight:bold;'";
-						if($reviewData["Answer"] == "True") {$userA=$Yes;}else {$userB=$No;}
+				if ($row["Answer"] =="True"){
+					
+					$colorA="style='color:green; font-weight:bold;'";
+						if($reviewData["Answer"] == "True") {$icon1 = " <span class='fa fa-check-circle-o fa-lg'></span>";}else{$icon2 = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";}
 				}
-				else if ($row["Answer"] =="False"){$colorB="style='color:green; font-weight:bold;'";
-						if($reviewData["Answer"] == "False") {$userB=$Yes;}else  {$userB=$No;}
+				else if ($row["Answer"] =="False"){
+					
+					$colorB="style='color:green; font-weight:bold;'";
+						if($reviewData["Answer"] == "False") {$icon2 = " <span class='fa fa-check-circle-o fa-lg'></span>";}else{$icon1 = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";}
 				}
 				
 				
 				
-				echo('	<div '.$colorA.' >True'.$userA.'</div>
-						<div '.$colorB.' >False'.$userB.'</div>						
+				echo('	<div '.$colorA.' >True'.$icon1.'</div>
+						<div '.$colorB.' >False'.$icon2.'</div>						
 					');
 			}
 			
