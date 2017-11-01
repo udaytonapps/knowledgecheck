@@ -80,7 +80,10 @@ if ($shortCut == 0) {
     }
 
     ?>
-       
+ 
+<style>
+  label{font-weight: normal;margin:0px;}
+</style>
        
 <div class="row ">           
   <h3><span class="fa fa-check-square-o"></span> <?php echo $set["KCName"];?></h3>
@@ -120,13 +123,14 @@ for($i=0; $i<$Total; $i++){
 				if($RA){shuffle($mChoice);}		
 				for($x=0; $x<4; $x++){
 				if($mChoice[$x][1] !=""){
-					echo '<div><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</div>';}
+					
+					echo '<div><label><input type="radio" value="'.$mChoice[$x][0].'" name="Answer'.$row["QNum"].'" > '.$mChoice[$x][1].'</label></div>';}
 				}		
 				
 			}
 			else {			
-				echo('	<div > <input type="radio" value="True" name="Answer'.$row["QNum"].'" > True </div>
-						<div > <input type="radio" value="False" name="Answer'.$row["QNum"].'" > False </div>						
+				echo('	<div ><label> <input type="radio" value="True" name="Answer'.$row["QNum"].'" > True</label> </div>
+						<div > <label><input type="radio" value="False" name="Answer'.$row["QNum"].'" > False</label> </div>						
 					');
 			}
 		   
