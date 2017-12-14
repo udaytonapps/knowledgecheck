@@ -33,5 +33,5 @@ if ( $USER->instructor ) {
     header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
 } else {
     // student so send back to index
-    header( 'Location: '.addSession('../index.php') ) ;
+    header( 'Location: '.addSession('../index.php') ) ;  
 }

@@ -80,11 +80,14 @@ if ( $USER->instructor ) {
                    <input type="radio" value="D" name="Answer" > 
                    D. <input class="form-control answer" name="D" id="D" value=""><br>
 
+                  
+                  <div class="ML"><input type="checkbox" value="1" name="RA">  Randomize Answers</div>  
+                  
                    <?php
 					}
 						?>
                  
-					<div class="ML"><input type="checkbox" value="1" name="RA">  Randomize Answers</div>   
+					 
                 </div>
 				<div class="form-group row">    
 				   

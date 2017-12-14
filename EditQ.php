@@ -24,7 +24,7 @@ if ( $USER->instructor ) {
 
     $set = $KC_DAO->getKC($SetID);
 
-    $question = $KC_DAO->getQuestionById($_GET["QID"]);
+    $row = $KC_DAO->getQuestionById($_GET["QID"]);
 
     include("menu.php");
 
@@ -43,14 +43,14 @@ if ( $USER->instructor ) {
 
         <div class="row">
             <div class="col-sm-offset-1 col-sm-8">
-                <h3>Editing Question #<?php echo($question["QNum"]); ?></h3>
+                <h3>Editing Question #<?php echo($row["QNum"]); ?></h3>
             </div>
 
             <div class="col-sm-offset-1 col-sm-8">
                
                 <div class="form-group">
                     <label class="control-label" for="Question">Question</label>
-                    <textarea class="form-control" name="Question" id="Question" rows="3" autofocus required><?php echo($question["Question"]); ?></textarea>
+                    <textarea class="form-control" name="Question" id="Question" rows="3" autofocus required><?php echo($row["Question"]); ?></textarea>
                 </div>
 
                
@@ -63,34 +63,37 @@ if ( $USER->instructor ) {
 					?>
                    
                    
-                    <input type="radio" value="True" name="Answer" <?php if($question["Answer"] == "True"){?>checked <?php } ?>> 
+                    <input type="radio" value="True" name="Answer" <?php if($row["Answer"] == "True"){?>checked <?php } ?>> 
                    True.<br>
-  					<input type="radio" value="False" name="Answer" <?php if($question["Answer"] == "False"){?>checked <?php } ?>> 
+  					<input type="radio" value="False" name="Answer" <?php if($row["Answer"] == "False"){?>checked <?php } ?>> 
                    False.<br>
 
                     <?php
 					}else{
 						?>
                     
-                   <input type="radio" value="A" name="Answer" <?php if($question["Answer"] == "A"){?>checked <?php } ?>> 
-                   A. <input class="form-control answer" name="A" id="A" value="<?php echo($question["A"]); ?>"><br>
+                   <input type="radio" value="A" name="Answer" <?php if($row["Answer"] == "A"){?>checked <?php } ?>> 
+                   A. <input class="form-control answer" name="A" id="A" value="<?php echo($row["A"]); ?>"><br>
 
-                   <input type="radio" value="B" name="Answer" <?php if($question["Answer"] == "B"){?>checked <?php } ?>> 
-                   B. <input class="form-control answer" name="B" id="B" value="<?php echo($question["B"]); ?>"><br>
+                   <input type="radio" value="B" name="Answer" <?php if($row["Answer"] == "B"){?>checked <?php } ?>> 
+                   B. <input class="form-control answer" name="B" id="B" value="<?php echo($row["B"]); ?>"><br>
 
-                   <input type="radio" value="C" name="Answer" <?php if($question["Answer"] == "C"){?>checked <?php } ?>>
-                   C. <input class="form-control answer" name="C" id="C" value="<?php echo($question["C"]); ?>"><br>
+                   <input type="radio" value="C" name="Answer" <?php if($row["Answer"] == "C"){?>checked <?php } ?>>
+                   C. <input class="form-control answer" name="C" id="C" value="<?php echo($row["C"]); ?>"><br>
 
-                   <input type="radio" value="D" name="Answer" <?php if($question["Answer"] == "D"){?>checked <?php } ?>> 
-                   D. <input class="form-control answer" name="D" id="D" value="<?php echo($question["D"]); ?>"><br>
+                   <input type="radio" value="D" name="Answer" <?php if($row["Answer"] == "D"){?>checked <?php } ?>> 
+                   D. <input class="form-control answer" name="D" id="D" value="<?php echo($row["D"]); ?>"><br>
+                   
+                   
+                       
+					<div class="ML"><input type="checkbox" value="1" name="RA" <?php if($row["RA"]){?>checked <?php } ?>>  Randomize Answers</div>
+                    
 
                    <?php
 					}
 						?>
                    
-                   
-					<div class="ML"><input type="checkbox" value="1" name="RA" <?php if($question["RA"]){?>checked <?php } ?>>  Randomize Answers</div>
-                    
+               
                 </div>
                 
                 
@@ -104,7 +107,7 @@ if ( $USER->instructor ) {
                 <div class="form-group row">    
 				   
 						<label for="ex1">Point Value</label>
-						<input class="form-control" id="ex1" type="text" name="Point" value="<?php echo($question["Point"]); ?>" style="width:50px;text-align: center;">
+						<input class="form-control" id="ex1" type="text" name="Point" value="<?php echo($row["Point"]); ?>" style="width:50px;text-align: center;">
 				  
 				</div>
                 
@@ -114,12 +117,12 @@ if ( $USER->instructor ) {
                 
                  <div class="form-group">
                     <label class="control-label" for="FR">Correct Feedback</label>
-                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus ><?php echo($question["FR"]); ?></textarea>
+                    <textarea class="form-control" name="FR" id="FR" rows="2" autofocus ><?php echo($row["FR"]); ?></textarea>
                 </div>
                 
                   <div class="form-group">
                     <label class="control-label" for="FR">Incorrect Feedback</label>
-                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus ><?php echo($question["FW"]); ?></textarea>
+                    <textarea class="form-control" name="FW" id="FW" rows="2" autofocus ><?php echo($row["FW"]); ?></textarea>
                 </div>
                 
                 

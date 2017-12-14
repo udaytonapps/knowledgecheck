@@ -48,12 +48,6 @@ if ( $USER->instructor ) {
     }
 }
 
-if(isset($_GET["ReviewMode"])){
-    $isReviewMode = $_GET["ReviewMode"];
-} else {
-    $isReviewMode = 0;
-}
-
 $SetID = $_GET["SetID"];
 $_SESSION["SetID"] = $SetID;
 $Questions = $KC_DAO->getQuestions($SetID);
@@ -71,7 +65,7 @@ if ($shortCut == 0) {
 
 $studentData = $KC_DAO->getUserData($SetID, $USER->id);
 $dateTime = new DateTime($studentData["Modified"]);
-$Last = $dateTime->format("m-d-y")." &nbsp;".$dateTime->format("g:i A");
+$Last = $dateTime->format("m-d-y")." ".$dateTime->format("g:i A");
 $hScore = "";
 $tAttempts = $studentData["Attempt"];
 
@@ -106,19 +100,26 @@ foreach ( $Questions2 as $row2 ) {
 ?>
  
 <div class="panel-body" >
-	<div class="col-sm-6 noPadding">                  
-	  	<h3 class="noPadding"><?php echo $set["KCName"];?> Review</h3>
-		<h4>Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
+	<div class="col noPadding">                  
+	  	<h3 class="noPadding"><span class="fa fa-flag"></span> <?php echo $set["KCName"];?> Review</h3>
+		<h4 style="margin-left: 29px;font-size: 16px;">Last attempt: <?php echo $Last;?><br>Score: <b><?php echo $Score1;?></b></h4>
+		
+		
+		
+		<div class="Review">                  
+	  	Total number of attempts: <?php echo $tAttempts;?><br>
+Highest Score: <?php echo $hScore;?>
+	</div>
+		
 	</div>
 	
-	<div class="col-sm-3 " style="background-color:#12507C;color:white; font-size: 16px; padding:10px; ">                  
-	  	<div>Total number of attempts: <?php echo $tAttempts;?><br>
-Highest Score: <?php echo $hScore;?></div>
-	</div>
+	
 
 
 
 </div>
+
+ <div class="panel-body" >
 <?php
 
 	
@@ -126,36 +127,41 @@ Highest Score: <?php echo $hScore;?></div>
 
 			
 			
-			$colorA=""; $colorB=""; $colorC=""; $colorD=""; 
-			$userA="";
-			$userB="";
-			$userC="";
-			$userD="";
-			
-			$Yes = " <span class='fa fa-check-circle-o fa-lg'></span>";
-			$No = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 		
 		echo('                      
                    
-          <div class="panel-body" >
+         
 		
-			<div class="col-sm-6 noPadding">
+			<div class="col noPadding">
                             
         ');
+			  if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
 			
-		   echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			$QID = $row["QID"];
 			
 			$reviewData = $KC_DAO->Review($QID, $USER->id, $tAttempts);	
 			
 			if ($row["Answer"]== $reviewData["Answer"]){				
-				$Feedback = $row["FR"];				
+				$Feedback = $row["FR"];
+				$yPoint = $row["Point"];
 					
-			}else{$Feedback = $row["FW"];}
+			}else{$Feedback = $row["FW"];$yPoint = 0;}
+			
+			echo ('<span class="point" >'.$yPoint.' / '.$row["Point"].' '.$PTs.'</span>');
+		    echo($row["QNum"].'. '.$row["Question"].'<br><div style="margin-left:15px;">');
 			
 			
-			if($row["QType"] =="Multiple"){				
+			if($row["QType"] =="Multiple"){	
+				
+				$colorA=""; $colorB=""; $colorC=""; $colorD=""; 
+				$userA="";
+				$userB="";
+				$userC="";
+				$userD="";
+
+				$Yes = " <span class='fa fa-check-circle-o fa-lg'></span>";
+				$No = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 				
 				if ($row["Answer"] =="A"){$colorA="style='color:green; font-weight:bold;'";										 					
 					if($reviewData["Answer"] == "A") {$userA=$Yes;}
@@ -194,46 +200,48 @@ Highest Score: <?php echo $hScore;?></div>
 			}
 			else {
 				
-				
+				$colorA=""; $colorB=""; $icon1 ="";	$icon2 ="";
+			
+			//$icon1  = " <span class='fa fa-check-circle-o fa-lg'></span>";
+			//$icon = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";
 			
 				
-				if ($row["Answer"] =="True"){$colorA="style='color:green; font-weight:bold;'";
-						if($reviewData["Answer"] == "True") {$userA=$Yes;}else {$userB=$No;}
+				if ($row["Answer"] =="True"){
+					
+					$colorA="style='color:green; font-weight:bold;'";
+						if($reviewData["Answer"] == "True") {$icon1 = " <span class='fa fa-check-circle-o fa-lg'></span>";}else{$icon2 = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";}
 				}
-				else if ($row["Answer"] =="False"){$colorB="style='color:green; font-weight:bold;'";
-						if($reviewData["Answer"] == "False") {$userB=$Yes;}else  {$userB=$No;}
+				else if ($row["Answer"] =="False"){
+					
+					$colorB="style='color:green; font-weight:bold;'";
+						if($reviewData["Answer"] == "False") {$icon2 = " <span class='fa fa-check-circle-o fa-lg'></span>";}else{$icon1 = " <span class='fa fa-times-circle fa-lg' style='color:red;'></span>";}
 				}
 				
 				
 				
-				echo('	<div '.$colorA.' >True'.$userA.'</div>
-						<div '.$colorB.' >False'.$userB.'</div>						
+				echo('	<div '.$colorA.' >True'.$icon1.'</div>
+						<div '.$colorB.' >False'.$icon2.'</div>						
 					');
 			}
 			
 			
 		   
-			if ($row["Point"] == 1){$PTs = " point";}else{$PTs = " points";}
+			
 		   
-		   echo ('</div></div>									
-            	<div class="col-sm-1 noPadding" style="text-align:right;  " >'.$row["Point"].$PTs.'</div>
-			
-			
-			            </div>');
+		   echo ('</div>');
 						
 
 			if($Feedback != ""){		
 			
-			 	echo ('<div class="panel-body" style="background-color:#D9E6FC; margin-left:40px;width:70%;padding:10px;" >			
+			 	echo ('<div class="feedBack"  >	
+				
 					<b>Feedback: </b>'.$Feedback.'</div>');
 			}
            
-            
+     echo "<br>";
         }
-
-?><br>
-
-<?php	 
+	   echo "</div>";  
+  
 	 
 $OUTPUT->footerStart();
 

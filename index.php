@@ -26,6 +26,11 @@ $LastName = $USER->lastname;
 $FirstName = $USER->firstname;
 //echo "Site ID: ".$CONTEXT->id;
 $_SESSION["SetID"]=0;
+$_SESSION["N1"]=1;$_SESSION["N2"]=1;$_SESSION["N3"]=1;
+
+
+
+
 if ( $USER->instructor ) {
 
     include("menu.php");
@@ -35,13 +40,11 @@ if ( $USER->instructor ) {
 
 	$a = $KC_DAO->checkStudent($CONTEXT->id, $USER->id);
 	if($a["UserID"] == ""){	$b = $KC_DAO->addStudent($USER->id, $CONTEXT->id, $LastName, $FirstName);}
-	  $linkId = $LINK->id;
-    	$shortcut = $KC_DAO->getShortcutSetIdForLink($linkId);
-    if (isset($shortcut["SetID"])) {
-        header( 'Location: '.addSession('Take.php?SetID='.$shortcut["SetId"]) ) ;
-    } else {
-        include("student-home.php");
-    }	
+	  $linkId = $LINK->id;		
+     $newSetID = $KC_DAO->getSetIDForLink($linkId);
+		
+	include("student-home.php");
+   	
 	
 }
 
