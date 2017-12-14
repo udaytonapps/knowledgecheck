@@ -28,7 +28,7 @@ if (count($allKC) == 0) {
     echo('<p><em>You currently do not have any knowledge checks in this site. Create a new knowledge check or use the import button below to copy a card set from another site.</em></p>');
 }
 
-echo('<div class="row">');
+echo('<div class="row" id="kc-row">');
 
     foreach ( $allKC as $KC ) {
         if ($KC["Visible"]) {
@@ -44,66 +44,65 @@ echo('<div class="row">');
             }
 
             $questions = $KC_DAO->getQuestions($KC["SetID"]);
-			$exist = $KC_DAO->userDataExists($KC["SetID"], $USER->id);
+		$totalPoints = 0;
+        	foreach($questions as $question) {
+	                $totalPoints = $totalPoints + $question["Point"];
+	        }
+	    $exist = $KC_DAO->userDataExists($KC["SetID"], $USER->id);
            
             echo('
-                <div class="col-sm-4">
-                    <div class="panel panel-'.$panelClass.'" >
-                        <div class="panel-heading">
-                            <h3>
+                <div class="col-sm-6">
+                <div class="row" style="border:1px solid #ccc;border-radius:4px;background-color:#eee;">
+                        <div class="col-sm-3 text-center" style="padding:.5em;">
+                                <span class="fa fa-check fa-4x text-'.$panelClass.'"></span>
+                                <br />
+                                <a class="btn btn-'.$panelClass.'" style="margin-top: 1em;" href="actions/Publish.php?SetID='.$KC["SetID"].'&Flag='.$flag.'">'.$pubAction.'</a>
+                        </div>
+                        <div class="col-sm-7" style="background-color:#fff;padding:1em;">
+                            <h3 style="margin-top:0;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
                                 <a href="Qlist.php?SetID='.$KC["SetID"].'">
                                     <span class="fa fa-pencil-square-o"></span>
                                     '.$KC["KCName"].'
                                 </a>
                             </h3>
-                            <a class="btn btn-'.$panelClass.' pull-right publish-link" href="actions/Publish.php?SetID='.$KC["SetID"].'&Flag='.$flag.'">'.$pubAction.'</a>
-                            <small>'.count($questions).' Questions</small>
-                        </div>
-                        <div class="panel-body noPadding" >
-                            <div class="row PaddingTop" style="padding-top:10px;">
-                                <div class="col-xs-6 text-center noPadding" >
-                                    <h4>Student View</h4>
-                                </div>
-                                <div class="col-xs-6 text-center noPadding">
-                                    <h4>Options</h4>
-                                </div>
-                            </div>
-                            <div class="row PaddingBottom" style="padding-bottom:10px;" >
-                                <div class="col-xs-3 noPadding text-center" >
-                                    <a href="Take.php?SetID='.$KC["SetID"].'" ');if(count($questions) == 0){echo('class="disabled"');}echo('>
-                                    <span class="fa fa-2x fa-check-square-o" style="padding-left:7px;"></span>
-                                    <br />
-                                    <small>Take</small>
-                                    </a>
-                                </div>
-								
-								 <div class="col-xs-3 noPadding text-center " style="border-right:1px lightgray solid;">
-                                    <a href="Review.php?SetID='.$KC["SetID"].'" ');if($exist != 1){echo('class="disabled"');}echo('>
-                                    <span class="fa fa-2x fa-flag"></span>
-                                    <br />
-                                    <small>Review</small>
-                                    </a>
-                                </div>
-								
-								
-                                <div class="col-xs-3 noPadding text-center ">
+                            <span>'.count($questions).' Questions / '.$totalPoints.' Total Points</span>
+                            <div class="row" style="margin-top:1em;">
+                                <div class="col-xs-6 text-center" style="border-right:1px solid #ccc;">
+                                <h4>
                                     <a href="Usage.php?SetID='.$KC["SetID"].'" ');if(count($questions) == 0){echo('class="disabled"');}echo('>
-                                    <span class="fa fa-2x fa-bar-chart" style="padding-left:5px;"></span>
-                                    <br />
-                                    <small>Usage</small>
-                                    </a>
+                                    <span class="fa fa-bar-chart"></span>
+                                    Usage
+                                    </a>                                    
+                                </h4>
                                 </div>
-                                <div class="col-xs-3 noPadding text-center">
+
+                                <div class="col-xs-6 text-center">
+                                <h4>
                                     <a href="Settings.php?SetID='.$KC["SetID"].'">
-                                    <span class="fa fa-2x fa-cog"></span>
-                                    <br />
-                                    <small>Settings</small>
+                                    <span class="fa fa-cog"></span>
+                                    Settings
                                     </a>
+                                </h4>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-2 text-center" style="padding:.5em;">
+                                <div style="font-size: 1.2em;padding-top:.5em;">
+                                    <a href="Take.php?SetID='.$KC["SetID"].'" ');if(count($questions) == 0){echo('class="disabled"');}echo('>
+                                    <span class="fa fa-check-square-o"></span><br />
+                                    <small>Preview</small>
+                                    </a>
+                                </div>
+
+                                <div style="font-size:1.2em;margin-top:.5em;">
+                                    <a href="Review.php?SetID='.$KC["SetID"].'" ');if($exist != 1){echo('class="disabled"');}echo('>
+                                    <span class="fa fa-flag"></span><br />                                  
+                                    <small>Feedback</small>
+                                    </a>
+                                </div>
                         </div>
                     </div>
-                </div>
+		</div>
             ');
         }
     }

@@ -1,6 +1,5 @@
 /* Main CSS file */
 * {
-    border-radius: 0 !important;
 }
 h3 {
     font-size: 22px;
@@ -11,6 +10,9 @@ a.disabled, a.disabled:hover {
     opacity: .65;
     box-shadow: none;
 	
+}
+a[href]:hover{
+    text-decoration: none;
 }
 .navbar {
     box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
@@ -52,6 +54,9 @@ span.menu-with-icon {
 a.publish-link {
     font-size: .85em;
     margin-top: -4px;
+}
+#kc-row > div.col-sm-6 {
+    padding: 8px;
 }
 #import-q-row {
     border: 1px solid #E0E0E0;
