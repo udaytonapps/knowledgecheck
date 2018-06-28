@@ -1,13 +1,8 @@
 
 <?php
 $menu = array(
-    'AddKC.php' => '<span class="fa-stack small">
-                            <span class="fa fa-square fa-stack-2x" style="top:-6px;"></span>
-                            <span class="fa fa-square-o fa-stack-2x" style="top:2px;left:-8px;"></span>
-                            <span class="fa fa-inverse fa-plus fa-stack-1x" style="top:-6px;"></span>
-                         </span>
-                         <span class="menu-with-icon">Create Knowledge Check</span>',
-    'LinkToSet.php' => '<span class="fa fa-external-link"></span> Link To Knowledge Check'
+    'index.php' => '<span class="fa fa-pencil-square-o"> Linked Knowledge Check</span>',
+    'ManageKCs.php' => '<span class="fa fa-wrench"></span> Manage'
 );
 ?>
 

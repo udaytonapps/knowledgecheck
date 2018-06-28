@@ -55,6 +55,19 @@ $Total = count($Questions);
 $set = $KC_DAO->getKC($SetID);
 
 if ($shortCut == 0) {
+    if ( $USER->instructor ) {
+        $Page = $_SESSION["Page"];
+        echo('
+            <ul class="breadcrumb">');
+                if($Page === "index"){
+                    echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
+                }else {
+                    echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
+                }
+                echo ('<li>' .$set["KCName"].'</li>
+            </ul>
+        ');
+    } else {
         echo('
             <ul class="breadcrumb">
                 <li><a href="index.php">All Knowledge Checks</a></li>
@@ -62,6 +75,7 @@ if ($shortCut == 0) {
             </ul>
         ');
     }
+}
 
 $studentData = $KC_DAO->getUserData($SetID, $USER->id);
 $dateTime = new DateTime($studentData["Modified"]);
