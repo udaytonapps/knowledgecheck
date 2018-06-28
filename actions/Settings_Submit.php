@@ -15,11 +15,15 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 $SetID=$_POST["SetID"];
 $Active = $_POST["Active"];
 $Random = $_POST["Random"];
+$Page = $_SESSION["Page"];
 $KCName = str_replace("'", "&#39;", $_POST["KCName"]);
 
 if ( $USER->instructor ) {
 
     $KC_DAO->updateKC($SetID, $KCName, $Active, $Random);
 }
-
-header( 'Location: '.addSession('../index.php') ) ;
+if($Page === "index"){
+    header( 'Location: '.addSession('../index.php') ) ;
+}else {
+    header( 'Location: '.addSession('../ManageKCs.php') ) ;
+}
