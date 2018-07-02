@@ -21,11 +21,12 @@ include("tool-js.html");
 $OUTPUT->bodyStart();
 
 if ( $USER->instructor ) {
-
-    $SetID = $_GET["SetID"];
-	$_SESSION["SetID"] =  $_GET["SetID"];
-    $Page = $_SESSION["Page"];
-    $questions = $KC_DAO->getQuestions($SetID);
+    $linkId = $LINK->id;
+    $SetID = $KC_DAO->getSetIDForLink($linkId);
+	$_SESSION["SetID"] =  $SetID["SetID"];
+    $Page = "index";
+    $_SESSION["Page"] = "index";
+    $questions = $KC_DAO->getQuestions($SetID["SetID"]);
 	
 	$tPoints=0;
 	foreach ( $questions as $row ) {
@@ -34,14 +35,32 @@ if ( $USER->instructor ) {
 	
 	
 
-    $set = $KC_DAO->getKC($SetID);		
+    $set = $KC_DAO->getKC($SetID["SetID"]);
     $Total = count($questions);
 	
     $Next = $Total + 1;
 	$_SESSION["Next"] = $Next;
-	
 
-    include("menu.php");
+
+    $questions = $KC_DAO->getQuestions($_SESSION["SetID"]);
+    $totalPoints = 0;
+    foreach($questions as $question) {
+        $totalPoints = $totalPoints + $question["Point"];
+    }
+    $exist = $KC_DAO->userDataExists($_SESSION["SetID"], $USER->id);
+    if($set["Active"] == 0) {
+        $flag = 1;
+        $panelClass = 'default';
+        $pubAction = 'Unpublished';
+    } else {
+        $flag = 0;
+        $panelClass = 'success';
+        $pubAction = 'Published';
+    }
+
+
+
+    //include("menu.php");
 
     echo('
         <ul class="breadcrumb">');
@@ -55,14 +74,44 @@ if ( $USER->instructor ) {
         
         <div>
 
-         <div id="flip">
+        <div id="flip">
             <p class="btn btn-success">Add New Question</p>
+            <a href="actions/UnlinkFromSet_Submit.php" class="btn btn-danger">Unlink</a>
+             <h4 style="padding-left: 10px">
+                <a href="Usage.php?SetID=' . $_SESSION["SetID"].'" class="btn pull-right"');if(count($questions) == 0){echo('class="disabled"');}echo('>
+                <span class="fa fa-bar-chart"></span>
+                Usage
+                </a>
+            </h4>
+            <h4 style="padding-left: 10px">
+                <a href="Settings.php?SetID='.$_SESSION["SetID"].' "class="btn pull-right">
+                <span class="fa fa-cog"></span>
+                Settings
+                </a>
+            </h4>
+            <h4 style="padding-left: 10px">
+                <a href="Take.php?SetID='.$_SESSION["SetID"].'" class="btn pull-right" ');if(count($questions) == 0){echo('class="disabled"');}echo('>
+                <span class="fa fa-check-square-o"></span>
+                Preview
+                </a>
+            </h4>
+    
+            <h4 style="padding-left: 10px">
+                <a href="Review.php?SetID='.$_SESSION["SetID"].'"  class=" btn pull-right"');if($exist != 1){echo('class="disabled"');}echo('>
+                <span class="fa fa-flag"></span>
+                Feedback
+                </a>
+            </h4>
+            <h4 style="padding:.5em;">
+                <a class="pull-right btn btn-'.$panelClass.'" href="actions/Publish.php?SetID='.$_SESSION["SetID"].'&Flag='.$flag.'">
+                <span class="fa fa-check fa-2x text-'.$panelClass.'"></span>
+                '.$pubAction.'</a>
+            </h4>
         </div>
 		<div id="panel">
                    <a  href="Qlist.php?SetID='.$_SESSION["SetID"].'&QType=Multiple" class="btn btn-info" >Multiple Choice</a> 
                     <a  href="Qlist.php?SetID='.$_SESSION["SetID"].'&QType=True/False" class="btn btn-info" ">True / False </a>
-
-            </div>
+        </div>
 
         <h2>Questions in "'.$set["KCName"].'" <span style="float:right;padding:10px;font-size:12px; color:white; background-color:gray;">'.$Total.' Questions / '.$tPoints.' Points</span></h2>
     ');
@@ -162,7 +211,7 @@ if ( $USER->instructor ) {
 			
 			</div>			
 			<div class="col-sm-1 noPadding" style="float:right; width:120px;">
-			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$SetID.'"><span class="fa fa-ban"></span></a>
+			<a class="btn btn-danger pull-right" href="Qlist.php?SetID='.$SetID["SetID"].'"><span class="fa fa-ban"></span></a>
             <input type="submit" class="btn btn-primary pull-right" value="Save">
 			</div>
 							
@@ -195,14 +244,14 @@ if ( $USER->instructor ) {
 			
             if($QNum != 1) {
                 echo('
-                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $_GET["SetID"] . '&Flag=1">
+                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $SetID["SetID"] . '&Flag=1">
                                 <span class="fa fa-chevron-circle-up fa-2x"></span>
                             </a>
                 ');
             }
             if($QNum != $Total) {
                 echo('
-                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $_GET["SetID"] . '&Flag=0">
+                            <a href="actions/Move.php?QID=' . $row["QID"] . '&QNum=' . $row["QNum"] . '&SetID=' . $SetID["SetID"] . '&Flag=0">
                                 <span class="fa fa-chevron-circle-down fa-2x"></span>
                             </a>
                 ');

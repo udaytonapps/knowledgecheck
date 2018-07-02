@@ -119,9 +119,23 @@ if ($shortCut == 0) {
 <style>
   label{font-weight: normal;margin:0px;}
 </style>
-       
+<?php if ( !$USER->instructor ) {
+    $studentData = $KC_DAO->getUserData($SetID, $USER->id);
+    $tAttempts = $studentData["Attempt"];
+
+    if($tAttempts > 0){
+        echo ('
+            <h4 style="padding-left: 10px">
+            <a href="Review.php"class="btn btn-danger pull-right">
+            <span class="fa fa-cog"></span>
+            Return to results
+            </a>
+        </h4>');
+    }
+} ?>
 <div class="row ">           
   <h3><span class="fa fa-check-square-o"></span> <?php echo $set["KCName"];?></h3>
+
     <form  method="post" action="actions/Take_Submit.php">
 
 
@@ -187,7 +201,6 @@ for($i=0; $i<$Total; $i++){
  <input type="hidden" id="SetID" name="SetID" value="<?php echo $_GET["SetID"];?>"/>
 
                 <input class="btn btn-primary" type="submit" value="Submit" />
-                <a href="index.php" class="btn btn-danger">Cancel</a>
 <?php	 
 	 
 $OUTPUT->footerStart();
