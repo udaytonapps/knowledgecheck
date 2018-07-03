@@ -39,8 +39,11 @@ if ( $USER->instructor ) {
 	}
 	
 	else if ($QType == "True/False"){$KC_DAO->createQuestion2($SetID, $QNum, $Question, $Answer, $QType, $Point, $FR, $FW, $RA);}
-	   
-    header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
+    if($_SESSION["Page"] !== "index") {
+        header('Location: ' . addSession('../Qlist.php?SetID=' . $SetID));
+    } else {
+        header( 'Location: '.addSession('../index.php') ) ;
+    }
 	
 } else {
     // student so send back to index
