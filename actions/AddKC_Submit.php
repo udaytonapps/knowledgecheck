@@ -26,7 +26,7 @@ if ( $USER->instructor ) {
         $KC_DAO->saveOrUpdateLink($newSetId, $linkId);
     }
 
-    header( 'Location: '.addSession('../Qlist.php?SetID='.$newSetId) ) ;
+    header( 'Location: '.addSession('../index.php') ) ;
 } else {
     // student so send back to index
     header( 'Location: '.addSession('../index.php') ) ;
