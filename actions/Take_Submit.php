@@ -37,4 +37,4 @@ $KC_DAO->addUserData($SetID, $QID, $USER->id, $Answer,$Attempt, $Date2);
 }
 
 
-header( 'Location: '.addSession('../Take1.php') ) ;
+header( 'Location: '.addSession('../Review.php') ) ;

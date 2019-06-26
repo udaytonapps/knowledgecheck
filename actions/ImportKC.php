@@ -14,6 +14,8 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 
 if ( $USER->instructor ) {
 
+    $linkId = $LINK->id;
+
     $oSetId = $_GET["SetID"];
 
     $otherKC = $KC_DAO->getKC($oSetId);
@@ -25,9 +27,10 @@ if ( $USER->instructor ) {
     $otherKC = $KC_DAO->getQuestions($oSetId);
     $QNum = 1;
 	foreach ($otherKC as $row) {		
-		$KC_DAO->createQuestion($newSetId,$QNum,$row["Question"],$row["Answer"],$row["QType"],$row["A"],$row["B"],$row["C"],$row["D"], $row["Point"],$row["FR"],$row["FW"]); 
+		$KC_DAO->createQuestion($newSetId,$QNum,$row["Question"],$row["Answer"],$row["QType"],$row["A"],$row["B"],$row["C"],$row["D"], $row["Point"],$row["FR"],$row["FW"], $row["RA"]);
 		++$QNum;
     }
+    $KC_DAO->saveOrUpdateLink($oSetId, $linkId);
 }
 
 header( 'Location: '.addSession('../index.php') ) ;

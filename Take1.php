@@ -37,26 +37,28 @@ if ( $USER->instructor ) {
     include("menu.php");
 } else {
     if ($shortCut == 0) {
+        if ( $USER->instructor ) {
+            $Page = $_SESSION["Page"];
         echo('
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php">Knowledge Check</a>
-                </div>
-            </div>
-        </nav>
-        ');
-    }
-}
-
-if ($shortCut == 0) {
-        echo('
-            <ul class="breadcrumb">
-                <li><a href="index.php">All Knowledge Checks</a></li>
-                <li>' .$set["KCName"].'</li>
+            <ul class="breadcrumb">');
+            if($Page === "index"){
+                echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
+            }else {
+                echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
+            }
+        echo ('<li>' .$set["KCName"].'</li>
             </ul>
         ');
+        } else {
+            echo('
+                <ul class="breadcrumb">
+                    <li><a href="index.php">All Knowledge Checks</a></li>
+                    <li>' . $set["KCName"] . '</li>
+                </ul>
+            ');
+        }
     }
+}
 
     ?>
        

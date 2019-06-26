@@ -36,14 +36,35 @@ if ( $USER->instructor ) {
     include("menu.php");
 } else {
     if ($shortCut == 0) {
-        echo('
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php">Knowledge Check</a>
+
+        if ( $USER->instructor ) {
+            $Page = $_SESSION["Page"];
+            echo('
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">');
+                        if($Page === "index"){
+                            echo ('<a class="navbar-brand" href="index.php">Knowledge Check</a>');
+                        }else {
+                            echo ('<a class="navbar-brand" href="ManageKCs.php">Knowledge Check</a>');
+                        }
+                        echo ('
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+            ');
+        } else {
+            echo('
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="index.php">Knowledge Check</a>
+                        </div>
+                    </div>
+                </nav>
+            ');
+        }
+        echo('
         ');
     }
 }
@@ -71,22 +92,50 @@ foreach ( $Questions as $row ) {
 if ($set["Random"]){shuffle($Arr_QID);}
 
 if ($shortCut == 0) {
+    if ( $USER->instructor ) {
+        $Page = $_SESSION["Page"];
+        echo('
+            <ul class="breadcrumb">');
+        if($Page === "index"){
+            echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
+        }else {
+            echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
+        }
+        echo ('<li>' .$set["KCName"].'</li>
+            </ul>
+        ');
+    } else {
         echo('
             <ul class="breadcrumb">
                 <li><a href="index.php">All Knowledge Checks</a></li>
-                <li>' .$set["KCName"].'</li>
+                <li>' . $set["KCName"] . '</li>
             </ul>
         ');
     }
+}
 
     ?>
  
 <style>
   label{font-weight: normal;margin:0px;}
 </style>
-       
+<?php if ( !$USER->instructor ) {
+    $studentData = $KC_DAO->getUserData($SetID, $USER->id);
+    $tAttempts = $studentData["Attempt"];
+
+    if($tAttempts > 0){
+        echo ('
+            <h4 style="padding-left: 10px">
+            <a href="Review.php"class="btn btn-danger pull-right">
+            <span class="fa fa-cog"></span>
+            Return to results
+            </a>
+        </h4>');
+    }
+} ?>
 <div class="row ">           
   <h3><span class="fa fa-check-square-o"></span> <?php echo $set["KCName"];?></h3>
+
     <form  method="post" action="actions/Take_Submit.php">
 
 
@@ -152,7 +201,6 @@ for($i=0; $i<$Total; $i++){
  <input type="hidden" id="SetID" name="SetID" value="<?php echo $_GET["SetID"];?>"/>
 
                 <input class="btn btn-primary" type="submit" value="Submit" />
-                <a href="index.php" class="btn btn-danger">Cancel</a>
 <?php	 
 	 
 $OUTPUT->footerStart();

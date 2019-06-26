@@ -13,10 +13,10 @@ $p = $CFG->dbprefix;
 $KC_DAO = new KC_DAO($PDOX, $p);
 
 $QType = $_POST["QType"];
-$Point = $_POST["Point"];
+$Point = (isset($_POST["Point"]) && is_numeric($_POST["Point"])) ? $_POST["Point"] : 0;
 $FR = $_POST["FR"];
 $FW = $_POST["FW"];
-$RA = $_POST["RA"];
+$RA = isset($_POST["RA"]) ? 1 : 0;
 
 $FR = str_replace("'", "&#39;", $_POST["FR"]);
 $FW = str_replace("'", "&#39;", $_POST["FW"]);
@@ -39,8 +39,11 @@ if ( $USER->instructor ) {
 	}
 	
 	else if ($QType == "True/False"){$KC_DAO->createQuestion2($SetID, $QNum, $Question, $Answer, $QType, $Point, $FR, $FW, $RA);}
-	   
-    header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
+    if($_SESSION["Page"] !== "index") {
+        header('Location: ' . addSession('../Qlist.php?SetID=' . $SetID));
+    } else {
+        header( 'Location: '.addSession('../index.php') ) ;
+    }
 	
 } else {
     // student so send back to index
