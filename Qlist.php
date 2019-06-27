@@ -24,7 +24,6 @@ if ( $USER->instructor ) {
 
     $SetID = $_GET["SetID"];
 	$_SESSION["SetID"] =  $_GET["SetID"];
-    $Page = $_SESSION["Page"];
     $questions = $KC_DAO->getQuestions($SetID);
 	
 	$tPoints=0;
@@ -44,13 +43,9 @@ if ( $USER->instructor ) {
     include("menu.php");
 
     echo('
-        <ul class="breadcrumb">');
-            if($Page === "index"){
-                echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
-            }else {
-                echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
-            }
-            echo ('<li>' .$set["KCName"].'</li>
+        <ul class="breadcrumb">
+            <li><a href="index.php">All Knowledge Checks</a></li>
+            <li>' .$set["KCName"].'</li>
         </ul>
         
         <div>

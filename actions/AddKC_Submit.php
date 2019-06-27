@@ -15,16 +15,8 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 $KCName = str_replace("'", "&#39;", $_POST["KCName"]);
 
 if ( $USER->instructor ) {
-    $linkId = $LINK->id;
 
-    $oldSetID = $KC_DAO->getSetIDForLink($linkId);
-
-    if (isset($oldSetID["SetID"])) {
-       // $newSetId = $KC_DAO->createKC($USER->id, $CONTEXT->id, $KCName);
-    }else{
-        $newSetId = $KC_DAO->createKC($USER->id, $CONTEXT->id, $KCName);
-        $KC_DAO->saveOrUpdateLink($newSetId, $linkId);
-    }
+    $newSetId = $KC_DAO->createKC($USER->id, $CONTEXT->id, $KCName);
 
     header( 'Location: '.addSession('../Qlist.php?SetID='.$newSetId) ) ;
 } else {

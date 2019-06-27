@@ -36,35 +36,14 @@ if ( $USER->instructor ) {
     include("menu.php");
 } else {
     if ($shortCut == 0) {
-
-        if ( $USER->instructor ) {
-            $Page = $_SESSION["Page"];
-            echo('
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">');
-                        if($Page === "index"){
-                            echo ('<a class="navbar-brand" href="index.php">Knowledge Check</a>');
-                        }else {
-                            echo ('<a class="navbar-brand" href="ManageKCs.php">Knowledge Check</a>');
-                        }
-                        echo ('
-                    </div>
-                </div>
-            </nav>
-            ');
-        } else {
-            echo('
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="index.php">Knowledge Check</a>
-                        </div>
-                    </div>
-                </nav>
-            ');
-        }
         echo('
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.php">Knowledge Check</a>
+                </div>
+            </div>
+        </nav>
         ');
     }
 }
@@ -92,27 +71,13 @@ foreach ( $Questions as $row ) {
 if ($set["Random"]){shuffle($Arr_QID);}
 
 if ($shortCut == 0) {
-    if ( $USER->instructor ) {
-        $Page = $_SESSION["Page"];
-        echo('
-            <ul class="breadcrumb">');
-        if($Page === "index"){
-            echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
-        }else {
-            echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
-        }
-        echo ('<li>' .$set["KCName"].'</li>
-            </ul>
-        ');
-    } else {
         echo('
             <ul class="breadcrumb">
                 <li><a href="index.php">All Knowledge Checks</a></li>
-                <li>' . $set["KCName"] . '</li>
+                <li>' .$set["KCName"].'</li>
             </ul>
         ');
     }
-}
 
     ?>
  

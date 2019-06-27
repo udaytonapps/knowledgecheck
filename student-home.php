@@ -11,7 +11,7 @@ echo('
 ');
 
 
- if (isset($newSetID["SetID"])) {$visibleSets = $KC_DAO->getOneKCStudent($newSetID["SetID"]); }
+ if (isset($newSetID["SetID"])) {$visibleSets = $KC_DAO->getOneKC($newSetID["SetID"]); }
  else{$visibleSets = $KC_DAO->getAll_VisibleKC($CONTEXT->id);}
 
 

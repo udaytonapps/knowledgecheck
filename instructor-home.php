@@ -24,13 +24,11 @@ if($Hide){$allKC = $KC_DAO->getOneKC($newSetID["SetID"]);}
 else{$allKC = $KC_DAO->getAll_KC($CONTEXT->id);}
 
 
-$linkId = $LINK->id;
+if (count($allKC) == 0) {
+    echo('<p><em>You currently do not have any knowledge checks in this site. Create a new knowledge check or use the import button below to copy a card set from another site.</em></p>');
+}
 
-$newSetID = $KC_DAO->getSetIDForLink($linkId);
-
-if (isset($newSetID["SetID"])) {
-
-    echo('<div class="row" id="kc-row">');
+echo('<div class="row" id="kc-row">');
 
     foreach ( $allKC as $KC ) {
         if ($KC["Visible"]) {
@@ -46,19 +44,19 @@ if (isset($newSetID["SetID"])) {
             }
 
             $questions = $KC_DAO->getQuestions($KC["SetID"]);
-            $totalPoints = 0;
-            foreach($questions as $question) {
-                $totalPoints = $totalPoints + $question["Point"];
-            }
-            $exist = $KC_DAO->userDataExists($KC["SetID"], $USER->id);
-            $page = "index.php";
+		$totalPoints = 0;
+        	foreach($questions as $question) {
+	                $totalPoints = $totalPoints + $question["Point"];
+	        }
+	    $exist = $KC_DAO->userDataExists($KC["SetID"], $USER->id);
+           
             echo('
                 <div class="col-sm-6">
                 <div class="row" style="border:1px solid #ccc;border-radius:4px;background-color:#eee;">
                         <div class="col-sm-3 text-center" style="padding:.5em;">
                                 <span class="fa fa-check fa-4x text-'.$panelClass.'"></span>
                                 <br />
-                                <a class="btn btn-'.$panelClass.'" style="margin-top: 1em;" href="actions/Publish.php?SetID='.$KC["SetID"].'&Flag='.$flag.'&Page=' . $page . '">'.$pubAction.'</a>
+                                <a class="btn btn-'.$panelClass.'" style="margin-top: 1em;" href="actions/Publish.php?SetID='.$KC["SetID"].'&Flag='.$flag.'">'.$pubAction.'</a>
                         </div>
                         <div class="col-sm-7" style="background-color:#fff;padding:1em;">
                             <h3 style="margin-top:0;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
@@ -104,61 +102,53 @@ if (isset($newSetID["SetID"])) {
                                 </div>
                         </div>
                     </div>
-                <br >
-            <a href="actions/UnlinkFromSet_Submit.php" class="btn btn-danger">Unlink</a>
 		</div>
             ');
         }
     }
 
-
-} else {
-    echo('<p><em>You currently do not have any knowledge checks linked in this site. Create a new knowledge check, link a previously created knowledge check, or use the import button below to copy a card set from another site.</em></p>');
+echo('</div>');
 
 
-    if (!isset($newSetID["SetID"])) {
+if (!isset($newSetID["SetID"])) {
 
-        $courses = $KC_DAO->getAllSites($USER->id, $CONTEXT->id);
+/* Import from site */
 
-        echo('
-    <h3><a href="AddKC.php" class="btn btn-primary">Create Knowledge Check</a></h3>
 
-    <h3><a href="LinkToSet.php" class="btn btn-primary ');
-        if (count($allKC) == 0) {
-            echo('disabled');
-        }
-        echo('">Link Previous Knowledge Check</a></h3>
+$courses = $KC_DAO->getAllSites($USER->id, $CONTEXT->id);
 
+echo('
+    
     <h3><button class="btn btn-primary ');
-        if(count($courses)==0) {
-            echo('disabled');
-        }
-        echo('" data-toggle="collapse" data-target="#import-q-row">Import Knowledge Check</button></h3>
+            if(count($courses)==0) {
+                echo('disabled');
+            }
+    echo('" data-toggle="collapse" data-target="#import-q-row">Import Knowledge Check</button></h3>
     
     <div id="import-q-row" class="row collapse">
 ');
 
-        foreach ( $courses as $course ) {
+foreach ( $courses as $course ) {
 
-            $sets = $KC_DAO->getAll_KC($course["context_id"]);
+    $sets = $KC_DAO->getAll_KC($course["context_id"]);
 
-            echo('<div id="kc-list" class="list-group col-md-4">');
+    echo('<div id="kc-list" class="list-group col-md-4">');
 
-            echo('<h4>'.$KC_DAO->getCourseNameForId($course["context_id"]).'</h4>');
+    echo('<h4>'.$KC_DAO->getCourseNameForId($course["context_id"]).'</h4>');
 
-            foreach ($sets as $set) {
+    foreach ($sets as $set) {
 
-                $questions2 = $KC_DAO->getQuestions($set["SetID"]);
+        $questions2 = $KC_DAO->getQuestions($set["SetID"]);
 
-                if (count($questions2) > 0) {
-                    $countLabel = 'success';
-                    $textLabel = 'success';
-                } else {
-                    $countLabel = 'default';
-                    $textLabel = 'muted';
-                }
+        if (count($questions2) > 0) {
+            $countLabel = 'success';
+            $textLabel = 'success';
+        } else {
+            $countLabel = 'default';
+            $textLabel = 'muted';
+        }
 
-                echo('
+        echo('
             <a href="actions/ImportKC.php?SetID='.$set["SetID"].'"  onclick="return confirmCopyKC();" class="list-group-item">
                 <div class="list-group-item-heading">
                     <span class="label label-'.$countLabel.' pull-right">'.count($questions2).' Questions</span>
@@ -171,19 +161,10 @@ if (isset($newSetID["SetID"])) {
                 </div>
             </a>
         ');
-            }
-
-            echo('</div>');
-        }
-
-        echo('</div>');
     }
+
+    echo('</div>');
 }
 
-
-
-
-echo('</div>');
-
-
-
+    echo('</div>');
+}

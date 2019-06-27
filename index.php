@@ -22,7 +22,6 @@ $OUTPUT->bodyStart();
 $_SESSION["UserName"] = $USER->email;
 $_SESSION["FullName"] = $USER->displayname;
 $_SESSION["UserID"]= $USER->id;
-$_SESSION["Page"]= "index";
 $LastName = $USER->lastname;
 $FirstName = $USER->firstname;
 //echo "Site ID: ".$CONTEXT->id;
