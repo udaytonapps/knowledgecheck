@@ -23,8 +23,6 @@ if ( $USER->instructor ) {
 
 if($Page === "index"){
     header( 'Location: '.addSession('../index.php') ) ;
-} else if($Page === "qlist"){
-    header( 'Location: '.addSession('../index.php') ) ;
-} else {
+}else {
     header( 'Location: '.addSession('../ManageKCs.php') ) ;
 }

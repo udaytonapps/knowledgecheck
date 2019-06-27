@@ -55,7 +55,7 @@ if ( $USER->instructor ) {
                 echo('</select>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Link to Knowledge Check" /> 
-                <a href="actions/UnlinkFromSet_Submit.php" class="btn btn-danger">Cancel</a>
+                <a href="actions/UnlinkFromSet_Submit.php" class="btn btn-danger">Unlink</a>
             </div>
         </div>
 
