@@ -48,26 +48,13 @@ if ( $USER->instructor ) {
     }
 }
 
-$SetID = $_SESSION["SetID"];
+$SetID = $_GET["SetID"];
 $_SESSION["SetID"] = $SetID;
 $Questions = $KC_DAO->getQuestions($SetID);
 $Total = count($Questions);
 $set = $KC_DAO->getKC($SetID);
 
 if ($shortCut == 0) {
-    if ( $USER->instructor ) {
-        $Page = $_SESSION["Page"];
-        echo('
-            <ul class="breadcrumb">');
-                if($Page === "index"){
-                    echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
-                }else {
-                    echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
-                }
-                echo ('<li>' .$set["KCName"].'</li>
-            </ul>
-        ');
-    } else {
         echo('
             <ul class="breadcrumb">
                 <li><a href="index.php">All Knowledge Checks</a></li>
@@ -75,7 +62,6 @@ if ($shortCut == 0) {
             </ul>
         ');
     }
-}
 
 $studentData = $KC_DAO->getUserData($SetID, $USER->id);
 $dateTime = new DateTime($studentData["Modified"]);
@@ -87,7 +73,7 @@ if($tAttempts){
 		$Arr_Score = array();
 		for ($i = 1; $i <=  $tAttempts ; $i++) {
 			$Score2=0;		
-			$Questions = $KC_DAO->getQuestions($_SESSION["SetID"]);
+			$Questions = $KC_DAO->getQuestions($_GET["SetID"]);			
 			foreach ( $Questions as $row2 ) {
 				$QID = $row2["QID"];
 				$reviewData2 = $KC_DAO->Review($QID, $USER->id, $i);
@@ -112,20 +98,7 @@ foreach ( $Questions2 as $row2 ) {
 }
 
 ?>
-<?php if ( !$USER->instructor ) {
-    $studentData = $KC_DAO->getUserData($SetID, $USER->id);
-    $tAttempts = $studentData["Attempt"];
-
-    if($tAttempts > 0){
-        echo ('
-            <h4 style="padding-left: 10px">
-            <a href="index.php"class="btn btn-info pull-right">
-            <span class="fa fa-cog"></span>
-            Take Again
-            </a>
-        </h4>');
-    }
-} ?>
+ 
 <div class="panel-body" >
 	<div class="col noPadding">                  
 	  	<h3 class="noPadding"><span class="fa fa-flag"></span> <?php echo $set["KCName"];?> Review</h3>

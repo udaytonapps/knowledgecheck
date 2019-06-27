@@ -32,11 +32,7 @@ if ( $USER->instructor ) {
     $KC_DAO->updateQNumber($swapCard["QID"], $QNum);
     $KC_DAO->updateQNumber($QID, $swapCard["QNum"]);
 
-    if($_SESSION["Page"] !== "index") {
-        header('Location: ' . addSession('../Qlist.php?SetID=' . $SetID));
-    } else {
-        header( 'Location: '.addSession('../index.php') ) ;
-    }
+    header( 'Location: '.addSession('../Qlist.php?SetID='.$SetID) ) ;
 } else {
     header( 'Location: '.addSession('../index.php') ) ;
 }

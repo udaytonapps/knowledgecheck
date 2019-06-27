@@ -14,17 +14,10 @@ $KC_DAO = new KC_DAO($PDOX, $p);
 
 $SetID=$_GET["SetID"];
 $Flag = $_GET["Flag"];
-$Page = $_SESSION["Page"];
 
 if ( $USER->instructor ) {
 
     $KC_DAO->togglePublish($SetID, $Flag);
 }
 
-if($Page === "index"){
-    header( 'Location: '.addSession('../index.php') ) ;
-} else if($Page === "qlist"){
-    header( 'Location: '.addSession('../index.php') ) ;
-} else {
-    header( 'Location: '.addSession('../ManageKCs.php') ) ;
-}
+header( 'Location: '.addSession('../index.php') ) ;

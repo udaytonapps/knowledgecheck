@@ -31,15 +31,8 @@ class KC_DAO {
         $arr = array(':contextId' => $context_id);
         return $this->PDOX->allRowsDie($query, $arr);
     }
-
+	
 	function getOneKC($SetID) {
-        //$query = "SELECT * FROM {$this->p}kc_main where SetID = :SetID AND Active=1 AND Visible=1 ORDER BY KCName;";
-        $query = "SELECT * FROM {$this->p}kc_main where SetID = :SetID AND Visible=1 ORDER BY KCName;";
-        $arr = array(':SetID' => $SetID);
-        return $this->PDOX->allRowsDie($query, $arr);
-    }
-
-    function getOneKCStudent($SetID) {
         $query = "SELECT * FROM {$this->p}kc_main where SetID = :SetID AND Active=1 AND Visible=1 ORDER BY KCName;";
         $arr = array(':SetID' => $SetID);
         return $this->PDOX->allRowsDie($query, $arr);

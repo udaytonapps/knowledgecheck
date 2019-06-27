@@ -1,16 +1,12 @@
 <?php
 require_once "../config.php";
-require_once('dao/KC_DAO.php');
 
 use \Tsugi\Core\LTIX;
-use \KC\DAO\KC_DAO;
 
 // Retrieve the launch data if present
 $LAUNCH = LTIX::requireData();
 
 $p = $CFG->dbprefix;
-
-$KC_DAO = new KC_DAO($PDOX, $p);
 
 $OUTPUT->header();
 
@@ -21,13 +17,7 @@ $OUTPUT->bodyStart();
 if ( $USER->instructor ) {
 
     include("menu.php");
-    $linkId = $LINK->id;
 
-    $oldSetID = $KC_DAO->getSetIDForLink($linkId);
-
-    if (isset($oldSetID["SetID"])) {
-        echo ('<p>Knowledge check is already created</p>');
-    }
     ?>
 
     <form action="actions/AddKC_Submit.php" method="post">
