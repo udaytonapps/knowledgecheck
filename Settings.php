@@ -22,11 +22,6 @@ $OUTPUT->bodyStart();
 
 if ( $USER->instructor ) {
 
-    $linkId = $LINK->id;
-    $newSetID = $KC_DAO->getSetIDForLink($linkId);
-    $newKC = $KC_DAO->getKC($newSetID["SetID"]);
-    $Page = $_SESSION["Page"];
-
     $SetID = $_GET["SetID"];
 
     $Questions = $KC_DAO->getQuestions($SetID);   
@@ -42,13 +37,9 @@ if ( $USER->instructor ) {
     include("menu.php");
 
     echo('
-            <ul class="breadcrumb">');
-                if($Page === "index"){
-                    echo ('<li><a href="index.php">All Knowledge Checks</a></li>');
-                }else {
-                    echo ('<li><a href="ManageKCs.php">All Knowledge Checks</a></li>');
-                }
-                echo ('<li>'.$KCName.'</li>
+            <ul class="breadcrumb">
+                <li><a href="index.php">All Knowledge Checks</a></li>
+                <li>'.$KCName.'</li>
             </ul>
         ');
 
@@ -60,15 +51,9 @@ if ( $USER->instructor ) {
             
 			<h3> <span class="fa fa-cog"></span> Settings</h3><br>
 
-
+           
 			<div class="panel-body" >
-                <?php
-                if($newKC == $set){
-                    echo('
-                    <p>' . $KCName . ' is linked and cannot be deleted</p>
-                ');
-                }
-                ?>
+		
 			<div class="col noPadding">
                 <div class="form-group">
                     <label class="control-label" for="KCName">Knowledge Check Title</label>
@@ -101,23 +86,11 @@ if ( $USER->instructor ) {
                 <input type="hidden" id="SetID" name="SetID" value="<?php echo $_GET["SetID"];?>"/>
 
                 <input class="btn btn-primary" type="submit" value="Update Knowledge Check" />
-                <a href="
-                <?php
-                    if($Page === "index"){
-                        echo('index.php');
-                    }else {
-                        echo('ManageKCs.php');
-                    }
-                ?>" class="btn btn-danger" style="margin-right:3px;">Cancel</a>
-                <a href="actions/DeleteKC.php?SetID=<?php echo($SetID); ?>" class="btn btn-danger pull-right
-                <?php
-                    if($newKC == $set){
-                        echo('disabled');
-                    }
-                ?>" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span> Delete</a>
+                <a href="index.php" class="btn btn-danger" style="margin-right:3px;">Cancel</a>
+                <a href="actions/DeleteKC.php?SetID=<?php echo($SetID); ?>" class="btn btn-danger pull-right" onclick="return ConfirmDelete();"><span class="fa fa-trash-o"></span> Delete</a>
             </div>
-			</div>
-        </div>
+			</div></div>
+      
     </form>
 
     <?php

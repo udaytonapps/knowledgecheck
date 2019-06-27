@@ -21,12 +21,5 @@ if ( $USER->instructor ) {
 
 }
 
-$allKC = $KC_DAO->getAll_KC($CONTEXT->id);
-
-if (count($allKC) == 0) {
-    header('Location:'.addSession('../index.php'));
-} else {
-    header('Location:'.addSession('../ManageKCs.php'));
-}
-
+header( 'Location: '.addSession('../index.php') ) ; 
 
